@@ -1,5 +1,9 @@
 <?php
     class Model_Loader{
+        /**
+         * Load a model table 
+         * @param model_name is name of table
+         */
         function load($model_name){
             $model = ucfirst($model_name)."_Model";
             $model_path = APP_PATH."/models/{$model}.php";

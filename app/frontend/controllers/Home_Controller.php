@@ -6,14 +6,13 @@ class Home_Controller extends Base_Controller
         // set layout, if not set, default layout will be loaded 
         //$this->layout->set('layout_name_string');
 
-        // load view
-        $this->view->load('home/index');
-
-        // load model
-        $this->model->load('category');
-
         // call any function to query or update data
-        $this->model->category->getAllCategories();
+        $mobiles = $this->model->mobile->getAll();
+
+        // load view and pass data into view by an array
+        $this->view->load('home/index', [
+            'mobiles' => $mobiles
+        ]);
     }
 
     function show()
