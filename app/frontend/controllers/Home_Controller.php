@@ -7,11 +7,11 @@ class Home_Controller extends Base_Controller
         //$this->layout->set('layout_name_string');
 
         // call any function to query or update data
-        $mobiles = $this->model->mobile->getAll();
+        $hangsanxuat = $this->model->nhasanxuat->getAll();
 
         // load view and pass data into view by an array
         $this->view->load('home/index', [
-            'mobiles' => $mobiles
+            'hsx' => $hangsanxuat
         ]);
     }
 
