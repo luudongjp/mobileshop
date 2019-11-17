@@ -40,6 +40,7 @@ catch(PDOException $e) {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/simple-line-icon/simple-line-icons.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/gotham/gotham.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/awesome/awesome.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css" />
     <title>Mobile Shop</title>
 </head>
@@ -194,12 +195,110 @@ catch(PDOException $e) {
                 </div>
             </div>
         </div>
-        <article>
+        
+        <!-- Dynamic content area is where view be included inside -->                           
+        <div class="dynamic-content">
             <?php echo $content ?>
-        </article>
-        <footer>
+        </div>
 
-        </footer>
+        <div id="footer">
+            <ul>
+                <li><i class="f1"></i><span>Giao hàng hoả tốc trong 1 giờ</span></li>
+                <li><i class="f2"></i><span>Thanh toán tiện lợi bằng tiền mặt</span></li>
+                <li><i class="f3"></i><span>Trải nghiệm sản phẩm tại nhà</span></li>
+                <li><i class="f4"></i><span>Lỗi đổi tại nhà trong 1 ngày</span></li>
+                <li><i class="f5"></i><span>Hỗ trợ suốt thời gian sử dụng. Hotline: <a href="tel:0965351741">0965351741</a></span></li>
+            </ul>
+        </div>
+        <div class="rowfoot1">
+            <ul class="colfoot">
+                <li>
+                    <a href="">Giới thiệu về công ty</a>
+                </li>
+                <li>
+                    <a href="">Câu hỏi thường gặp mua hàng</a>
+                </li>
+                <li>
+                    <a href="">Chính sách bảo mật</a>
+                </li>
+                <li>
+                    <a href="">Quy chế hoạt động</a>
+                </li>
+            </ul>
+            <ul class="colfoot">
+                <li>
+                    <a href="">Tin tuyển dụng</a>
+                </li>
+                <li>
+                    <a href="">Tin khuyến mãi</a>
+                </li>
+                <li>
+                    <a href="">Hướng dẫn mua hàng</a>
+                </li>
+                <li>
+                    <a href="">Chính sách đổi trả</a>
+                </li>
+            </ul>
+            <ul class="colfoot col3">
+                <li>
+                    <a href="">Hệ thống cửa hàng</a>
+                </li>
+                <li>
+                    <a href="">Hệ thống báo hành</a>
+                </li>
+                <li>
+                    <a href="">Gửi góp ý khiếu nại</a>
+                </li>
+                <li>
+                    <a href="">Xem bản mobile</a>
+                </li>
+            </ul>
+            <ul class="colfoot collast">
+                <li>
+                    <span>
+                        Gọi mua hàng : 0965351741 (7:30-22:00)
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        Gọi khiếu nại : 0965351741 (8:00-21:30)
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        Gọi bảo hành : 0965351741 (8:00-21:00)
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        Gọi kỹ thuật : 0965351741 (7:30-22:00)
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="rowfoot2">
+            <div class="foot-left">
+                <p>
+                    Công ty TNHH MobileShop. © 2019 All Rights Reserved. Địa chỉ: Số 1 Đại Cồ Việt, Giải Phóng, Hà Nội.
+                </p>
+            </div>
+            <div class="foot-right">
+                <div class="social-network">
+                    <a href="">
+                        <img src="<?php echo IMAGE_PATH; ?>logo/mobileshop.png" />
+                    </a>
+                    <a href="">
+                        <div class="i-facebook"></div>
+                    </a>
+                    <a href="">
+                        <div class="i-youtube"></div>
+                    </a>
+                    <a href="">
+                        <div class="i-instagram"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
