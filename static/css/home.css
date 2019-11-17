@@ -6,7 +6,7 @@ body .home-page a:hover{
     color: #f69435;
 }
 .home-page #header-content .top-header{
-	background-color: #fafafa;
+	background-color: #f3f3f3;
 }
 
 /* top bar */
@@ -57,6 +57,9 @@ body .home-page a:hover{
 }
 .home-page #header-content .header-menu .menu-container .row {
 	margin: 0 -45px;
+}
+.home-page #header-content .header-menu .menu-container .row.cate-title{
+    margin-bottom: 10px;
 }
 .home-page #header-content .header-menu .menu-container .row .search {
     max-width: 325px;
@@ -116,8 +119,9 @@ body .home-page a:hover{
 }
 /* css 3 category */
 .home-page #header-content .header-menu .menu-container .row .menu-item{
-    padding: 5px 0;
+    padding: 10px 0;
     text-align: center;
+    height: 50px;
 }
 .home-page #header-content .header-menu .menu-container .row .menu-item a{
     font-family: Gotham;
@@ -125,6 +129,56 @@ body .home-page a:hover{
     font-weight: 500;
     line-height: 30px;
 
+}
+
+/* style for sub-menu of hangsanxuat*/
+.home-page #header-content .hover-container1{
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 105px;
+    overflow: hidden;
+}
+.home-page #header-content .hover-container1 .row .col{
+    padding: 0;
+}
+.home-page #header-content .hover-container1 .row.hover-nhasanxuat{
+    display: flex;
+    background-color: #f3f3f3;
+    margin: auto;
+    border-radius: 25px;
+}
+.home-page #header-content .hover-container1 .row .item a{
+   font-size: 18px;
+   font-family: Gotham;
+}
+.home-page #header-content .hover-container1 .row .item{
+    padding: 20px 10px;
+}
+/* style for sub-menu of mucgia*/
+.home-page #header-content .hover-container2{
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 105px;
+    overflow: hidden;
+    z-index: 10000;
+}
+.home-page #header-content .hover-container2 .row .col{
+    padding: 0;
+}
+.home-page #header-content .hover-container2 .row.hover-mucgia{
+    display: flex;
+    background-color: #f3f3f3;
+    margin: auto;
+    border-radius: 25px;
+}
+.home-page #header-content .hover-container2 .row .item-mucgia a{
+   font-size: 18px;
+   font-family: Gotham;
+}
+.home-page #header-content .hover-container2 .row .item-mucgia{
+    padding: 20px 10px;
 }
 
 @media (min-width: 1200px) {

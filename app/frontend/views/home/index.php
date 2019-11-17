@@ -3,8 +3,8 @@
 </h2>
 
 <div>
-    <?php foreach($mobiles as $mobile) : ?>
-        <div><?php var_dump($mobile) ?></div>
+    <?php foreach($hsx as $hs) : ?>
+        <!-- <div><?php var_dump($hs) ?></div> -->
         <br />
     <?php endforeach ?>
 </div>
