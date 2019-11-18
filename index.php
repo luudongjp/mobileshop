@@ -1,8 +1,11 @@
 <?php
 define('BASE_PATH', __DIR__);
-define('APP_PATH', BASE_PATH . '/app/frontend');
-define('BASE_URL', 'localhost/mobileshop');
+define('APP_PATH', BASE_PATH . '/app/code');
+$config = require BASE_PATH . '/config/config.php';
 
-require BASE_PATH . '/core/Router.php';
+define('BASE_URL', $config[host]);
 
-load_app();
+require_once BASE_PATH . '/core/Router.php';
+
+$router = new Router();
+$router->load_app();
