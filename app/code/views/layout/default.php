@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-define('CSS_PATH', 'static/css/');
-define('JS_PATH', 'static/js/');
-define('IMAGE_PATH', 'static/image/');
+// define()
+define('CSS_PATH', BASE_URL.'static/css/');
+define('JS_PATH', BASE_URL.'static/js/');
+define('IMAGE_PATH', BASE_URL.'static/image/');
 ?>
-<?php 
+<?php
 // Get all category from database to show on header
 try {
     $conn = null;
 
-    $config = require BASE_PATH."/config/database.php";
+    $config = require BASE_PATH . "/config/database.php";
     $host = $config['host'];
     $username = $config['username'];
     $password = $config['password'];
@@ -25,8 +26,7 @@ try {
     // set the resulting array to associative
     // $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
-}
-catch(PDOException $e) {
+} catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 
@@ -36,12 +36,12 @@ catch(PDOException $e) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon"       type="image/png"       href="<?php echo IMAGE_PATH; ?>logo/mobileshop.png">
+    <link rel="icon" type="image/png" href="<?php echo IMAGE_PATH; ?>logo/mobileshop.png">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/simple-line-icon/simple-line-icons.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/gotham/gotham.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/awesome/awesome.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>default.css" />
     <title>Mobile Shop</title>
 </head>
 
@@ -115,88 +115,88 @@ catch(PDOException $e) {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="container hover-container1">
-                    <?php 
-                        $number_nsx = sizeof($result);
-                        $number_nsx_1_col =  ceil($number_nsx / 4);  // we have 4 column, each column is col-md-3
-                                            
+                    <?php
+                    $number_nsx = sizeof($result);
+                    $number_nsx_1_col =  ceil($number_nsx / 4);  // we have 4 column, each column is col-md-3
+
                     ?>
-                        <div class="row hover-nhasanxuat">
-                            <div class="col col-md-3">
-                                <?php for($i = 0; $i <= $number_nsx_1_col -1 ; $i++ ): ?>
-                                    <div class="item item-<?php echo $result[$i]['idNhaSanXuat']; ?>">
-                                        <a href=""><?php echo $result[$i]['tenNhaSX']; ?></a>
-                                    </div>
-                                <?php endfor;?>
-                            </div>
-                            <div class="col col-md-3">
-                                <?php for($j = $number_nsx_1_col; $j <= 2*$number_nsx_1_col -1; $j++ ): ?>
-                                    <div class="item item-<?php echo $result[$j]['idNhaSanXuat']; ?>">
-                                        <a href=""><?php echo $result[$j]['tenNhaSX']; ?></a>
-                                    </div>
-                                <?php endfor;?>
-                            </div>
-                            <div class="col col-md-3">
-                                <?php for($k = 2*$number_nsx_1_col; $k <= 3*$number_nsx_1_col -1; $k++ ): ?>
-                                    <div class="item item-<?php echo $result[$k]['idNhaSanXuat']; ?>">
-                                        <a href=""><?php echo $result[$k]['tenNhaSX']; ?></a>
-                                    </div>
-                                <?php endfor;?>
-                            </div>
-                            <div class="col col-md-3">
-                                <?php for($v = 3*$number_nsx_1_col; $v <= 4*$number_nsx_1_col -1; $v++ ): ?>
-                                    <div class="item item-<?php echo $result[$v]['idNhaSanXuat']; ?>">
-                                        <a href=""><?php echo $result[$v]['tenNhaSX']; ?></a>
-                                    </div>
-                                <?php endfor;?>
-                            </div>
+                    <div class="row hover-nhasanxuat">
+                        <div class="col col-md-3">
+                            <?php for ($i = 0; $i <= $number_nsx_1_col - 1; $i++) : ?>
+                                <div class="item item-<?php echo $result[$i]['idNhaSanXuat']; ?>">
+                                    <a href=""><?php echo $result[$i]['tenNhaSX']; ?></a>
+                                </div>
+                            <?php endfor; ?>
                         </div>
+                        <div class="col col-md-3">
+                            <?php for ($j = $number_nsx_1_col; $j <= 2 * $number_nsx_1_col - 1; $j++) : ?>
+                                <div class="item item-<?php echo $result[$j]['idNhaSanXuat']; ?>">
+                                    <a href=""><?php echo $result[$j]['tenNhaSX']; ?></a>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
+                        <div class="col col-md-3">
+                            <?php for ($k = 2 * $number_nsx_1_col; $k <= 3 * $number_nsx_1_col - 1; $k++) : ?>
+                                <div class="item item-<?php echo $result[$k]['idNhaSanXuat']; ?>">
+                                    <a href=""><?php echo $result[$k]['tenNhaSX']; ?></a>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
+                        <div class="col col-md-3">
+                            <?php for ($v = 3 * $number_nsx_1_col; $v <= 4 * $number_nsx_1_col - 1; $v++) : ?>
+                                <div class="item item-<?php echo $result[$v]['idNhaSanXuat']; ?>">
+                                    <a href=""><?php echo $result[$v]['tenNhaSX']; ?></a>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="container">
                 <div class="container hover-container2">
                     <div class="row hover-mucgia">
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Dưới 1 triệu</a>
-                                    </div>
-                                </div>
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Từ 1 đến 3 triệu </a>
-                                    </div>
-                                </div>
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Từ 3 đến 6 triệu</a> 
-                                    </div>
-                                </div>
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Từ 6 đến 10 triệu </a>
-                                    </div>
-                                </div>
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Từ 10 đến 15 triệu </a>
-                                    </div>
-                                </div>
-                                <div class="col col-md-2">
-                                    <div class="item-mucgia">
-                                        <a href="">Trên 15 triệu </a>
-                                    </div>
-                                </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Dưới 1 triệu</a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Từ 1 đến 3 triệu </a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Từ 3 đến 6 triệu</a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Từ 6 đến 10 triệu </a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Từ 10 đến 15 triệu </a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="item-mucgia">
+                                <a href="">Trên 15 triệu </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Dynamic content area is where view be included inside -->                           
+
+        <!-- Dynamic content area is where view be included inside -->
         <div class="dynamic-content">
             <?php echo $content ?>
         </div>
@@ -302,27 +302,25 @@ catch(PDOException $e) {
     </div>
     <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
-    <script>
-        $(document ).ready(function() {
-            console.log('ready')
-            
-        });
-        $(document).mousemove(function(){
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).mousemove(function() {
                 /* style when hover HANG-SAN-XUAT*/
-                if($('.hover1').is(':hover')){
+                if ($('.hover1').is(':hover')) {
                     $('.hover-container1').css('display', 'block')
                 }
-                if((!$('.hover1').is(':hover'))&&(!$('.hover-container1').is(':hover'))){
+                if ((!$('.hover1').is(':hover')) && (!$('.hover-container1').is(':hover'))) {
                     $('.hover-container1').css('display', 'none')
                 }
                 /* style when hover MUC GIA*/
-                if($('.hover2').is(':hover')){
+                if ($('.hover2').is(':hover')) {
                     $('.hover-container2').css('display', 'block')
                 }
-                if((!$('.hover2').is(':hover'))&&(!$('.hover-container2').is(':hover'))){
+                if ((!$('.hover2').is(':hover')) && (!$('.hover-container2').is(':hover'))) {
                     $('.hover-container2').css('display', 'none')
                 }
             })
+        })
     </script>
 </body>
 

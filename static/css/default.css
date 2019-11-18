@@ -136,7 +136,8 @@ body .home-page a:hover {
 	display: none;
 	position: absolute;
 	top: 105px;
-	overflow: hidden;
+    overflow: hidden;
+    z-index: 100;
 }
 .home-page #header-content .hover-container1 .row .col {
 	padding: 0;
@@ -161,7 +162,7 @@ body .home-page a:hover {
 	position: absolute;
 	top: 105px;
 	overflow: hidden;
-	z-index: 10000;
+	z-index: 100;
 }
 .home-page #header-content .hover-container2 .row .col {
 	padding: 0;
@@ -310,6 +311,9 @@ body .home-page a:hover {
 	font-size: 14px;
 	line-height: 25px;
 	padding-top: 5px;
+}
+.home-page .colfoot li a:hover{
+    color: black;
 }
 .home-page .collast li span {
 	display: block;
