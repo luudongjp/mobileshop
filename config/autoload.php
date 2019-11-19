@@ -1,6 +1,7 @@
 <?php
 return [
     'model' => [
+        'banner',
         'binhluan',
         'chitietmuahang',
         'donmuahang',
