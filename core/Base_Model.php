@@ -28,4 +28,21 @@ class Base_Model extends Core_Model
         $pre->closeCursor();
         return $data;
     }
+    /**
+     * function to upload image
+     */
+    public function uploadImage($param = [])
+    {
+        $tenAnh = $param[2];
+        $url = $param[4];
+        $logo = $param[1];
+        $idMobile = $param[0];
+        try {
+            $query = "insert into {$this->table} (tenAnh, url, moTa, logo, Mobile_idMobile) 
+            VALUES ( '{$tenAnh}', '{$url}', '' , {$logo}, {$idMobile})";
+            $this->db->exec($query);
+        } catch (PDOException $e) {
+            echo "<br>" . $e->getMessage();
+        }
+    }
 }
