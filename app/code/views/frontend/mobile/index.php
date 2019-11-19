@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="fontsize: 20px;">
-            <form method="post" action="<?php echo baseUrl('mobile/upload'); ?>" enctype="multipart/form-data">
+            <form method="post" action=""enctype="multipart/form-data">
                 <select name="mobile" id="mobile" style="height: 30px; width: 400px;">
                     <?php foreach ($mobile as $mb) : ?>
                         <option value="<?php echo $mb['idMobile'] ?>">
