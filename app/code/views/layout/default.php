@@ -2,9 +2,9 @@
 <html lang="en">
 <?php
 // define()
-define('CSS_PATH', BASE_URL.'static/css/');
-define('JS_PATH', BASE_URL.'static/js/');
-define('IMAGE_PATH', BASE_URL.'static/image/');
+define('CSS_PATH', BASE_URL . 'static/css/');
+define('JS_PATH', BASE_URL . 'static/js/');
+define('IMAGE_PATH', BASE_URL . 'static/image/');
 ?>
 <?php
 // Get all category from database to show on header
@@ -37,11 +37,12 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="<?php echo IMAGE_PATH; ?>logo/mobileshop.png">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH; ?>bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/simple-line-icon/simple-line-icons.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/gotham/gotham.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/awesome/awesome.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>default.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css" />
     <title>Mobile Shop</title>
 </head>
 
@@ -300,8 +301,9 @@ try {
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
+
+    <script src="<?php echo JS_PATH; ?>bootstrap/jquery.min.js"></script>
+    <script src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $(document).mousemove(function() {
