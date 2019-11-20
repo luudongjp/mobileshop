@@ -1,0 +1,10 @@
+#home #myCarousel{
+    background-color: transparent;
+}
+#home #myCarousel .item{
+    
+}
+#home #myCarousel .item img{
+    margin: auto;
+    width: 100%;
+}

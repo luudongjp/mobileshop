@@ -132,7 +132,7 @@ body .home-page a:hover {
 
 /* style for sub-menu of hangsanxuat*/
 .home-page #header-content .hover-container1 {
-	width: 100%;
+	/* width: 100%; */
 	display: none;
 	position: absolute;
 	top: 105px;
@@ -157,7 +157,7 @@ body .home-page a:hover {
 }
 /* style for sub-menu of mucgia*/
 .home-page #header-content .hover-container2 {
-	width: 100%;
+	/* width: 100%; */
 	display: none;
 	position: absolute;
 	top: 105px;
@@ -380,6 +380,30 @@ body .home-page a:hover {
 }
 .home-page .rowfoot2 .foot-right .social-network .i-instagram::before {
 	content: "\f16d";
+}
+@media(min-width: 1440px){
+	.home-page #header-content .hover-container1,
+	.home-page #header-content .hover-container2 {
+		left: 128px;
+	}
+}
+@media(max-width: 1439px){
+	.home-page #header-content .hover-container1,
+	.home-page #header-content .hover-container2 {
+		left: 90px;
+	}
+}
+@media(max-width: 1366px){
+	.home-page #header-content .hover-container1,
+	.home-page #header-content .hover-container2 {
+		left: 96px;
+	}
+}
+@media(max-width: 1024px){
+	.home-page #header-content .hover-container1,
+	.home-page #header-content .hover-container2 {
+		left: 98px;
+	}
 }
 @media (min-width: 1200px) {
 	.home-page .col-lg-offset-3 {
