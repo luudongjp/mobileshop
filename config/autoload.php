@@ -18,6 +18,7 @@ return [
         'theloai'
     ],
     'helper' => [
-        'url'
+        'url',
+        'image'
     ]
 ];
