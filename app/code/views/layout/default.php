@@ -84,7 +84,7 @@ try {
                     <div class="container menu-container">
                         <div class="row cate-title">
                             <div class="col col-md-2">
-                                <a href="">
+                                <a href="<?php echo BASE_URL;?>">
                                     <img src="<?php echo IMAGE_PATH; ?>logo/mobileshop.png" />
                                 </a>
                             </div>
