@@ -1,0 +1,23 @@
+.product-detail{
+    background-color: greenyellow;
+}
+.product-detail .left-filter{
+    width: 29.9%;
+    float: left;
+    min-height: 200px;
+    background-color: red;
+    border: 1px solid #727272;
+}
+.product-detail .p-image{
+    width: 29.9%;
+    float: left;
+    border: 1px solid #727272;
+    min-height: 200px;
+    background-color: hotpink;
+}
+.product-detail .p-detail{
+    width: 40%;
+    border: 1px solid #727272;
+    min-height: 200px;
+    background-color: blue;
+}

@@ -103,4 +103,9 @@ class Router
 
         $object->$myAction();
     }
+
+    function getParam()
+    {
+        return $this->param;
+    }
 }
