@@ -5,12 +5,13 @@
 define('CSS_PATH', BASE_URL . 'static/css/');
 define('JS_PATH', BASE_URL . 'static/js/');
 define('IMAGE_PATH', BASE_URL . 'static/image/');
+$currentUser = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+
 ?>
 <?php
 // Get all category from database to show on header
 try {
     $conn = null;
-
     $config = require BASE_PATH . "/config/database.php";
     $host = $config['host'];
     $username = $config['username'];
@@ -44,6 +45,7 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>default.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>product-detail.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>userlogin.css" />
     <title>Mobile Shop</title>
 </head>
 
@@ -59,17 +61,17 @@ try {
                                 <div class="navbar-right">
                                     <ul class="nav navbar-nav new-menu-nav">
                                         <li class="nav-item-top">
-                                            <a href="">
+                                            <a href="<?php echo ($currentUser != null) ? baseUrl('user/index') : baseUrl('user/login'); ?>">
                                                 <div id="customer-account" class="nav-links"></div>
                                             </a>
                                         </li>
                                         <li class="nav-item-top">
-                                            <a href="">
+                                            <a href="<?php echo baseUrl('user/wishlist'); ?>">
                                                 <div id="customer-wishlist" class="nav-links"></div>
                                             </a>
                                         </li>
                                         <li class="nav-item-top">
-                                            <a href="">
+                                            <a href="<?php echo baseUrl('user/cart'); ?>">
                                                 <div id="customer-cart" class="nav-links"></div>
                                             </a>
                                         </li>
@@ -85,7 +87,7 @@ try {
                     <div class="container menu-container">
                         <div class="row cate-title">
                             <div class="col col-md-2">
-                                <a href="<?php echo BASE_URL;?>">
+                                <a href="<?php echo BASE_URL; ?>">
                                     <img src="<?php echo IMAGE_PATH; ?>logo/mobileshop.png" />
                                 </a>
                             </div>
@@ -323,6 +325,12 @@ try {
                     $('.hover-container2').css('display', 'none')
                 }
             })
+            $('.message a').click(function() {
+                $('.loginform form').animate({
+                    height: "toggle",
+                    opacity: "toggle"
+                }, "slow");
+            });
         })
     </script>
 </body>
