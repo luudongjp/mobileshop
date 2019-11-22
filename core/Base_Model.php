@@ -17,12 +17,12 @@ class Base_Model extends Core_Model
     /**
      * function to fetch a record of a table by id
      */
-    function getById($id)
+    function getById($table, $idName, $value)
     {
-        $query = "select * from {$this->table} where id = :id";
+        $query = "select * from {$table} where {$idName} = :id";
         $pre = $this->db->prepare($query);
         $pre->execute([
-            ':id' => $id
+            ':id' => $value
         ]);
         $data = $pre->fetch(PDO::FETCH_ASSOC);
         $pre->closeCursor();

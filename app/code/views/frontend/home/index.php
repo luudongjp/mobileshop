@@ -40,7 +40,7 @@
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileGiaSocs); $i++) : ?>
                 <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
-                    <a href="">
+                    <a href="<?php echo baseUrl('product/index/') . $mobileGiaSocs[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileGiaSocs[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileGiaSocs[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
@@ -48,7 +48,7 @@
                                 <?php echo $mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'].'đ.' : ''); ?>
+                                <?php echo (($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -94,7 +94,7 @@
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNews); $i++) : ?>
                 <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
-                    <a href="">
+                    <a href="<?php echo baseUrl('product/index/') . $mobileNews[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNews[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileGiaSocs[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
@@ -102,7 +102,7 @@
                                 <?php echo $mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'].'đ.' : ''); ?>
+                                <?php echo (($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -148,7 +148,7 @@
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNoiBats); $i++) : ?>
                 <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
-                    <a href="">
+                    <a href="<?php echo baseUrl('product/index/') . $mobileNoiBats[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNoiBats[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileNoiBats[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
@@ -156,7 +156,7 @@
                                 <?php echo $mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'].'đ.' : ''); ?>
+                                <?php echo (($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">

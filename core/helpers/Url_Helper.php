@@ -1,25 +1,20 @@
 <?php
-// function baseUrl($uri){
-//     $uri = str_replace('?', '&', $uri);
-//     $uri_array = explode('/', $uri);
-//     $module = $uri_array[0];
-//     $action = $uri_array[1];
 
-//     return BASE_URL."?module={$module}&action={$action}";
-// }
 function baseUrl($uri)
 {
-
     return BASE_URL . $uri;
 }
 
-function getParameter($key, $default = null)
+function getParameter()
 {
-    if (!empty($_GET[$key])) {
-        return $_GET[$key];
+    $router_path = BASE_PATH . "/core/Router.php";
+    if (file_exists($router_path)) {
+        if (class_exists('Router')) {
+            $router = new Router();
+            return $router->getParam();
+        }
     }
-
-    return $default;
+    return $null;
 }
 
 function getPostParameter($key, $default = null)

@@ -43,6 +43,7 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>../font/awesome/awesome.css">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>default.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>product-detail.css" />
     <title>Mobile Shop</title>
 </head>
 
