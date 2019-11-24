@@ -64,8 +64,9 @@
 }
 .login-page #search-email{
 	color: red;
-	font-size: 14px;
+	font-size: 13px;
 	font-family: Gotham;
+	font-weight: bold;
 }
 .login-page #notice {
 	display: none;

@@ -73,6 +73,9 @@ $('.login-password').keyup(function() {
 			$('#length').removeClass('valid');
 			$('#length').addClass('invalid');
 			$('#lp-valid').val('false');
+        }
+        if ($('#lp-valid').val() == 'true') {
+			$('#notice').css('display', 'none');
 		}
 	} else {
 		$('#notice').css('display', 'none');
@@ -125,6 +128,9 @@ $('.reg-password').keyup(function() {
 			$('#length').removeClass('valid');
 			$('#length').addClass('invalid');
 			$('#rp-valid').val('false');
+		}
+		if ($('#rp-valid').val() == 'true') {
+			$('#notice').css('display', 'none');
 		}
 	} else {
 		$('#notice').css('display', 'none');
