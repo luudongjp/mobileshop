@@ -307,32 +307,8 @@ try {
 
     <script src="<?php echo JS_PATH; ?>bootstrap/jquery.min.js"></script>
     <script src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(document).mousemove(function() {
-                /* style when hover HANG-SAN-XUAT*/
-                if ($('.hover1').is(':hover')) {
-                    $('.hover-container1').css('display', 'block')
-                }
-                if ((!$('.hover1').is(':hover')) && (!$('.hover-container1').is(':hover'))) {
-                    $('.hover-container1').css('display', 'none')
-                }
-                /* style when hover MUC GIA*/
-                if ($('.hover2').is(':hover')) {
-                    $('.hover-container2').css('display', 'block')
-                }
-                if ((!$('.hover2').is(':hover')) && (!$('.hover-container2').is(':hover'))) {
-                    $('.hover-container2').css('display', 'none')
-                }
-            })
-            $('.message a').click(function() {
-                $('.loginform form').animate({
-                    height: "toggle",
-                    opacity: "toggle"
-                }, "slow");
-            });
-        })
-    </script>
+    <script src="<?php echo JS_PATH; ?>frontend/home.js"></script>
+    <script src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
 </body>
 
 </html>
