@@ -1,4 +1,5 @@
 <?php
+
 class Base_Model extends Core_Model
 {
     /**
@@ -6,11 +7,16 @@ class Base_Model extends Core_Model
      */
     function getAll()
     {
-        $query = "select * from {$this->table}";
-        $pre = $this->db->prepare($query);
-        $pre->execute();
-        $data = $pre->fetchAll(PDO::FETCH_ASSOC);
-        $pre->closeCursor();
+        try {
+            $query = "select * from {$this->table}";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
         return $data;
     }
 
@@ -19,15 +25,21 @@ class Base_Model extends Core_Model
      */
     function getById($table, $idName, $value)
     {
-        $query = "select * from {$table} where {$idName} = :id";
-        $pre = $this->db->prepare($query);
-        $pre->execute([
-            ':id' => $value
-        ]);
-        $data = $pre->fetch(PDO::FETCH_ASSOC);
-        $pre->closeCursor();
+        try {
+            $query = "select * from {$table} where {$idName} = :id";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':id' => $value
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
         return $data;
     }
+
     /**
      * function to upload image
      */
