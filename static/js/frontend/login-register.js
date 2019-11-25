@@ -1,5 +1,6 @@
 // validate email user login, register before submit
 $('.login-email').keyup(function () {
+    $('#status-login').css('display', 'none');
     var l_email = $('.login-email').val();
     if (l_email.length > 0) {
         $('.error').css('display', 'block');
@@ -188,6 +189,26 @@ $('#login-form').submit(function (e) {
             e.preventDefault();
         } else {
             $('#notice').css('display', 'none');
+            $.ajax({
+                url: baseurl + 'user/searchEmail/' + $('.login-email').val(), // gửi ajax đến action
+                type: 'get', // chọn phương thức gửi là get
+                dateType: 'text', // dữ liệu trả về dạng text
+                data: {},
+                success: function (result) {
+                    if ((result.length > 1) && (result.trim() === $('.login-email').val().trim())) {
+                        $('#status-login').html('');
+                        $('#status-login').css('display', 'none');
+                    } else {
+                        $('#status-login').css('display', 'block');
+                        $('#status-login').html('Không tồn tại tài khoản !');
+                    }
+                }
+            });
+            $(document).ready(function () {
+                if ($('#status-login').html() === 'Không tồn tại tài khoản !') {
+                    e.preventDefault();
+                }
+            })
         }
     }
 });

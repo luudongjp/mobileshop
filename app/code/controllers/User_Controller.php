@@ -14,6 +14,48 @@ class User_Controller extends Base_Controller
         $this->view->load('frontend/user/login');
     }
 
+    // logout tai khoan
+    function logout()
+    {
+        session_unset();
+        session_destroy();
+        redirect('user/login');
+    }
+
+    // kiem tra tai khoan khach hang khi bam nut dang nhap
+    function checkLogin()
+    {
+        $email = isset($_POST['login-email']) ? trim($_POST['login-email']) : '';
+        $password = isset($_POST['login-password']) ? trim($_POST['login-password']) : '';
+        // Tim kiem theo email va neu tim thay thi tra ve 1 account
+        $account = $this->model->khachhang->searchAccount($email);
+        if (!empty($account)) {
+            // $validAccount = true if (===email and ===password)
+            $validEmail = ($_POST['login-email'] === $account['email']) ? true : false;
+            $validPassword = password_verify($_POST['login-password'] . $_POST['login-email'], $account['matKhau']);
+            $validateAccount = $validEmail && $validPassword;
+            if ($validateAccount) {
+                // Dung mat khau
+                // Neu account chua duoc kich hoat thi chuyen sang trang thong bao can kich hoat tai khoan
+                if ($account['status'] == 0) {
+                    redirect('user/notice');
+                } else {
+                    $_SESSION['username'] = $account['tenKhachHang'];
+                    $_SESSION['email'] = $account['email'];
+                    $_SESSION['phone'] = $account['soDienThoai'];
+                    $_SESSION['address'] = $account['diaChi'];
+                    redirect('user/index');
+                }
+                redirect('home/index');
+            } else {
+                // Sai mat khau
+                $_SESSION['wrong-password'] = 'Mật khẩu của bạn không đúng !';
+                redirect('user/login');
+            }
+
+        }
+    }
+
     // ham thuc hien luu thong tin nguoi dung moi vao database va gui link xac thuc tai khoan moi vao hom thu cua khach hang
     function register()
     {
@@ -135,6 +177,17 @@ class User_Controller extends Base_Controller
         $message = null;
         $message = "Link hết hiệu lực. Tài khoản của bạn đã được kích hoạt trước đó !. <br />";
         $this->view->load('frontend/user/active_expire', [
+            'message' => $message
+        ]);
+    }
+
+    // hien thi view thong bao account chua duoc kich hoat
+    function notice()
+    {
+        $message = null;
+        $message = "Tài khoản của bạn chưa được kích hoạt !. <br />";
+        $message .= "Vui lòng kích hoạt trước khi đăng nhập !. <br />";
+        $this->view->load('frontend/user/notice', [
             'message' => $message
         ]);
     }

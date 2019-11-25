@@ -49,6 +49,9 @@ body .home-page a:hover {
 .home-page #header-content .top-header .top-nav .navbar-right .nav-item-top #customer-cart::before {
 	content: "\e035";
 }
+.home-page #header-content .top-header .top-nav .navbar-right .nav-item-top #customer-logout::before {
+	content: "\e065";
+}
 /* header menu */
 .home-page #header-content .header-menu {
 	max-width: 1200px;
