@@ -15,13 +15,4 @@ $(document).ready(function() {
 			$('.hover-container2').css('display', 'none');
 		}
 	});
-	$('.message a').click(function() {
-		$('.loginform form').animate(
-			{
-				height: 'toggle',
-				opacity: 'toggle'
-			},
-			'slow'
-		);
-	});
 });

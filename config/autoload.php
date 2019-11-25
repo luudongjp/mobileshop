@@ -19,6 +19,7 @@ return [
     ],
     'helper' => [
         'url',
-        'image'
+        'image',
+        'mail'
     ]
 ];
