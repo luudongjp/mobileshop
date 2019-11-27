@@ -17,6 +17,42 @@ function getParameter()
     return $null;
 }
 
+function getArea()
+{
+    $router_path = BASE_PATH . "/core/Router.php";
+    if (file_exists($router_path)) {
+        if (class_exists('Router')) {
+            $router = new Router();
+            return $router->getArea();
+        }
+    }
+    return 0;
+}
+
+function getModule()
+{
+    $router_path = BASE_PATH . "/core/Router.php";
+    if (file_exists($router_path)) {
+        if (class_exists('Router')) {
+            $router = new Router();
+            return $router->getModule();
+        }
+    }
+    return $null;
+}
+
+function getAction()
+{
+    $router_path = BASE_PATH . "/core/Router.php";
+    if (file_exists($router_path)) {
+        if (class_exists('Router')) {
+            $router = new Router();
+            return $router->getAction();
+        }
+    }
+    return $null;
+}
+
 function getPostParameter($key, $default = null)
 {
     if (!empty($_POST[$key])) {

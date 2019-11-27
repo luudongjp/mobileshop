@@ -1,2 +1,3 @@
 <?php
 pretty($data);
+?>

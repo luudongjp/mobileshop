@@ -1,3 +1,6 @@
+<?php
+$isSignedIn = isset($_SESSION['username']) ? true : false;
+?>
 <div id="home">
     <div class="banner">
         <div class="container">
@@ -5,15 +8,17 @@
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <?php for ($i = 0; $i < sizeof($banners); $i++) : ?>
-                        <li data-target="#myCarousel" data-slide-to="<?php echo $i; ?>" class="<?php echo (($i == 0) ? 'active' : ''); ?>"></li>
+                        <li data-target="#myCarousel" data-slide-to="<?php echo $i; ?>"
+                            class="<?php echo(($i == 0) ? 'active' : ''); ?>"></li>
                     <?php endfor; ?>
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <?php for ($j = 0; $j < sizeof($banners); $j++) : ?>
-                        <div class="item <?php echo (($j == 0) ? 'active' : ''); ?>">
-                            <img src="<?php echo BASE_URL . $banners[$j]['url']; ?>" alt="<?php echo $banners[$j]['name']; ?>">
+                        <div class="item <?php echo(($j == 0) ? 'active' : ''); ?>">
+                            <img src="<?php echo BASE_URL . $banners[$j]['url']; ?>"
+                                 alt="<?php echo $banners[$j]['name']; ?>">
                         </div>
                     <?php endfor; ?>
                 </div>
@@ -48,7 +53,7 @@
                                 <?php echo $mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -73,10 +78,14 @@
                         </figure>
                     </a>
                     <div class="action">
-                        <button type="button" class="btn-add-cart" onclick="location.href=''">
+                        <button type="button" class="btn-add-cart"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileGiaSocs[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
+                                style="display: <?php echo ($mobileGiaSocs[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
+                        >
                             Add to cart
                         </button>
-                        <button type="button" class="btn-add-wishlist" onclick="location.href=''">
+                        <button type="button" class="btn-add-wishlist"
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileGiaSocs[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>
@@ -96,13 +105,13 @@
                 <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
                     <a href="<?php echo baseUrl('product/index/') . $mobileNews[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNews[$i][0] ?>" alt="logo-mobile">
-                        <h3><?php echo $mobileGiaSocs[$i]['tenDienThoai']; ?></h3>
+                        <h3><?php echo $mobileNews[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
                                 <?php echo $mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -127,10 +136,14 @@
                         </figure>
                     </a>
                     <div class="action">
-                        <button type="button" class="btn-add-cart" onclick="location.href=''">
+                        <button type="button" class="btn-add-cart"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileNews[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
+                                style="display: <?php echo ($mobileNews[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
+                        >
                             Add to cart
                         </button>
-                        <button type="button" class="btn-add-wishlist" onclick="location.href=''">
+                        <button type="button" class="btn-add-wishlist"
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileNews[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>
@@ -156,7 +169,7 @@
                                 <?php echo $mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia'] ?>đ.
                             </strong>
                             <span>
-                                <?php echo (($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'] . 'đ.' : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -181,10 +194,14 @@
                         </figure>
                     </a>
                     <div class="action">
-                        <button type="button" class="btn-add-cart" onclick="location.href=''">
+                        <button type="button" class="btn-add-cart"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileNoiBats[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
+                                style="display: <?php echo ($mobileNoiBats[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
+                        >
                             Add to cart
                         </button>
-                        <button type="button" class="btn-add-wishlist" onclick="location.href=''">
+                        <button type="button" class="btn-add-wishlist"
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileNoiBats[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>

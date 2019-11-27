@@ -8,7 +8,9 @@ $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
 $userName = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 $userPhone = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 $userAddress = isset($_SESSION['address']) ? $_SESSION['address'] : '';
+
 echo "<script type='text/javascript'>
+        var baseurl = '" . BASE_URL . "';
         var idUser = '" . $idUser . "';
         var userName = '" . $userName . "';
         var userPhone = '" . $userPhone . "';
@@ -54,12 +56,15 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-login.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-index-edit.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-change-password.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-wishlist.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-cart.css"/>
     <title>Mobile Shop</title>
 </head>
 
 <body>
 
 <div class="home-page">
+    <a href="#" name="top-page"></a>
     <div class="header-container" id="header-content">
         <div class="top-header">
             <div class="top-nav" id="top-nav">
@@ -220,6 +225,15 @@ try {
             </div>
         </div>
     </div>
+    <div class="loading">
+        <img src="<?php echo IMAGE_PATH; ?>loading/loading.gif"/>
+    </div>
+    <div class="success">
+        <div id="success"></div>
+    </div>
+    <div class="error">
+        <div id="error"></div>
+    </div>
 
     <!-- Dynamic content area is where view be included inside -->
     <div class="dynamic-content">
@@ -329,7 +343,7 @@ try {
 
 <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/home.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/default.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-password.js"></script>

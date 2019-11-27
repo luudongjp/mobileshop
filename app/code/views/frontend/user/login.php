@@ -36,7 +36,7 @@ echo "<script>
             <div id="status-login">
                 <?php echo(isset($_SESSION['wrong-password']) ? $_SESSION['wrong-password'] : ''); ?>
             </div>
-            <div class="error">
+            <div class="login-error">
             </div>
             <div id="search-email">
             </div>

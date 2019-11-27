@@ -225,4 +225,67 @@ class Khachhang_Model extends Base_Model
         }
         return true;
     }
+
+    /**
+     * Add mobile to customer wishlist
+     * @param int idMobile id cua mobile
+     * @return boolean true add mobile into wishlist success
+     * @return boolean false add to wishlist fail
+     */
+    function addToWishList($idMobile)
+    {
+        // wishlist trong database la 1 string (cac id phan cach nhau boi dau phay. vi du "1,12,23,5")
+        try {
+            // get wishlist string from database
+            $query = "select wishlist from {$this->table} where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser']
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            $data['wishlist'] .= "," . $idMobile;
+            $tempArray = explode(",", $data['wishlist']);
+            // Loai bo phan tu trung nhau trong array
+            $tempArray = array_unique($tempArray);
+            // newWishList la string
+            $newWishList = implode(",", $tempArray);
+
+            // save new wishlist into database
+            $query1 = "update {$this->table} set wishlist = :wishlist where idKhachHang = :idKhachHang";
+            $pre1 = $this->db->prepare($query1);
+            $pre1->execute([
+                ':idKhachHang' => $_SESSION['idUser'],
+                ':wishlist' => $newWishList
+            ]);
+            $count = $pre1->rowCount();
+            if ($count === 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 2;
+        }
+        return 1;
+    }
+
+    function getWishList($idUser)
+    {
+        $data = null;
+        try {
+            $query = "select wishlist from {$this->table} where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $idUser
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
 }

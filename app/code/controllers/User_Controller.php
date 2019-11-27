@@ -107,7 +107,7 @@ class User_Controller extends Base_Controller
     {
         $activation = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $activation = $param[0];
         }
         $resultActive = $this->model->khachhang->activeAccount($activation);
@@ -127,15 +127,15 @@ class User_Controller extends Base_Controller
     // ham duoc ajax goi den de tim kiem email nguoi dung (kiem email dang ky moi da ton tai trong database hay chua)
     function searchEmail()
     {
-        $this->layout->set('null');
         $result = null;
         $emailPrepareRegister = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $emailPrepareRegister = $param[0];
             $result = $this->model->khachhang->searchEmail($emailPrepareRegister);
         }
-        $this->view->load('frontend/null', [
+        $this->layout->set('null');
+        $this->view->load('frontend/searchEmailResult', [
             'result' => $result
         ]);
     }
@@ -203,18 +203,6 @@ class User_Controller extends Base_Controller
         ]);
     }
 
-    function wishlist()
-    {
-
-        $this->view->load('frontend/user/wishlist');
-    }
-
-    function cart()
-    {
-
-        $this->view->load('frontend/user/cart');
-    }
-
     // load page chinh sua thong tin ca nhan khach hang
     function editInfo()
     {
@@ -274,6 +262,54 @@ class User_Controller extends Base_Controller
 
             }
         }
+    }
+
+    // load page wishlist
+    function wishlist()
+    {
+        $data = $this->model->khachhang->getWishList($_SESSION['idUser']);
+        $wishlist = $data['wishlist'];
+        $arrayIdMobile = explode(",", $wishlist);
+        // loai bo phan tu dau tien khong chua id cua mobile nao ca
+        array_shift($arrayIdMobile);
+        $arrayMobiles = [];
+        for ($i = 0; $i < sizeof($arrayIdMobile); $i++) {
+            $mobile = $this->model->mobile->getById('mobile', 'idMobile', $arrayIdMobile[$i]);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($arrayIdMobile[$i]), []);
+            $arrayMobiles[$i] = $mobile;
+        }
+        $this->view->load('frontend/user/wishlist', [
+            'arrayMobiles' => $arrayMobiles
+        ]);
+    }
+
+    // load page cart
+    function cart()
+    {
+
+        $this->view->load('frontend/user/cart');
+    }
+
+    // add a mobile into cart
+    function addToCart()
+    {
+
+    }
+
+    // add a mobile into wishlist
+    function addToWishList()
+    {
+        $idMobile = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->addToWishList($idMobile);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/addWishListResult', [
+            'result' => $result
+        ]);
     }
 
 }
