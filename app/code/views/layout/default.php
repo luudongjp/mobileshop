@@ -53,6 +53,7 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>product-detail.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-login.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-index-edit.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-change-password.css"/>
     <title>Mobile Shop</title>
 </head>
 
@@ -330,7 +331,8 @@ try {
 <script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/home.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
-<script src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-password.js"></script>
 
 </body>
 

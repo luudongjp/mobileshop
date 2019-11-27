@@ -250,7 +250,30 @@ class User_Controller extends Base_Controller
     // xu li doi mat khau khach hang
     function savePassword()
     {
+        // get real current password from database
+        $realPassword = null;
+        $dataReturn = $this->model->khachhang->getCustomerPassword($_SESSION['idUser']);
+        if (!empty($dataReturn)) {
+            $realPassword = $dataReturn['matKhau'];
+        }
+        // data user enter in form change password
+        $currentPasswordText = isset($_POST['customer_password_current']) ? $_POST['customer_password_current'] : '';
+        // kiem tra mat khau hien tai nhap vao co giong voi mat khau trong CSDL la $realPassword hay khong ?
+        if (!password_verify(addslashes($currentPasswordText . $_SESSION['email']), $realPassword)) {
+            // neu khong trung khop
+            $_SESSION['error-changePassCustomer'] = 'Mật khẩu hiện tại không đúng !';
+            redirect('user/changePassword');
+        } else {
+            $newPasswordText = isset($_POST['customer_password_new']) ? $_POST['customer_password_new'] : '';
+            $resultUpdate = $this->model->khachhang->updateCustomerPassword($_SESSION['idUser'], $newPasswordText);
+            if ($resultUpdate) {
+                // neu luu mat khau moi thanh cong
+                $_SESSION['success-changePassCustomer'] = 'Đổi mật khẩu mới thành công !';
+                redirect('user/index');
+            } else {
 
+            }
+        }
     }
 
 }

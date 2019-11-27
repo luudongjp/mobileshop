@@ -7,6 +7,10 @@
                     <h3>THÔNG TIN CÁ NHÂN</h3>
                 </div>
                 <div class="user-info">
+                    <div class="success-update-password"
+                         style="display: <?php echo isset($_SESSION['success-changePassCustomer']) ? 'block' : 'none'; ?>">
+                        <?php echo isset($_SESSION['success-changePassCustomer']) ? $_SESSION['success-changePassCustomer'] : ''; ?>
+                    </div>
                     <div class="success-update-customer-info"
                          style="display: <?php echo(isset($_SESSION['success-update-customer-info']) ? 'block' : 'none'); ?>">
                         <?php echo(isset($_SESSION['success-update-customer-info']) ? $_SESSION['success-update-customer-info'] : ''); ?>
@@ -61,5 +65,8 @@ if (isset($_SESSION['success-update-customer-info'])) {
 }
 if (isset($_SESSION['fail-update-customer-info'])) {
     unset($_SESSION['fail-update-customer-info']);
+}
+if (isset($_SESSION['success-changePassCustomer'])) {
+    unset($_SESSION['success-changePassCustomer']);
 }
 ?>

@@ -174,4 +174,55 @@ class Khachhang_Model extends Base_Model
         }
         return true;
     }
+
+    /**
+     * Get password of a customer
+     * @param int $idUser id of user
+     * @return  string hash of password
+     */
+    function getCustomerPassword($idUser)
+    {
+        try {
+            $query = "select matKhau from {$this->table} where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $idUser
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
+
+    /**
+     * Update password of a customer
+     * @param int $idUser id of user
+     * @param string $newPass new plaintext password
+     * @return boolean true update success
+     * @return boolean false update fail
+     */
+    function updateCustomerPassword($idUser, $newPassText)
+    {
+        try {
+            $query = "update {$this->table} set matKhau = :newPass where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $idUser,
+                ':newPass' => password_hash(addslashes($newPassText . $_SESSION['email']), PASSWORD_DEFAULT)
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }
