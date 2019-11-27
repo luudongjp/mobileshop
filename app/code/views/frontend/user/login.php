@@ -51,5 +51,7 @@ echo "<script>
     </div>
 
 <?php
-unset($_SESSION['wrong-password']);
+if (isset($_SESSION['wrong-password'])) {
+    unset($_SESSION['wrong-password']);
+}
 ?>

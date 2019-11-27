@@ -141,4 +141,37 @@ class Khachhang_Model extends Base_Model
         }
         return 2;
     }
+
+    /**
+     * Ham cap nhat thong tin ca nhan cua khach hang
+     * @param int $idUser id cua khach hang
+     * @param string $newName ten moi cua khach hang
+     * @param string $newPhone so dien thoai moi cua khach hang
+     * @param string $newAddress dia chi moi cua khach hang
+     * @return boolean true cap nhat thanh cong
+     * @return boolean false cap nhat that bai
+     */
+    function updateUserInfo($idUser, $newName, $newAddress, $newPhone)
+    {
+        try {
+            $query = "UPDATE khachhang SET tenKhachHang = :tenKhachHang, diaChi = :diaChi, soDienThoai = :soDienThoai WHERE idKhachHang = :idKhachHang";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idKhachHang' => $idUser,
+                ':tenKhachHang' => $newName,
+                ':diaChi' => $newAddress,
+                ':soDienThoai' => $newPhone
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }

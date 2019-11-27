@@ -5,13 +5,21 @@ class User_Controller extends Base_Controller
     // trang mac dinh cua khach hang
     function index()
     {
-        $this->view->load('frontend/user/index');
+        if (!isset($_SESSION['username'])) {
+            redirect('notfound/index');
+        } else {
+            $this->view->load('frontend/user/index');
+        }
     }
 
     // chuyen toi trang login
     function login()
     {
-        $this->view->load('frontend/user/login');
+        if (isset($_SESSION['username'])) {
+            redirect('user/index');
+        } else {
+            $this->view->load('frontend/user/login');
+        }
     }
 
     // logout tai khoan
@@ -40,10 +48,13 @@ class User_Controller extends Base_Controller
                 if ($account['status'] == 0) {
                     redirect('user/notice');
                 } else {
+                    $_SESSION['idUser'] = $account['idKhachHang'];
                     $_SESSION['username'] = $account['tenKhachHang'];
                     $_SESSION['email'] = $account['email'];
                     $_SESSION['phone'] = $account['soDienThoai'];
                     $_SESSION['address'] = $account['diaChi'];
+                    $_SESSION['date'] = $account['ngayTao'];
+                    $_SESSION['status'] = $account['status'];
                     redirect('user/index');
                 }
                 redirect('home/index');
@@ -203,4 +214,43 @@ class User_Controller extends Base_Controller
 
         $this->view->load('frontend/user/cart');
     }
+
+    // load page chinh sua thong tin ca nhan khach hang
+    function editInfo()
+    {
+        $this->view->load('frontend/user/editInfo');
+    }
+
+    // luu thong tin ca nhan khach hang sau khi thay doi thong tin
+    function saveInfo()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $newName = isset($_POST['user-edit-name']) ? $_POST['user-edit-name'] : '';
+        $newPhone = isset($_POST['user-edit-phone']) ? $_POST['user-edit-phone'] : '';
+        $newAddress = isset($_POST['user-edit-address']) ? $_POST['user-edit-address'] : '';
+        $resutl = $this->model->khachhang->updateUserInfo($idUser, $newName, $newAddress, $newPhone);
+        if ($resutl) {
+            $_SESSION['username'] = $newName;
+            $_SESSION['phone'] = $newPhone;
+            $_SESSION['address'] = $newAddress;
+            $_SESSION['success-update-customer-info'] = 'Thay đổi thông tin thành công !';
+            redirect('user/index');
+        } else {
+            $_SESSION['fail-update-customer-info'] = 'Thay đổi thông tin thất bại!';
+            redirect('user/index');
+        }
+    }
+
+    // load page doi mat khau khach hang
+    function changePassword()
+    {
+        $this->view->load('frontend/user/changePassword');
+    }
+
+    // xu li doi mat khau khach hang
+    function savePassword()
+    {
+
+    }
+
 }
