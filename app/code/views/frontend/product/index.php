@@ -1,7 +1,6 @@
 <div class="product-detail">
     <?php
-    // pretty($mobile);
-    // pretty($images);
+    $isSignedIn = isset($_SESSION['username']) ? true : false;
     ?>
     <div class="p-wrap">
         <div class="p-image">
@@ -9,15 +8,17 @@
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <?php for ($i = 0; $i < sizeof($images); $i++) : ?>
-                        <li data-target="#myCarousel" data-slide-to="<?php echo $i; ?>" class="<?php echo (($i == 0) ? 'active' : ''); ?>"></li>
+                        <li data-target="#myCarousel" data-slide-to="<?php echo $i; ?>"
+                            class="<?php echo(($i == 0) ? 'active' : ''); ?>"></li>
                     <?php endfor; ?>
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <?php for ($j = 0; $j < sizeof($images); $j++) : ?>
-                        <div class="item <?php echo (($j == 0) ? 'active' : ''); ?>">
-                            <img src="<?php echo BASE_URL . $images[$j]['url']; ?>" alt="<?php echo $images[$j]['name']; ?>">
+                        <div class="item <?php echo(($j == 0) ? 'active' : ''); ?>">
+                            <img src="<?php echo BASE_URL . $images[$j]['url']; ?>"
+                                 alt="<?php echo $images[$j]['name']; ?>">
                         </div>
                     <?php endfor; ?>
                 </div>
@@ -81,14 +82,28 @@
                     Số sao: <?php echo $mobile['soSao']; ?>
                 </span>
                 <span>
-                    Sản phẩm: <span class="check <?php echo ($mobile['soLuongTrongKho'] > 0) ? 'conhang' : 'hethang'; ?>"><?php echo ($mobile['soLuongTrongKho'] > 0) ? 'Còn hàng' : 'Hết hàng'; ?></span>
+                    Sản phẩm: <span
+                            class="check <?php echo ($mobile['soLuongTrongKho'] > 0) ? 'conhang' : 'hethang'; ?>"><?php echo ($mobile['soLuongTrongKho'] > 0) ? 'Còn hàng' : 'Hết hàng'; ?></span>
                 </span>
             </figure>
+            <div class="price">
+                <strong>
+                    <?php echo $mobile['giaBan'] - $mobile['giamGia'] ?>đ.
+                </strong>
+                <span>
+                    <?php echo(($mobile['giamGia'] > 0) ? $mobile['giaBan'] . 'đ.' : ''); ?>
+                </span>
+            </div>
+
             <div class="action">
-                <button type="button" class="btn-add-cart" onclick="location.href=''">
+                <button type="button" class="btn-add-cart"
+                        onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToCart/') . $mobile['idMobile'] : baseUrl('user/login') ?>'"
+                        style="display: <?php echo ($mobile['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
+                >
                     Add to cart
                 </button>
-                <button type="button" class="btn-add-wishlist" onclick="location.href=''">
+                <button type="button" class="btn-add-wishlist"
+                        onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToWishList/') . $mobile['idMobile'] : baseUrl('user/login') ?>'">
                     Add to wishlist
                 </button>
             </div>

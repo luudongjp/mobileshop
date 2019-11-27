@@ -107,7 +107,7 @@ class User_Controller extends Base_Controller
     {
         $activation = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $activation = $param[0];
         }
         $resultActive = $this->model->khachhang->activeAccount($activation);
@@ -131,7 +131,7 @@ class User_Controller extends Base_Controller
         $result = null;
         $emailPrepareRegister = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $emailPrepareRegister = $param[0];
             $result = $this->model->khachhang->searchEmail($emailPrepareRegister);
         }
@@ -203,18 +203,6 @@ class User_Controller extends Base_Controller
         ]);
     }
 
-    function wishlist()
-    {
-
-        $this->view->load('frontend/user/wishlist');
-    }
-
-    function cart()
-    {
-
-        $this->view->load('frontend/user/cart');
-    }
-
     // load page chinh sua thong tin ca nhan khach hang
     function editInfo()
     {
@@ -273,6 +261,44 @@ class User_Controller extends Base_Controller
             } else {
 
             }
+        }
+    }
+
+    // load page wishlist
+    function wishlist()
+    {
+
+        $this->view->load('frontend/user/wishlist');
+    }
+
+    // load page cart
+    function cart()
+    {
+
+        $this->view->load('frontend/user/cart');
+    }
+
+    // add a mobile into cart
+    function addToCart()
+    {
+
+    }
+
+    // add a mobile into wishlist
+    function addToWishList()
+    {
+        $idMobile = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->addToWishList($idMobile);
+
+            if ($result) {
+                echo "<script type='text/javascript'> alert('Them thanh cong')</script>";
+            }
+            $this->view->load('frontend/test');
+        } else {
+            redirect('notfound/index');
         }
     }
 
