@@ -141,4 +141,128 @@ class Khachhang_Model extends Base_Model
         }
         return 2;
     }
+
+    /**
+     * Ham cap nhat thong tin ca nhan cua khach hang
+     * @param int $idUser id cua khach hang
+     * @param string $newName ten moi cua khach hang
+     * @param string $newPhone so dien thoai moi cua khach hang
+     * @param string $newAddress dia chi moi cua khach hang
+     * @return boolean true cap nhat thanh cong
+     * @return boolean false cap nhat that bai
+     */
+    function updateUserInfo($idUser, $newName, $newAddress, $newPhone)
+    {
+        try {
+            $query = "UPDATE khachhang SET tenKhachHang = :tenKhachHang, diaChi = :diaChi, soDienThoai = :soDienThoai WHERE idKhachHang = :idKhachHang";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idKhachHang' => $idUser,
+                ':tenKhachHang' => $newName,
+                ':diaChi' => $newAddress,
+                ':soDienThoai' => $newPhone
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get password of a customer
+     * @param int $idUser id of user
+     * @return  string hash of password
+     */
+    function getCustomerPassword($idUser)
+    {
+        try {
+            $query = "select matKhau from {$this->table} where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $idUser
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
+
+    /**
+     * Update password of a customer
+     * @param int $idUser id of user
+     * @param string $newPass new plaintext password
+     * @return boolean true update success
+     * @return boolean false update fail
+     */
+    function updateCustomerPassword($idUser, $newPassText)
+    {
+        try {
+            $query = "update {$this->table} set matKhau = :newPass where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $idUser,
+                ':newPass' => password_hash(addslashes($newPassText . $_SESSION['email']), PASSWORD_DEFAULT)
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Add mobile to customer wishlist
+     * @param int idMobile id cua mobile
+     * @return boolean true add mobile into wishlist success
+     * @return boolean false add to wishlist fail
+     */
+    function addToWishList($idMobile)
+    {
+        // wishlist trong database la 1 string (cac id phan cach nhau boi dau phay. vi du "1,12,23,5")
+        try {
+            // get wishlist string from database
+            $query = "select wishlist from {$this->table} where idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser']
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            $data['wishlist'] .= "," . $idMobile;
+
+            // save new wishlist into database
+            $query1 = "update {$this->table} set wishlist = :wishlist where idKhachHang = :idKhachHang";
+            $pre1 = $this->db->prepare($query1);
+            $pre1->execute([
+                ':idKhachHang' => $_SESSION['idUser'],
+                ':wishlist' => $data['wishlist']
+            ]);
+            $count = $pre1->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }

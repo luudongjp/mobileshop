@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 // define()
 define('CSS_PATH', BASE_URL . 'static/css/');
 define('JS_PATH', BASE_URL . 'static/js/');
 define('IMAGE_PATH', BASE_URL . 'static/image/');
 $currentUser = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+$userName = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+$userPhone = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
+$userAddress = isset($_SESSION['address']) ? $_SESSION['address'] : '';
+echo "<script type='text/javascript'>
+        var idUser = '" . $idUser . "';
+        var userName = '" . $userName . "';
+        var userPhone = '" . $userPhone . "';
+        var userAddress = '" . $userAddress . "';
+    </script>";
 
-?>
-<?php
 // Get all category from database to show on header
 try {
     $conn = null;
@@ -32,7 +38,7 @@ try {
 }
 
 ?>
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +51,9 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>default.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>home.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>product-detail.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>userlogin.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-login.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-index-edit.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-change-password.css"/>
     <title>Mobile Shop</title>
 </head>
 
@@ -60,6 +68,13 @@ try {
                         <div class="col-lg-9 col-md-9 col-md-offset-3 col-lg-offset-3">
                             <div class="navbar-right">
                                 <ul class="nav navbar-nav new-menu-nav">
+                                    <li class="nav-item-top fist"
+                                        style="display: <?php echo ($currentUser != null) ? 'inline-block' : 'none'; ?>">
+                                        Hi
+                                        <span class="hi-user">
+                                           <?php echo $currentUser; ?>
+                                        </span>
+                                    </li>
                                     <li class="nav-item-top">
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/index') : baseUrl('user/login'); ?>">
                                             <div id="customer-account" class="nav-links"></div>
@@ -208,7 +223,7 @@ try {
 
     <!-- Dynamic content area is where view be included inside -->
     <div class="dynamic-content">
-        <?php echo $content ?>
+        <?php echo $content; ?>
     </div>
 
     <div id="footer">
@@ -312,10 +327,13 @@ try {
     </div>
 </div>
 
-<script src="<?php echo JS_PATH; ?>bootstrap/jquery.min.js"></script>
-<script src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
-<script src="<?php echo JS_PATH; ?>frontend/home.js"></script>
-<script src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/home.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-password.js"></script>
+
 </body>
 
 </html>

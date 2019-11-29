@@ -5,13 +5,21 @@ class User_Controller extends Base_Controller
     // trang mac dinh cua khach hang
     function index()
     {
-        $this->view->load('frontend/user/index');
+        if (!isset($_SESSION['username'])) {
+            redirect('notfound/index');
+        } else {
+            $this->view->load('frontend/user/index');
+        }
     }
 
     // chuyen toi trang login
     function login()
     {
-        $this->view->load('frontend/user/login');
+        if (isset($_SESSION['username'])) {
+            redirect('user/index');
+        } else {
+            $this->view->load('frontend/user/login');
+        }
     }
 
     // logout tai khoan
@@ -40,10 +48,13 @@ class User_Controller extends Base_Controller
                 if ($account['status'] == 0) {
                     redirect('user/notice');
                 } else {
+                    $_SESSION['idUser'] = $account['idKhachHang'];
                     $_SESSION['username'] = $account['tenKhachHang'];
                     $_SESSION['email'] = $account['email'];
                     $_SESSION['phone'] = $account['soDienThoai'];
                     $_SESSION['address'] = $account['diaChi'];
+                    $_SESSION['date'] = $account['ngayTao'];
+                    $_SESSION['status'] = $account['status'];
                     redirect('user/index');
                 }
                 redirect('home/index');
@@ -96,7 +107,7 @@ class User_Controller extends Base_Controller
     {
         $activation = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $activation = $param[0];
         }
         $resultActive = $this->model->khachhang->activeAccount($activation);
@@ -120,7 +131,7 @@ class User_Controller extends Base_Controller
         $result = null;
         $emailPrepareRegister = null;
         $param = getParameter();
-        if (isset($param[0])) {
+        if (!empty($param[0])) {
             $emailPrepareRegister = $param[0];
             $result = $this->model->khachhang->searchEmail($emailPrepareRegister);
         }
@@ -192,15 +203,103 @@ class User_Controller extends Base_Controller
         ]);
     }
 
+    // load page chinh sua thong tin ca nhan khach hang
+    function editInfo()
+    {
+        $this->view->load('frontend/user/editInfo');
+    }
+
+    // luu thong tin ca nhan khach hang sau khi thay doi thong tin
+    function saveInfo()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $newName = isset($_POST['user-edit-name']) ? $_POST['user-edit-name'] : '';
+        $newPhone = isset($_POST['user-edit-phone']) ? $_POST['user-edit-phone'] : '';
+        $newAddress = isset($_POST['user-edit-address']) ? $_POST['user-edit-address'] : '';
+        $resutl = $this->model->khachhang->updateUserInfo($idUser, $newName, $newAddress, $newPhone);
+        if ($resutl) {
+            $_SESSION['username'] = $newName;
+            $_SESSION['phone'] = $newPhone;
+            $_SESSION['address'] = $newAddress;
+            $_SESSION['success-update-customer-info'] = 'Thay đổi thông tin thành công !';
+            redirect('user/index');
+        } else {
+            $_SESSION['fail-update-customer-info'] = 'Thay đổi thông tin thất bại!';
+            redirect('user/index');
+        }
+    }
+
+    // load page doi mat khau khach hang
+    function changePassword()
+    {
+        $this->view->load('frontend/user/changePassword');
+    }
+
+    // xu li doi mat khau khach hang
+    function savePassword()
+    {
+        // get real current password from database
+        $realPassword = null;
+        $dataReturn = $this->model->khachhang->getCustomerPassword($_SESSION['idUser']);
+        if (!empty($dataReturn)) {
+            $realPassword = $dataReturn['matKhau'];
+        }
+        // data user enter in form change password
+        $currentPasswordText = isset($_POST['customer_password_current']) ? $_POST['customer_password_current'] : '';
+        // kiem tra mat khau hien tai nhap vao co giong voi mat khau trong CSDL la $realPassword hay khong ?
+        if (!password_verify(addslashes($currentPasswordText . $_SESSION['email']), $realPassword)) {
+            // neu khong trung khop
+            $_SESSION['error-changePassCustomer'] = 'Mật khẩu hiện tại không đúng !';
+            redirect('user/changePassword');
+        } else {
+            $newPasswordText = isset($_POST['customer_password_new']) ? $_POST['customer_password_new'] : '';
+            $resultUpdate = $this->model->khachhang->updateCustomerPassword($_SESSION['idUser'], $newPasswordText);
+            if ($resultUpdate) {
+                // neu luu mat khau moi thanh cong
+                $_SESSION['success-changePassCustomer'] = 'Đổi mật khẩu mới thành công !';
+                redirect('user/index');
+            } else {
+
+            }
+        }
+    }
+
+    // load page wishlist
     function wishlist()
     {
 
         $this->view->load('frontend/user/wishlist');
     }
 
+    // load page cart
     function cart()
     {
 
         $this->view->load('frontend/user/cart');
     }
+
+    // add a mobile into cart
+    function addToCart()
+    {
+
+    }
+
+    // add a mobile into wishlist
+    function addToWishList()
+    {
+        $idMobile = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->addToWishList($idMobile);
+
+            if ($result) {
+                echo "<script type='text/javascript'> alert('Them thanh cong')</script>";
+            }
+            $this->view->load('frontend/test');
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
 }

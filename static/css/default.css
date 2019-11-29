@@ -32,6 +32,15 @@ body .home-page a:hover {
 	width: 60px;
 	padding: 10px 0px;
 }
+.home-page #header-content .top-header .top-nav .navbar-right .navbar-nav .nav-item-top.fist {
+	width: fit-content;
+	margin-right: 20px;
+	font-size: 14px;
+	font-weight: 500;
+}
+.home-page #header-content .top-header .top-nav .navbar-right .navbar-nav .nav-item-top.fist .hi-user{
+	color: green;
+}
 .home-page #header-content .top-header .top-nav .navbar-right .nav-item-top .nav-links {
 	width: fit-content;
 	font-family: Simple-Line-Icons;
