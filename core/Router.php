@@ -104,6 +104,21 @@ class Router
         $object->$myAction();
     }
 
+    function getArea()
+    {
+        return $this->area;
+    }
+
+    function getModule()
+    {
+        return $this->module;
+    }
+
+    function getAction()
+    {
+        return $this->action;
+    }
+
     function getParam()
     {
         return $this->param;

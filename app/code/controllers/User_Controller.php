@@ -127,7 +127,6 @@ class User_Controller extends Base_Controller
     // ham duoc ajax goi den de tim kiem email nguoi dung (kiem email dang ky moi da ton tai trong database hay chua)
     function searchEmail()
     {
-        $this->layout->set('null');
         $result = null;
         $emailPrepareRegister = null;
         $param = getParameter();
@@ -135,7 +134,8 @@ class User_Controller extends Base_Controller
             $emailPrepareRegister = $param[0];
             $result = $this->model->khachhang->searchEmail($emailPrepareRegister);
         }
-        $this->view->load('frontend/null', [
+        $this->layout->set('null');
+        $this->view->load('frontend/searchEmailResult', [
             'result' => $result
         ]);
     }
@@ -267,8 +267,21 @@ class User_Controller extends Base_Controller
     // load page wishlist
     function wishlist()
     {
-
-        $this->view->load('frontend/user/wishlist');
+        $data = $this->model->khachhang->getWishList($_SESSION['idUser']);
+        $wishlist = $data['wishlist'];
+        $arrayIdMobile = explode(",", $wishlist);
+        // loai bo phan tu dau tien khong chua id cua mobile nao ca
+        array_shift($arrayIdMobile);
+        $arrayMobiles = [];
+        for ($i = 0; $i < sizeof($arrayIdMobile); $i++) {
+            $mobile = $this->model->mobile->getById('mobile', 'idMobile', $arrayIdMobile[$i]);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($arrayIdMobile[$i]), []);
+            $arrayMobiles[$i] = $mobile;
+        }
+        $this->view->load('frontend/user/wishlist', [
+            'arrayMobiles' => $arrayMobiles
+        ]);
     }
 
     // load page cart
@@ -292,14 +305,11 @@ class User_Controller extends Base_Controller
         if (!empty($param[0])) {
             $idMobile = $param[0];
             $result = $this->model->khachhang->addToWishList($idMobile);
-
-            if ($result) {
-                echo "<script type='text/javascript'> alert('Them thanh cong')</script>";
-            }
-            $this->view->load('frontend/test');
-        } else {
-            redirect('notfound/index');
         }
+        $this->layout->set('null');
+        $this->view->load('frontend/addWishListResult', [
+            'result' => $result
+        ]);
     }
 
 }

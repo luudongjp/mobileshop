@@ -79,13 +79,13 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                     </a>
                     <div class="action">
                         <button type="button" class="btn-add-cart"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToCart/') . $mobileGiaSocs[$i]['idMobile'] : baseUrl('user/login') ?>'"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileGiaSocs[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
                                 style="display: <?php echo ($mobileGiaSocs[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
                         >
                             Add to cart
                         </button>
                         <button type="button" class="btn-add-wishlist"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToWishList/') . $mobileGiaSocs[$i]['idMobile'] : baseUrl('user/login') ?>'">
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileGiaSocs[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>
@@ -137,13 +137,13 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                     </a>
                     <div class="action">
                         <button type="button" class="btn-add-cart"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToCart/') . $mobileNews[$i]['idMobile'] : baseUrl('user/login') ?>'"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileNews[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
                                 style="display: <?php echo ($mobileNews[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
                         >
                             Add to cart
                         </button>
                         <button type="button" class="btn-add-wishlist"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToWishList/') . $mobileNews[$i]['idMobile'] : baseUrl('user/login') ?>'">
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileNews[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>
@@ -195,13 +195,13 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                     </a>
                     <div class="action">
                         <button type="button" class="btn-add-cart"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToCart/') . $mobileNoiBats[$i]['idMobile'] : baseUrl('user/login') ?>'"
+                                onclick="<?php echo $isSignedIn ? "addToCart({$mobileNoiBats[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
                                 style="display: <?php echo ($mobileNoiBats[$i]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
                         >
                             Add to cart
                         </button>
                         <button type="button" class="btn-add-wishlist"
-                                onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToWishList/') . $mobileNoiBats[$i]['idMobile'] : baseUrl('user/login') ?>'">
+                                onclick="<?php echo $isSignedIn ? "addToWishList({$mobileNoiBats[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                             Add to wishlist
                         </button>
                     </div>

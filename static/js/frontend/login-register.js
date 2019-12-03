@@ -3,11 +3,11 @@ $('.login-email').keyup(function () {
     $('#status-login').css('display', 'none');
     var l_email = $('.login-email').val();
     if (l_email.length > 0) {
-        $('.error').css('display', 'block');
+        $('.login-error').css('display', 'block');
         if (!validateEmail(l_email)) {
-            $('.error').html('Hãy điền email đúng định dạng !');
+            $('.login-error').html('Hãy điền email đúng định dạng !');
         } else {
-            $('.error').html('');
+            $('.login-error').html('');
             $.ajax({
                 url: baseurl + 'user/searchEmail/' + $('.login-email').val(), // gửi ajax đến action
                 type: 'get', // chọn phương thức gửi là get
@@ -25,21 +25,21 @@ $('.login-email').keyup(function () {
             });
         }
     } else {
-        $('.error').css('display', 'none');
+        $('.login-error').css('display', 'none');
     }
 });
 $('.reg-email').keyup(function () {
     var r_email = $('.reg-email').val();
     if (r_email.length > 0) {
-        scrollToAnchor('top-form-login');
-        $('.error').css('display', 'block');
+        // scrollToAnchor('top-form-login');
+        $('.login-error').css('display', 'block');
         if (!validateEmail(r_email)) {
-            $('.error').html('Hãy điền email đúng định dạng !');
+            $('.login-error').html('Hãy điền email đúng định dạng !');
         } else {
-            $('.error').html('');
+            $('.login-error').html('');
         }
     } else {
-        $('.error').css('display', 'none');
+        $('.login-error').css('display', 'none');
     }
 });
 
@@ -99,7 +99,7 @@ $('.login-password').keyup(function () {
         if ($('#lp-valid').val() == 'true') {
             $('#notice').css('display', 'none');
         } else {
-            scrollToAnchor('top-form-login');
+            // scrollToAnchor('top-form-login');
         }
     } else {
         $('#notice').css('display', 'none');
@@ -161,7 +161,7 @@ $('.reg-password').keyup(function () {
         if ($('#rp-valid').val() == 'true') {
             $('#notice').css('display', 'none');
         } else {
-            scrollToAnchor('top-form-login');
+            // scrollToAnchor('top-form-login');
         }
     } else {
         $('#notice').css('display', 'none');
@@ -239,10 +239,6 @@ $('.message a').click(function () {
     );
     $('#notice').css('display', 'none');
     $('#search-email').css('display', 'none');
-    $('.error').css('display', 'none');
+    $('.login-error').css('display', 'none');
 });
 
-function scrollToAnchor(aid) {
-    var aTag = $("a[name='" + aid + "']");
-    $('html,body').animate({scrollTop: aTag.offset().top}, 'slow');
-}

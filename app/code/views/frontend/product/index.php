@@ -97,13 +97,13 @@
 
             <div class="action">
                 <button type="button" class="btn-add-cart"
-                        onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToCart/') . $mobile['idMobile'] : baseUrl('user/login') ?>'"
+                        onclick="<?php echo $isSignedIn ? "addToCart({$mobile['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>"
                         style="display: <?php echo ($mobile['soLuongTrongKho'] > 0) ? 'inline-block' : 'none'; ?>"
                 >
                     Add to cart
                 </button>
                 <button type="button" class="btn-add-wishlist"
-                        onclick="location.href='<?php echo $isSignedIn ? baseUrl('user/addToWishList/') . $mobile['idMobile'] : baseUrl('user/login') ?>'">
+                        onclick="<?php echo $isSignedIn ? "addToWishList({$mobile['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                     Add to wishlist
                 </button>
             </div>

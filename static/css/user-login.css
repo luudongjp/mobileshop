@@ -67,7 +67,7 @@
     display: none;
 }
 
-.login-page .error {
+.login-page .login-error {
     color: red;
     font-size: 14px;
     font-weight: 500;
