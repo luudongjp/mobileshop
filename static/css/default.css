@@ -45,9 +45,26 @@ body .home-page a:hover {
 }
 
 .home-page #header-content .top-header .top-nav .navbar-right .navbar-nav .nav-item-top {
+    position: relative;
     height: 40px;
     width: 60px;
     padding: 10px 0px;
+}
+#wcount{
+    position: absolute;
+    top: 0;
+    left: 45px;
+    color: red;
+    z-index: 100;
+    font-size: 14px;
+}
+#ccount{
+    position: absolute;
+    top: 0;
+    left: 45px;
+    color: red;
+    z-index: 100;
+    font-size: 14px;
 }
 .home-page #header-content .top-header .top-nav .navbar-right .navbar-nav .nav-item-top:hover  .nav-links{
 	color: red;

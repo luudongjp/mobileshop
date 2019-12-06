@@ -1,3 +1,9 @@
+<?php
+$isSignedIn = isset($_SESSION['username']) ? true : false;
+if (!$isSignedIn){
+    redirect('user/login');
+}
+?>
 <div class="change-password-customer">
     <div class="container">
         <div class="row">

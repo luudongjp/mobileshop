@@ -50,10 +50,10 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                         <h3><?php echo $mobileGiaSocs[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileGiaSocs[$i]['giamGia'] > 0) ? formatPrice($mobileGiaSocs[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -108,10 +108,10 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                         <h3><?php echo $mobileNews[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNews[$i]['giamGia'] > 0) ? formatPrice($mobileNews[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -166,10 +166,10 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                         <h3><?php echo $mobileNoiBats[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNoiBats[$i]['giamGia'] > 0) ? formatPrice($mobileNoiBats[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">

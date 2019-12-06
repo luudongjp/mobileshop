@@ -15,6 +15,7 @@ $(document).ready(function () {
             $('.hover-container2').css('display', 'none');
         }
     });
+    updateCountWishlist();
 });
 
 function addToCart(idMobile) {
@@ -36,6 +37,7 @@ function addToWishList(idMobile) {
                         $('.error').css('display', 'none');
                     }, 2000)
                 } else if (result.trim() === '1') {
+                    updateCountWishlist();
                     $('body .home-page').css('opacity', '0.7');
                     $('.home-page .loading').css('display', 'block');
                     setTimeout(function () {
@@ -46,13 +48,57 @@ function addToWishList(idMobile) {
                             setTimeout(function () {
                                     $('.success').css('display', 'none');
                                 },
-                                2000
+                                1500
                             );
                         },
-                        2000
+                        1500
                     );
                 }
             }
+        }
+    });
+}
+
+function deleteItemWishlist(idMobile) {
+    $.ajax({
+        url: baseurl + 'user/deleteItemWishlist/' + idMobile, // gửi ajax đến action
+        type: 'get', // chọn phương thức gửi là get
+        dateType: 'text', // dữ liệu trả về dạng text
+        data: {},
+        success: function (result) {
+            if (result.length >= 1) {
+                if (result.trim() === '0') {
+                    $('#error').html('Xóa thất bại !');
+                    $('.error').css('display', 'block');
+                    setTimeout(function () {
+                        $('.error').css('display', 'none');
+                    }, 2000)
+                } else if (result.trim() === '1') {
+                    updateCountWishlist();
+                    $('#success').html('Xóa thành công !');
+                    $('.item-wl-' + idMobile).remove();
+                    $('.success').css('display', 'block');
+                    setTimeout(function () {
+                        $('.success').css('display', 'none');
+                    }, 1000)
+                }
+            }
+        }
+    });
+}
+
+function updateCountWishlist() {
+    $.ajax({
+        url: baseurl + 'user/updateCountWishlist/', // gửi ajax đến action
+        type: 'get', // chọn phương thức gửi là get
+        dateType: 'text', // dữ liệu trả về dạng text
+        data: {},
+        success: function (result) {
+            setTimeout(function () {
+                    $('#wcount').html("(" + result.trim() + ")");
+                },
+                1000
+            );
         }
     });
 }

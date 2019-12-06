@@ -288,4 +288,40 @@ class Khachhang_Model extends Base_Model
         }
         return $data;
     }
+
+    function updateCountWishlist($idUser)
+    {
+        $data = $this->getWishList($idUser);
+        $count = sizeof(explode(',', $data['wishlist'])) - 1;
+        return $count;
+    }
+
+    function deleteItemWishlist($idMobile, $idUser)
+    {
+        $data = $this->getWishList($idUser);
+        $arrayWishList = explode(",", $data['wishlist']);
+        // tim kiem khoa cua idMobile trong mang
+        $key = array_search($idMobile, $arrayWishList);
+        // xoa idMobile do khoi mang
+        array_splice($arrayWishList, $key, 1);
+        $newWishList = implode(",", $arrayWishList);
+        try {
+            $query = "update {$this->table} set wishlist = :wishlist where idKhachHang = :idKhachHang";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idKhachHang' => $idUser,
+                ':wishlist' => $newWishList
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return 1;
+    }
 }

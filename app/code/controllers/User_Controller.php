@@ -312,4 +312,29 @@ class User_Controller extends Base_Controller
         ]);
     }
 
+    function updateCountWishlist()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $result = $this->model->khachhang->updateCountWishlist($idUser);
+        $this->layout->set('null');
+        $this->view->load('frontend/countWishlist', [
+            'result' => $result
+        ]);
+    }
+
+    function deleteItemWishlist()
+    {
+        $idMobile = null;
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->deleteItemWishlist($idMobile, $idUser);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/deleteWishListResult', [
+            'result' => $result
+        ]);
+    }
+
 }

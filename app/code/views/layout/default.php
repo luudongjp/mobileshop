@@ -9,6 +9,8 @@ $userName = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 $userPhone = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 $userAddress = isset($_SESSION['address']) ? $_SESSION['address'] : '';
 
+
+$isSignedIn = isset($_SESSION['username']) ? true : false;
 echo "<script type='text/javascript'>
         var baseurl = '" . BASE_URL . "';
         var idUser = '" . $idUser . "';
@@ -89,11 +91,13 @@ try {
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/wishlist') : baseUrl('user/login'); ?>">
                                             <div id="customer-wishlist" class="nav-links"></div>
                                         </a>
+                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="wcount"></span>
                                     </li>
                                     <li class="nav-item-top">
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/cart') : baseUrl('user/login'); ?>">
                                             <div id="customer-cart" class="nav-links"></div>
                                         </a>
+                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="ccount"></span>
                                     </li>
                                     <li class="nav-item-top"
                                         style="display: <?php echo ($currentUser != null) ? 'block' : 'none'; ?>">

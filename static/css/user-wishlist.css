@@ -9,5 +9,17 @@
     color: blue;
 }
 .wishlist-page .wishlist-content{
+    margin-top: 20px;
+}
 
+.wishlist-page img{
+    display: inline-block;
+    width: 60px;
+    height: auto;
+}
+.wishlist-page td{
+    /* border-top: 1px solid black; */
+}
+.wishlist-page a:hover{
+    color: blue !important;
 }
