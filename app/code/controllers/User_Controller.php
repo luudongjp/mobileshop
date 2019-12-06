@@ -287,14 +287,35 @@ class User_Controller extends Base_Controller
     // load page cart
     function cart()
     {
-
-        $this->view->load('frontend/user/cart');
+        $result = $this->model->khachhang->getCart();
+        $this->view->load('frontend/user/cart',[
+            'result' => $result
+        ]);
     }
 
     // add a mobile into cart
     function addToCart()
     {
+        $idMobile = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->addToCart($idMobile);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/addToCartResult', [
+            'result' => $result
+        ]);
+    }
 
+    function updateCountCart()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $result = $this->model->khachhang->updateCountCart();
+        $this->layout->set('null');
+        $this->view->load('frontend/countCart', [
+            'result' => $result
+        ]);
     }
 
     // add a mobile into wishlist

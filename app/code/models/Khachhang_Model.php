@@ -324,4 +324,160 @@ class Khachhang_Model extends Base_Model
         }
         return 1;
     }
+
+    // Kiem tra xem ton tai gio hang hay khong (tra ve 1 la ton tai, 0 la khong ton tai)
+    function checkCart()
+    {
+        try {
+            $query = "select * from giohang where khachhang_idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser']
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            $count = $pre->rowCount();
+            if ($count === 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return 1;
+    }
+
+    /** Moi khach hang chi co duy nhat 1 gio hang
+     * 1 gio hang chua nhieu chi tiet gio hang
+     * Tao gio hang cho khach hang (chi lan dau tien)
+     */
+    function createCart()
+    {
+        try {
+            $query = "INSERT INTO giohang (khachhang_idKhachHang, ngaytao, soLuongSP) VALUES (?, ?, ?)";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                $_SESSION['idUser'],
+                date('Y-m-d'),
+                0
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return 1;
+    }
+
+    // Kiem tra xem 1 dien thoai da trong cart detail hay chua ( 0 la chua, 1 la roi)
+    function checkIfMobileOnCart($idMobile)
+    {
+        try {
+            $query = "select * from giohang_has_mobile where giohang_khachhang_idKhachHang = :idUser and mobile_idMobile = :idMobile";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser'],
+                ':idMobile' => $idMobile
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            $count = $pre->rowCount();
+            if ($count === 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 1;
+        }
+        return 0;
+    }
+
+    // Them 1 dien thoai vao gio hang (so luong la 1)
+    function addToCart($idMobile)
+    {
+        // Kiem tra xem co ton tai gio hang khong
+        $isExistedCart = $this->checkCart();
+        // Neu chua ton tai gio hang thi tao moi 1 gio hang cho khach
+        if ($isExistedCart === 0) {
+            $this->createCart();
+        }
+        // Kiem tra xem dien thoai trong gio hang hay chua
+        if ($this->checkIfMobileOnCart($idMobile) === 1) {
+            // Da ton tai trong gio hang
+            return 0;
+        } else {
+            // Them 1 dien thoai vao gio hang
+            try {
+                $query = "INSERT INTO giohang_has_mobile (soLuong, ngayThem, mobile_idMobile,giohang_khachhang_idKhachHang) VALUES (?, ?, ?,?)";
+                $pre = $this->db->prepare($query);
+                $pre->execute([
+                    1,
+                    date("Y-m-d H:i:s"),
+                    $idMobile,
+                    $_SESSION['idUser']
+                ]);
+                $rowCount = $pre->rowCount();
+                if ($rowCount > 0) {
+                    // Them thanh cong
+                    return 1;
+                } else {
+                    // Da ton tai ban ghi
+                    return 0;
+                }
+            } catch (PDOException $e) {
+                echo "<br />" . $e->getMessage();
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    // Lay ve mang cac chi tiet gio hang trong gio hang (moi chi tiet la 1 phan tu cua mang)
+    function getCart()
+    {
+        $data = null;
+        try {
+            $query = "select * from giohang_has_mobile where giohang_khachhang_idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser']
+            ]);
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
+
+    // Tra ve so luong chi tiet gio hang
+    function updateCountCart()
+    {
+        $count = 0;
+        try {
+            $query = "select * from giohang_has_mobile where giohang_khachhang_idKhachHang = :idUser";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idUser' => $_SESSION['idUser']
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            $count = $pre->rowCount();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return $count;
+    }
 }

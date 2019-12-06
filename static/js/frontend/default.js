@@ -15,11 +15,46 @@ $(document).ready(function () {
             $('.hover-container2').css('display', 'none');
         }
     });
+    updateCountCart();
     updateCountWishlist();
 });
 
 function addToCart(idMobile) {
-    alert('add to cart ' + idMobile);
+    $.ajax({
+        url: baseurl + 'user/addToCart/' + idMobile, // gửi ajax đến action
+        type: 'get', // chọn phương thức gửi là get
+        dateType: 'text', // dữ liệu trả về dạng text
+        data: {},
+        success: function (result) {
+            console.log(result)
+            if (result.length >= 1) {
+                if (result.trim() === '0') {
+                    $('#error').html('Sản phẩm đã tồn tại trong giỏ hàng của bạn !');
+                    $('.error').css('display', 'block');
+                    setTimeout(function () {
+                        $('.error').css('display', 'none');
+                    }, 1500)
+                } else if (result.trim() === '1') {
+                    updateCountCart();
+                    $('body .home-page').css('opacity', '0.7');
+                    $('.home-page .loading').css('display', 'block');
+                    setTimeout(function () {
+                            $('body .home-page').css('opacity', '1');
+                            $('.home-page .loading').css('display', 'none');
+                            $('#success').html('Thêm sản phẩm vào giỏ hàng thành công !');
+                            $('.success').css('display', 'block');
+                            setTimeout(function () {
+                                    $('.success').css('display', 'none');
+                                },
+                                1500
+                            );
+                        },
+                        1500
+                    );
+                }
+            }
+        }
+    });
 }
 
 function addToWishList(idMobile) {
@@ -35,7 +70,7 @@ function addToWishList(idMobile) {
                     $('.error').css('display', 'block');
                     setTimeout(function () {
                         $('.error').css('display', 'none');
-                    }, 2000)
+                    }, 1500)
                 } else if (result.trim() === '1') {
                     updateCountWishlist();
                     $('body .home-page').css('opacity', '0.7');
@@ -97,7 +132,23 @@ function updateCountWishlist() {
             setTimeout(function () {
                     $('#wcount').html("(" + result.trim() + ")");
                 },
-                1000
+                800
+            );
+        }
+    });
+}
+
+function updateCountCart() {
+    $.ajax({
+        url: baseurl + 'user/updateCountCart/', // gửi ajax đến action
+        type: 'get', // chọn phương thức gửi là get
+        dateType: 'text', // dữ liệu trả về dạng text
+        data: {},
+        success: function (result) {
+            setTimeout(function () {
+                    $('#ccount').html("(" + result.trim() + ")");
+                },
+                800
             );
         }
     });

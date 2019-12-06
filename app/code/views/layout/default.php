@@ -91,13 +91,13 @@ try {
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/wishlist') : baseUrl('user/login'); ?>">
                                             <div id="customer-wishlist" class="nav-links"></div>
                                         </a>
-                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="wcount"></span>
+                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="wcount">(0)</span>
                                     </li>
                                     <li class="nav-item-top">
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/cart') : baseUrl('user/login'); ?>">
                                             <div id="customer-cart" class="nav-links"></div>
                                         </a>
-                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="ccount"></span>
+                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="ccount">(0)</span>
                                     </li>
                                     <li class="nav-item-top"
                                         style="display: <?php echo ($currentUser != null) ? 'block' : 'none'; ?>">

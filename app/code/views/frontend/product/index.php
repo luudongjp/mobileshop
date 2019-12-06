@@ -1,8 +1,5 @@
 <?php
 $isSignedIn = isset($_SESSION['username']) ? true : false;
-if (!$isSignedIn) {
-    redirect('user/login');
-}
 ?>
 <div class="product-detail">
     <div class="p-wrap">

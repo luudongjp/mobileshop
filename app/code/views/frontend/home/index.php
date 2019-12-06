@@ -102,7 +102,7 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
         </div>
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNews); $i++) : ?>
-                <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
+                <li data-productid="<?php echo $mobileNews[$i]['idMobile'] ?>">
                     <a href="<?php echo baseUrl('product/index/') . $mobileNews[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNews[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileNews[$i]['tenDienThoai']; ?></h3>
@@ -160,7 +160,7 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
         </div>
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNoiBats); $i++) : ?>
-                <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
+                <li data-productid="<?php echo $mobileNoiBats[$i]['idMobile'] ?>">
                     <a href="<?php echo baseUrl('product/index/') . $mobileNoiBats[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNoiBats[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileNoiBats[$i]['tenDienThoai']; ?></h3>
