@@ -5,10 +5,11 @@ class Base_Model extends Core_Model
     /**
      * function to fetch all records of a table
      */
-    function getAll()
+    function getAll($table, $option = [])
     {
         try {
-            $query = "select * from {$this->table}";
+            $clause = isset($option['where']) ? $option['where'] : '1';
+            $query = "select * from {$table} where {$clause} ";
             $pre = $this->db->prepare($query);
             $pre->execute();
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -38,6 +39,32 @@ class Base_Model extends Core_Model
             return null;
         }
         return $data;
+    }
+
+    /**
+     * function to update a record of a table by column
+     */
+    function updateRecord($table, $idName, $idVal, $colName, $colVal)
+    {
+        try {
+            $query = "update {$table} set {$colName} = :colVal where {$idName} = :idVal ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idVal' => $idVal,
+                ':colVal' => $colVal
+            ]);
+            $count = $pre->rowCount();
+            if ($count === 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return 1;
     }
 
     /**

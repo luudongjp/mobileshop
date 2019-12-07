@@ -287,9 +287,17 @@ class User_Controller extends Base_Controller
     // load page cart
     function cart()
     {
-        $result = $this->model->khachhang->getCart();
-        $this->view->load('frontend/user/cart',[
-            'result' => $result
+        $arrayMobiles = [];
+        $arrayItemsCart = $this->model->khachhang->getCart();
+        for ($i = 0; $i < sizeof($arrayItemsCart); $i++) {
+            $mobile = $this->model->mobile->getById('mobile', 'idMobile', $arrayItemsCart[$i]['mobile_idMobile']);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), []);
+            $arrayMobiles[$i] = $mobile;
+        }
+        $this->view->load('frontend/user/cart', [
+            'arrayMobiles' => $arrayMobiles,
+            'arrayItemsCart' => $arrayItemsCart
         ]);
     }
 

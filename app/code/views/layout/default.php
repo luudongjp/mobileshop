@@ -351,6 +351,7 @@ try {
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/login-register.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-password.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-cart.js"></script>
 
 </body>
 
