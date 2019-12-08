@@ -380,5 +380,22 @@ class User_Controller extends Base_Controller
         ]);
     }
 
+    // Hien thi page dat hang cho khach dien dia chi
+    function order(){
+        $currentUser = $this->model->khachhang->getById('khachhang','idKhachHang', $_SESSION['idUser']);
+        $allCartItems = $this->model->khachhang->getCart();
+        $arrayMobiles = [];
+        for ($i = 0; $i < sizeof($allCartItems); $i++){
+            $mobile = $this->model->khachhang->getById('mobile', 'idMobile', $allCartItems[$i]['mobile_idMobile']);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), []);
+            $mobile['number-on-cart'] = $allCartItems[$i]['soLuong'];
+            array_push($arrayMobiles, $mobile);
+        }
+        $this->view->load('frontend/user/order',[
+            'user' => $currentUser,
+            'arrayMobiles' => $arrayMobiles
+        ]);
+    }
 
 }

@@ -5,13 +5,14 @@ class Base_Model extends Core_Model
     /**
      * function to fetch all records of a table
      */
-    function getAll($table, $option = [])
+    function getAll($table, $colName, $colVal)
     {
         try {
-            $clause = isset($option['where']) ? $option['where'] : '1';
-            $query = "select * from {$table} where {$clause} ";
+            $query = "SELECT * FROM {$table} WHERE {$colName} = :colVal ";
             $pre = $this->db->prepare($query);
-            $pre->execute();
+            $pre->execute([
+                ':colVal' => $colVal
+            ]);
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);
             $pre->closeCursor();
         } catch (PDOException $e) {
@@ -65,6 +66,30 @@ class Base_Model extends Core_Model
             return 0;
         }
         return 1;
+    }
+
+    /**
+     * delete all records that has special value of a column (can be id or not)
+     */
+    function deleteAll($table, $colName, $colVal)
+    {
+        try {
+            $query = "DELETE FROM {$table} WHERE {$colName} = :colVal";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':colVal' => $colVal
+            ]);
+            $count = $pre->rowCount();
+            if ($count === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return true;
     }
 
     /**

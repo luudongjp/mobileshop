@@ -60,6 +60,7 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-change-password.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-wishlist.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-cart.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-order.css"/>
     <title>Mobile Shop</title>
 </head>
 

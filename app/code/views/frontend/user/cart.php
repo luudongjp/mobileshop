@@ -62,6 +62,7 @@ $totalPrice = 0;
                     <?php endfor; ?>
                 </table>
                 <button class="btn btn-info updateGioHang"
+                        style="display: <?php echo ($totalPrice > 0) ? 'block' : 'none'; ?>"
                         onclick="updateGlobalCart()"
                 >
                     Cập nhật giỏ hàng
@@ -77,11 +78,16 @@ $totalPrice = 0;
                     </tr>
                     <tr>
                         <th>
-                            <button class="btn btn-success datHang">Đặt hàng</button>
+                            <button class="btn btn-success datHang"
+                                    style="display: <?php echo ($totalPrice > 0) ? 'block' : 'none'; ?>"
+                                    onclick="<?php echo "location.href='" . baseUrl('user/order') . "'"; ?>"
+                            >Đặt hàng
+                            </button>
                             <br/>
                             <button class="btn btn-primary tiepTuc"
-                                    onclick="<?php echo "location.href='".baseUrl('')."'"?>"
-                            >Tiếp tục mua sắm</button>
+                                    onclick="<?php echo "location.href='" . baseUrl('') . "'" ?>"
+                            >Tiếp tục mua sắm
+                            </button>
                         </th>
                     </tr>
                 </table>
