@@ -44,10 +44,10 @@ class Khachhang_Model extends Base_Model
     public function insertAccount($username, $email, $password, $activation, $status, $phone, $address)
     {
         try {
-            $query = "INSERT INTO {$this->table} (tenKhachHang, soDienThoai, email, matKhau, activation, status, ngayTao, diaChi)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO {$this->table} (tenKhachHang, soDienThoai, email, matKhau, activation, status, ngayTao, diaChi, wishlist)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $pre = $this->db->prepare($query);
-            $pre->execute([$username, $phone, $email, $password, $activation, $status, date('Y-m-d'), $address]);
+            $pre->execute([$username, $phone, $email, $password, $activation, $status, date('Y-m-d'), $address, '']);
         } catch (PDOException $e) {
             echo "<br />" . $e->getMessage();
             return false;
@@ -479,5 +479,27 @@ class Khachhang_Model extends Base_Model
             return 0;
         }
         return $count;
+    }
+
+    // Delete Item detail from cart
+    function deleteItemCart($idDetail)
+    {
+        try {
+            $query = "delete from giohang_has_mobile where id = :id ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':id' => $idDetail
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return 1;
     }
 }

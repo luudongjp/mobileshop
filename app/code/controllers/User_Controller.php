@@ -366,4 +366,19 @@ class User_Controller extends Base_Controller
         ]);
     }
 
+    function deleteItemCart()
+    {
+        $idDetail = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idDetail = $param[0];
+            $result = $this->model->khachhang->deleteItemCart($idDetail);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/deleteCartResult', [
+            'result' => $result
+        ]);
+    }
+
+
 }

@@ -26,7 +26,6 @@ function addToCart(idMobile) {
         dateType: 'text', // dữ liệu trả về dạng text
         data: {},
         success: function (result) {
-            console.log(result)
             if (result.length >= 1) {
                 if (result.trim() === '0') {
                     $('#error').html('Sản phẩm đã tồn tại trong giỏ hàng của bạn !');

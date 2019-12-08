@@ -26,7 +26,7 @@ $totalPrice = 0;
                     </tr>
                     <?php for ($i = 0; $i < sizeof($arrayMobiles); $i++) : ?>
                         <?php $soLuong = $arrayItemsCart[$i]['soLuong']; ?>
-                        <tr class="item-wc-<?php echo $arrayMobiles[$i]['idMobile']; ?>">
+                        <tr class="item-wc-<?php echo $arrayItemsCart[$i]['id']; ?>">
                             <td>
                                 <img class="image" src="<?php echo BASE_URL . $arrayMobiles[$i][0]; ?>"
                                      alt="image-mobile">
@@ -54,7 +54,7 @@ $totalPrice = 0;
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-add-wishlist"
-                                        onclick="<?php echo $isSignedIn ? "deleteItemCart({$arrayMobiles[$i]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
+                                        onclick="<?php echo $isSignedIn ? "deleteItemCart({$arrayItemsCart[$i]['id']})" : "location.href='" . baseUrl('user/login') . "'" ?>">
                                     Delete
                                 </button>
                             </td>
@@ -79,7 +79,9 @@ $totalPrice = 0;
                         <th>
                             <button class="btn btn-success datHang">Đặt hàng</button>
                             <br/>
-                            <button class="btn btn-primary tiepTuc">Tiếp tục mua sắm</button>
+                            <button class="btn btn-primary tiepTuc"
+                                    onclick="<?php echo "location.href='".baseUrl('')."'"?>"
+                            >Tiếp tục mua sắm</button>
                         </th>
                     </tr>
                 </table>
