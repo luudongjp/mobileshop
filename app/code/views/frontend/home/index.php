@@ -70,10 +70,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileGiaSocs[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileGiaSocs[$i]['cameraSau'] . ", Selfie: " . $mobileGiaSocs[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileGiaSocs[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileGiaSocs[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileGiaSocs[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileGiaSocs[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>
@@ -128,10 +135,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileNews[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileNews[$i]['cameraSau'] . ", Selfie: " . $mobileNews[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileNews[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileNews[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileNews[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileNews[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>
@@ -186,10 +200,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileNoiBats[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileNoiBats[$i]['cameraSau'] . ", Selfie: " . $mobileNoiBats[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileNoiBats[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileNoiBats[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileNoiBats[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileNoiBats[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>

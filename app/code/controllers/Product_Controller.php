@@ -1,4 +1,5 @@
 <?php
+
 class Product_Controller extends Base_Controller
 {
     function index()
@@ -26,6 +27,37 @@ class Product_Controller extends Base_Controller
         $this->view->load('frontend/product/index', [
             'mobile' => $mobile,
             'images' => $images
+        ]);
+    }
+
+    public function search()
+    {
+        $key = isset($_POST['search']) ? $_POST['search'] : null;
+        if ($key == null) {
+            redirect('');
+        } else {
+            // Tìm kiếm tên sản phẩm theo key là tên sản phẩm hoặc tên
+            $arrayProducts = $this->model->mobile->search($key);
+            // Link mobile and it's images ( base image and other images)
+            foreach ($arrayProducts as &$mobile) {
+                linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+            }
+            $this->view->load('frontend/product/searchResult', [
+                'key' => $key,
+                'arrayProducts' => $arrayProducts
+            ]);
+        }
+    }
+
+    public function list()
+    {
+        $arrayProducts = $this->model->mobile->getAll('mobile', null, null);
+        // Link mobile and it's images ( base image and other images)
+        foreach ($arrayProducts as &$mobile) {
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+        }
+        $this->view->load('frontend/product/grid', [
+            'arrayProducts' => $arrayProducts
         ]);
     }
 }

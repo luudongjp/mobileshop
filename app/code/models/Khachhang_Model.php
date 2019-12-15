@@ -502,4 +502,68 @@ class Khachhang_Model extends Base_Model
         }
         return 1;
     }
+
+    function saveCodeChangePass($emailForgetPass, $codeChangePass)
+    {
+        try {
+            $query = "UPDATE khachhang SET codeChangePass = :code WHERE email = :emailKH";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':emailKH' => $emailForgetPass,
+                ':code' => $codeChangePass
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    // Ham tim kiem ban ghi chua codeChangePass, neu tim thay, tra ve 1 ban ghi khach hang
+    public function findCode($codeChangePass)
+    {
+        try {
+            $query = "select * from {$this->table} where codeChangePass = :code";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':code' => $codeChangePass
+            ]);
+            $data = $pre->fetch(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
+
+    // Luu mat khau moi cua khach hang
+    public function saveNewPassword($emailNeedChangePass, $newPassword)
+    {
+        $newHashPass = password_hash($newPassword . $emailNeedChangePass, PASSWORD_DEFAULT);
+        try {
+            $query = "UPDATE khachhang SET matKhau = :newMK WHERE email = :emailKH";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':emailKH' => $emailNeedChangePass,
+                ':newMK' => $newHashPass
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }

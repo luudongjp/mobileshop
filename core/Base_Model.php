@@ -8,11 +8,17 @@ class Base_Model extends Core_Model
     function getAll($table, $colName, $colVal)
     {
         try {
-            $query = "SELECT * FROM {$table} WHERE {$colName} = :colVal ";
-            $pre = $this->db->prepare($query);
-            $pre->execute([
-                ':colVal' => $colVal
-            ]);
+            if (isset($colName) && isset($colVal)) {
+                $query = "SELECT * FROM {$table} WHERE {$colName} = :colVal ";
+                $pre = $this->db->prepare($query);
+                $pre->execute([
+                    ':colVal' => $colVal
+                ]);
+            } else {
+                $query = "SELECT * FROM {$table} WHERE 1 ";
+                $pre = $this->db->prepare($query);
+                $pre->execute();
+            }
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);
             $pre->closeCursor();
         } catch (PDOException $e) {

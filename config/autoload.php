@@ -21,6 +21,7 @@ return [
         'url',
         'image',
         'mail',
-        'price'
+        'price',
+        'product'
     ]
 ];

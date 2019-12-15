@@ -40,7 +40,7 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
             </div>
             <figure class="p-character">
                 <span>
-                    Màu sắc: <?php echo $mobile['mauSac'] ?>
+                    Màu sắc: <span style='font-weight: bold;margin-top: -3px;padding: 0 !important; color: green; display: inline-block; font-style: italic;'><?php echo $mobile['mauSac'] ?></span>
                 </span>
                 <span>
                     CPU: <?php echo $mobile['CPU'] ?>

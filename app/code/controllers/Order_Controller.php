@@ -50,7 +50,7 @@ class Order_Controller extends Base_Controller
         $content .= "Xin chân thành cảm ơn !";
         $nTo = $_SESSION['username'];
         $mTo = $_SESSION['email'];
-        $diachicc = "";
+        $diachicc = "shopnamhoang@gmail.com";
         $mailSuccess = sendMail($title, $content, $nTo, $mTo, $diachicc);
         // Chuyển tới trang thông báo đặt hàng thành công
         redirect('order/success');

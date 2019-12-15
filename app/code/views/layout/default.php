@@ -61,6 +61,10 @@ try {
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-wishlist.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-cart.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-order.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>search-result.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>grid.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-forgetPass.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>user-enter-new-pass.css"/>
     <title>Mobile Shop</title>
 </head>
 
@@ -92,13 +96,15 @@ try {
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/wishlist') : baseUrl('user/login'); ?>">
                                             <div id="customer-wishlist" class="nav-links"></div>
                                         </a>
-                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="wcount">(0)</span>
+                                        <span style="display: <?php echo $isSignedIn ? 'block' : 'none'; ?>"
+                                              id="wcount">(0)</span>
                                     </li>
                                     <li class="nav-item-top">
                                         <a href="<?php echo ($currentUser != null) ? baseUrl('user/cart') : baseUrl('user/login'); ?>">
                                             <div id="customer-cart" class="nav-links"></div>
                                         </a>
-                                        <span style="display: <?php echo $isSignedIn ? 'block':'none'; ?>" id="ccount">(0)</span>
+                                        <span style="display: <?php echo $isSignedIn ? 'block' : 'none'; ?>"
+                                              id="ccount">(0)</span>
                                     </li>
                                     <li class="nav-item-top"
                                         style="display: <?php echo ($currentUser != null) ? 'block' : 'none'; ?>">
@@ -123,7 +129,7 @@ try {
                             </a>
                         </div>
                         <div class="col col-md-4">
-                            <form action="">
+                            <form method="post" action="<?php echo baseUrl('product/search'); ?>">
                                 <div class="search">
                                     <input type="text" name="search" placeholder="Bạn tìm gì..."/>
                                     <div class="button-search">
@@ -135,18 +141,18 @@ try {
                             </form>
                         </div>
                         <div class="col col-md-2">
+                            <div class="menu-item">
+                                <a href="<?php echo baseUrl(''); ?>">SẢN PHẨM MỚI</a>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
                             <div class="menu-item hover1">
-                                <a href="">HÃNG SẢN XUẤT</a>
+                                <a href="<?php echo baseUrl(''); ?>">HÃNG SẢN XUẤT</a>
                             </div>
                         </div>
                         <div class="col col-md-2">
                             <div class="menu-item hover2">
-                                <a href="">MỨC GIÁ</a>
-                            </div>
-                        </div>
-                        <div class="col col-md-2">
-                            <div class="menu-item">
-                                <a href="">SẢN PHẨM MỚI</a>
+                                <a href="<?php echo baseUrl(''); ?>">MỨC GIÁ</a>
                             </div>
                         </div>
                     </div>
@@ -165,28 +171,28 @@ try {
                     <div class="col col-md-3">
                         <?php for ($i = 0; $i <= $number_nsx_1_col - 1; $i++) : ?>
                             <div class="item item-<?php echo $result[$i]['idNhaSanXuat']; ?>">
-                                <a href=""><?php echo $result[$i]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$i]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($j = $number_nsx_1_col; $j <= 2 * $number_nsx_1_col - 1; $j++) : ?>
                             <div class="item item-<?php echo $result[$j]['idNhaSanXuat']; ?>">
-                                <a href=""><?php echo $result[$j]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$j]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($k = 2 * $number_nsx_1_col; $k <= 3 * $number_nsx_1_col - 1; $k++) : ?>
                             <div class="item item-<?php echo $result[$k]['idNhaSanXuat']; ?>">
-                                <a href=""><?php echo $result[$k]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$k]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($v = 3 * $number_nsx_1_col; $v <= 4 * $number_nsx_1_col - 1; $v++) : ?>
                             <div class="item item-<?php echo $result[$v]['idNhaSanXuat']; ?>">
-                                <a href=""><?php echo $result[$v]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$v]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
@@ -198,32 +204,32 @@ try {
                 <div class="row hover-mucgia">
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Dưới 1 triệu</a>
+                            <a href="<?php echo baseUrl(''); ?>">Dưới 1 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Từ 1 đến 3 triệu </a>
+                            <a href="<?php echo baseUrl(''); ?>">Từ 1 đến 3 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Từ 3 đến 6 triệu</a>
+                            <a href="<?php echo baseUrl(''); ?>">Từ 3 đến 6 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Từ 6 đến 10 triệu </a>
+                            <a href="<?php echo baseUrl(''); ?>">Từ 6 đến 10 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Từ 10 đến 15 triệu </a>
+                            <a href="<?php echo baseUrl(''); ?>">Từ 10 đến 15 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="">Trên 15 triệu </a>
+                            <a href="<?php echo baseUrl(''); ?>">Trên 15 triệu </a>
                         </div>
                     </div>
                 </div>
@@ -353,6 +359,7 @@ try {
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-edit-info.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-password.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-cart.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>frontend/user-change-newpass.js"></script>
 
 </body>
 

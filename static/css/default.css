@@ -590,6 +590,10 @@ body .home-page a:hover {
     border-radius: 50px;
 }
 
+.home-page .user-forgetPass a:hover{
+    color: blue !important;
+}
+
 @media (min-width: 1440px) {
     .home-page #header-content .hover-container1,
     .home-page #header-content .hover-container2 {

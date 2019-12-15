@@ -4,7 +4,7 @@ if (!$isSignedIn) {
     redirect('user/login');
 }
 echo "<script type='text/javascript'>
-var 
+
 </script>";
 ?>
 <div class="wishlist-page">
