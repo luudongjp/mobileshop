@@ -3,7 +3,6 @@ function cancelEditAccount() {
 }
 
 $(document).ready(function (e) {
-    console.log(status)
     if (typeof (email) !== 'undefined') {
         $('#ten').val(name);
         $('#email').val(email);

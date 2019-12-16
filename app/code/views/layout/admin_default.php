@@ -76,7 +76,7 @@ echo "<script type='text/javascript'>
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?php echo baseUrl(''); ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Bảng điều khiển</span></a>
             </li>
@@ -96,10 +96,12 @@ echo "<script type='text/javascript'>
                 <div id="collapsePages1" class="collapse" aria-labelledby="headingPages"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="login.html">Banner</a>
-                        <a class="collapse-item" href="register.html">Sản phẩm giá sốc</a>
-                        <a class="collapse-item" href="forgot-password.html">Sản phẩm mới</a>
-                        <a class="collapse-item" href="404.html">Sản phẩm nổi bật</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('banner/list'); ?>">Banner</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('product/listBasePrice'); ?>">Sản phẩm giá
+                            sốc</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('product/listNew'); ?>">Sản phẩm mới</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('product/listExpress'); ?>">Sản phẩm nổi
+                            bật</a>
                     </div>
                 </div>
             </li>

@@ -99,9 +99,24 @@ class Base_Model extends Core_Model
     }
 
     /**
-     * function to upload image
+     * function to edit image
      */
-    public function uploadImage($param = [])
+    public function editImage($param = [])
+    {
+        $tenAnh = $param[2];
+        $url = $param[4];
+        $logo = $param[1];
+        $idMobile = $param[0];
+        try {
+            $query = "insert into {$this->table} (tenAnh, url, moTa, logo, Mobile_idMobile) 
+            VALUES ( '{$tenAnh}', '{$url}', '' , {$logo}, {$idMobile})";
+            $this->db->exec($query);
+        } catch (PDOException $e) {
+            echo "<br>" . $e->getMessage();
+        }
+    }
+
+    public function uploadImageMobile($param = [])
     {
         $tenAnh = $param[2];
         $url = $param[4];
