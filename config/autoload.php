@@ -20,6 +20,8 @@ return [
     'helper' => [
         'url',
         'image',
-        'mail'
+        'mail',
+        'price',
+        'product'
     ]
 ];

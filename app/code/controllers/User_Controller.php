@@ -61,6 +61,7 @@ class User_Controller extends Base_Controller
             } else {
                 // Sai mat khau
                 $_SESSION['wrong-password'] = 'Mật khẩu của bạn không đúng !';
+                $_SESSION['namnam'] = 'Mật khẩu của bạn không đúng !';
                 redirect('user/login');
             }
 
@@ -287,14 +288,43 @@ class User_Controller extends Base_Controller
     // load page cart
     function cart()
     {
-
-        $this->view->load('frontend/user/cart');
+        $arrayMobiles = [];
+        $arrayItemsCart = $this->model->khachhang->getCart();
+        for ($i = 0; $i < sizeof($arrayItemsCart); $i++) {
+            $mobile = $this->model->mobile->getById('mobile', 'idMobile', $arrayItemsCart[$i]['mobile_idMobile']);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), []);
+            $arrayMobiles[$i] = $mobile;
+        }
+        $this->view->load('frontend/user/cart', [
+            'arrayMobiles' => $arrayMobiles,
+            'arrayItemsCart' => $arrayItemsCart
+        ]);
     }
 
     // add a mobile into cart
     function addToCart()
     {
+        $idMobile = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->addToCart($idMobile);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/addToCartResult', [
+            'result' => $result
+        ]);
+    }
 
+    function updateCountCart()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $result = $this->model->khachhang->updateCountCart();
+        $this->layout->set('null');
+        $this->view->load('frontend/countCart', [
+            'result' => $result
+        ]);
     }
 
     // add a mobile into wishlist
@@ -312,4 +342,150 @@ class User_Controller extends Base_Controller
         ]);
     }
 
+    function updateCountWishlist()
+    {
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $result = $this->model->khachhang->updateCountWishlist($idUser);
+        $this->layout->set('null');
+        $this->view->load('frontend/countWishlist', [
+            'result' => $result
+        ]);
+    }
+
+    function deleteItemWishlist()
+    {
+        $idMobile = null;
+        $idUser = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : '';
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idMobile = $param[0];
+            $result = $this->model->khachhang->deleteItemWishlist($idMobile, $idUser);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/deleteWishListResult', [
+            'result' => $result
+        ]);
+    }
+
+    function deleteItemCart()
+    {
+        $idDetail = null;
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idDetail = $param[0];
+            $result = $this->model->khachhang->deleteItemCart($idDetail);
+        }
+        $this->layout->set('null');
+        $this->view->load('frontend/deleteCartResult', [
+            'result' => $result
+        ]);
+    }
+
+    // Hien thi page dat hang cho khach dien dia chi
+    function order()
+    {
+        $currentUser = $this->model->khachhang->getById('khachhang', 'idKhachHang', $_SESSION['idUser']);
+        $allCartItems = $this->model->khachhang->getCart();
+        $arrayMobiles = [];
+        for ($i = 0; $i < sizeof($allCartItems); $i++) {
+            $mobile = $this->model->khachhang->getById('mobile', 'idMobile', $allCartItems[$i]['mobile_idMobile']);
+            // only need base image so other image we passed an empty array []
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), []);
+            $mobile['number-on-cart'] = $allCartItems[$i]['soLuong'];
+            array_push($arrayMobiles, $mobile);
+        }
+        $this->view->load('frontend/user/order', [
+            'user' => $currentUser,
+            'arrayMobiles' => $arrayMobiles
+        ]);
+    }
+
+    function forgetPass()
+    {
+        $this->view->load('frontend/user/forgetPass');
+    }
+
+    function executeForgetPass()
+    {
+        $emailForgetPass = isset($_POST['email-forget']) ? addslashes(trim($_POST['email-forget'])) : '';
+        // Tim kiem email trong database
+        $existAccount = $this->model->khachhang->searchAccount($emailForgetPass);
+        if ($existAccount != null) {
+            // Generate code change pass
+            $codeChangePass = password_hash(strval(date('Y-m-d H:i:s')) . $emailForgetPass, PASSWORD_DEFAULT);
+            // Luu code change pass vao co so du lieu cua nguoi dung
+            $saveCode = $this->model->khachhang->saveCodeChangePass($emailForgetPass, $codeChangePass);
+            if ($saveCode) {
+                // Gui mail cho khach hang
+                $linkVerify = baseUrl('user/verifyChangePass/') . $codeChangePass;
+                $title = "[ Change Customer Password | MobileShop ]";
+                $content = "";
+                $content .= "Xin chào " . $existAccount['tenKhachHang'] . ",<br /><br />";
+                $content .= "Vui lòng kích vào nút bên dưới để thay đổi mật khẩu cho tài khoản của bạn trên website " . BASE_URL . ".<br />";
+                $content .= "<span style='background-color:#07c;margin-top:15px;width: 200px;height: 40px;display:block;border-radius: 40px;cursor: pointer;'>
+                            <span style='display:block;padding:10px;cursor: pointer;'>
+                                <a href='{$linkVerify}' target='_blank' style='color:white;'>
+                                    ĐỔI MẬT KHẨU NGAY
+                                </a>
+                            </span>
+                          </span>";
+                $nTo = $existAccount['tenKhachHang'];
+                $mTo = $existAccount['email'];
+                $diachicc = "";
+                $mailSuccess = sendMail($title, $content, $nTo, $mTo, $diachicc);
+                if ($mailSuccess) {
+                    $_SESSION['mail-changePass-success'] = "Kiểm tra hộp thư của bạn để thay đổi mật khẩu !";
+                } else {
+                    $_SESSION['mail-changePass-fail'] = "Gửi mail đổi mật khẩu thất bại !";
+                }
+            }
+        } else {
+            $_SESSION['mail-changePass-notexist'] = "Không tồn tại tài khoản !";
+        }
+        redirect('user/forgetPass');
+    }
+
+    public function verifyChangePass()
+    {
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $codeChangePass = $param[0];
+            // Tim kiem codeChangePass trong co so du lieu, neu tim thay thi tra ve 1 object khach hang
+            $resutl = $this->model->khachhang->findCode($codeChangePass);
+            if ($resutl != null) {
+                // Chuyen den trang cho nguoi dung nhap mat khau moi
+                $_SESSION['email_need_change_pass'] = $resutl['email'];
+                redirect('user/enterNewPass');
+            } else {
+                redirect('user/invalidLink');
+            }
+        }
+    }
+
+    public function enterNewPass()
+    {
+        $this->view->load('frontend/user/enterNewPass');
+    }
+
+    public function invalidLink()
+    {
+        $this->view->load('frontend/user/invalidLink');
+    }
+
+    // Luu mat khau moi cua khach hang
+    public function saveNewPass()
+    {
+        $emailNeedChangePass = isset($_SESSION['email_need_change_pass']) ? $_SESSION['email_need_change_pass'] : '';
+        $newPassword = isset($_POST['f-newpass']) ? $_POST['f-newpass'] : '';
+        if (($emailNeedChangePass != null) && ($newPassword != null)) {
+            $resutl = $this->model->khachhang->saveNewPassword($emailNeedChangePass, $newPassword);
+            if ($resutl == true) {
+                $_SESSION['forget-changepass-success'] = "Đổi mật khẩu mới thành công !";
+                unset($_SESSION['email_need_change_pass']);
+            } else {
+                $_SESSION['forget-changepass-fail'] = "Đổi mật khẩu mới thất bại !";
+            }
+            redirect('user/enterNewPass');
+        }
+    }
 }

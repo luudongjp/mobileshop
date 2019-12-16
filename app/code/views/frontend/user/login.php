@@ -47,6 +47,9 @@ echo "<script>
                 <p id="number" class="invalid">Một <b>chữ số</b></p>
                 <p id="length" class="invalid">Ít nhất <b>8 ký tự</b></p>
             </div>
+            <div class="user-forgetPass">
+                <a href="<?php echo baseUrl('user/forgetPass'); ?>">Quên mật khẩu ?</a>
+            </div>
         </div>
     </div>
 

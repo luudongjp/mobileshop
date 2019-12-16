@@ -50,10 +50,10 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                         <h3><?php echo $mobileGiaSocs[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileGiaSocs[$i]['giaBan'] - $mobileGiaSocs[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileGiaSocs[$i]['giamGia'] > 0) ? $mobileGiaSocs[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileGiaSocs[$i]['giamGia'] > 0) ? formatPrice($mobileGiaSocs[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -70,10 +70,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileGiaSocs[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileGiaSocs[$i]['cameraSau'] . ", Selfie: " . $mobileGiaSocs[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileGiaSocs[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileGiaSocs[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileGiaSocs[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileGiaSocs[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>
@@ -102,16 +109,16 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
         </div>
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNews); $i++) : ?>
-                <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
+                <li data-productid="<?php echo $mobileNews[$i]['idMobile'] ?>">
                     <a href="<?php echo baseUrl('product/index/') . $mobileNews[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNews[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileNews[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileNews[$i]['giaBan'] - $mobileNews[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileNews[$i]['giamGia'] > 0) ? $mobileNews[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNews[$i]['giamGia'] > 0) ? formatPrice($mobileNews[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -128,10 +135,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileNews[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileNews[$i]['cameraSau'] . ", Selfie: " . $mobileNews[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileNews[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileNews[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileNews[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileNews[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>
@@ -160,16 +174,16 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
         </div>
         <ul class="list-product">
             <?php for ($i = 0; $i < sizeof($mobileNoiBats); $i++) : ?>
-                <li data-productid="<?php echo $mobileGiaSocs[$i]['idMobile'] ?>">
+                <li data-productid="<?php echo $mobileNoiBats[$i]['idMobile'] ?>">
                     <a href="<?php echo baseUrl('product/index/') . $mobileNoiBats[$i]['idMobile']; ?>">
                         <img src="<?php echo BASE_URL . $mobileNoiBats[$i][0] ?>" alt="logo-mobile">
                         <h3><?php echo $mobileNoiBats[$i]['tenDienThoai']; ?></h3>
                         <div class="price">
                             <strong>
-                                <?php echo $mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia'] ?>đ.
+                                <?php echo formatPrice($mobileNoiBats[$i]['giaBan'] - $mobileNoiBats[$i]['giamGia']) ?>
                             </strong>
                             <span>
-                                <?php echo(($mobileNoiBats[$i]['giamGia'] > 0) ? $mobileNoiBats[$i]['giaBan'] . 'đ.' : ''); ?>
+                                <?php echo(($mobileNoiBats[$i]['giamGia'] > 0) ? formatPrice($mobileNoiBats[$i]['giaBan']) : ''); ?>
                             </span>
                         </div>
                         <figure class="bginfo">
@@ -186,10 +200,17 @@ $isSignedIn = isset($_SESSION['username']) ? true : false;
                                 RAM: <?php echo $mobileNoiBats[$i]['RAM'] ?>GB
                             </span>
                             <span>
-                                Camera: <?php echo $mobileNoiBats[$i]['cameraSau'] . ", Selfie: " . $mobileNoiBats[$i]['cameraTruoc'] ?>
+                                Camera: <?php echo $mobileNoiBats[$i]['cameraSau']; ?>
+                            </span>
+                            <span>
+                                Selfie: <?php echo $mobileNoiBats[$i]['cameraTruoc']; ?>
                             </span>
                             <span>
                                 PIN: <?php echo $mobileNoiBats[$i]['dungLuongPin']; ?> mAh
+                            </span>
+                            <span>
+                                Màu sắc: <span
+                                        style='font-weight: bold;color: green; display: inline-block; font-style: italic;'><?php echo $mobileNoiBats[$i]['mauSac']; ?></span>
                             </span>
                         </figure>
                     </a>

@@ -6,7 +6,7 @@ function sendMail($title, $content, $nTo, $mTo, $diachicc = '')
     require_once(BASE_PATH . '/core/helpers/class.phpmailer.php');
     $nFrom = 'MobileShop_Namhoang';
     $mFrom = 'hoangnamtb95@gmail.com';  //dia chi email cua ban 
-    $mPass = 'vietnamvodich1';       //mat khau email cua ban
+    $mPass = 'Vietnamvodich1';       //mat khau email cua ban
     $mail             = new PHPMailer();
     $body             = $content;
     $mail->IsSMTP();

@@ -2,6 +2,9 @@
 
 function baseUrl($uri)
 {
+    if (getArea() === 1) {
+        return ADMIN_BASE_URL . $uri;
+    }
     return BASE_URL . $uri;
 }
 

@@ -1,7 +1,7 @@
+<?php
+$isSignedIn = isset($_SESSION['username']) ? true : false;
+?>
 <div class="product-detail">
-    <?php
-    $isSignedIn = isset($_SESSION['username']) ? true : false;
-    ?>
     <div class="p-wrap">
         <div class="p-image">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -40,7 +40,7 @@
             </div>
             <figure class="p-character">
                 <span>
-                    Màu sắc: <?php echo $mobile['mauSac'] ?>
+                    Màu sắc: <span style='font-weight: bold;margin-top: -3px;padding: 0 !important; color: green; display: inline-block; font-style: italic;'><?php echo $mobile['mauSac'] ?></span>
                 </span>
                 <span>
                     CPU: <?php echo $mobile['CPU'] ?>
@@ -88,10 +88,10 @@
             </figure>
             <div class="price">
                 <strong>
-                    <?php echo $mobile['giaBan'] - $mobile['giamGia'] ?>đ.
+                    <?php echo formatPrice($mobile['giaBan'] - $mobile['giamGia']) ?>
                 </strong>
                 <span>
-                    <?php echo(($mobile['giamGia'] > 0) ? $mobile['giaBan'] . 'đ.' : ''); ?>
+                    <?php echo(($mobile['giamGia'] > 0) ? formatPrice($mobile['giaBan']) : ''); ?>
                 </span>
             </div>
 

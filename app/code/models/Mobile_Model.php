@@ -25,7 +25,7 @@ class Mobile_Model extends Base_Model
         $pre->closeCursor();
         return $data;
     }
-    
+
     // Dien thoai noi bat co idTheloai = 6
     function getMobileNoiBat()
     {
@@ -34,6 +34,26 @@ class Mobile_Model extends Base_Model
         $pre->execute();
         $data = $pre->fetchAll(PDO::FETCH_ASSOC);
         $pre->closeCursor();
+        return $data;
+    }
+
+    /**
+     * @param $key tên sản phẩm hoặc tên nhà sản xuất
+     */
+    public function search($key)
+    {
+        $data = null;
+        try {
+            $query = "SELECT DISTINCT mobile.* FROM mobile, nhasanxuat WHERE mobile.tenDienThoai LIKE '%" . $key . "%' OR ( mobile.NhaSanXuat_idNhaSanXuat = nhasanxuat.idNhaSanXuat AND nhasanxuat.tenNhaSX LIKE '%" . $key . "%')";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            return $data;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
         return $data;
     }
 }
