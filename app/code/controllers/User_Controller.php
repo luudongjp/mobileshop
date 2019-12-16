@@ -61,7 +61,6 @@ class User_Controller extends Base_Controller
             } else {
                 // Sai mat khau
                 $_SESSION['wrong-password'] = 'Mật khẩu của bạn không đúng !';
-                $_SESSION['namnam'] = 'Mật khẩu của bạn không đúng !';
                 redirect('user/login');
             }
 
