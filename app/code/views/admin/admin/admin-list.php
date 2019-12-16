@@ -14,7 +14,7 @@
             <?php for ($i = 0; $i < sizeof($admins); $i++):
                 switch ($admins[$i]['status']) {
                     case 2:
-                        $tatus = "Bị vô hiệu hóa";
+                        $status = "Bị vô hiệu hóa";
                         break;
                     case 0 :
                         $status = "Chưa kích hoạt";

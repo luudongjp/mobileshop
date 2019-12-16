@@ -16,7 +16,6 @@ class Nhanvien_Model extends Base_Model
         $chucvu = addslashes(trim($_POST['r-chucvu'] ?? ''));
         $ghichu = addslashes(trim($_POST['r-ghichu'] ?? ''));
         $status = addslashes(trim($_POST['r-status'] ?? ''));
-        echo $username;
         // Mật khẩu mặc định: Mobileshop123
         $password = password_hash('MobileShop123' . $email, PASSWORD_DEFAULT);
         $result = $this->insertAdminAccount($username, $gioitinh, $ngaysinh, $diachi, $cmnd, $dienthoai, $chucvu, $ghichu, $email, $password, $status);
@@ -30,14 +29,14 @@ class Nhanvien_Model extends Base_Model
         $date = strtotime($ngaysinh);
         $ngaysinh = date('Y-m-d', $date);
         switch ($status) {
-            case 1:
-                $status = "Đã kích hoạt";
+            case "Đã kích hoạt":
+                $status = 1;
                 break;
-            case 0:
-                $status = "Chưa kích hoạt";
+            case "Chưa kích hoạt":
+                $status = 0;
                 break;
-            case 2:
-                $status = "Bị vô hiệu hóa";
+            case "Bị vô hiệu hóa":
+                $status = 2;
                 break;
         }
         try {
