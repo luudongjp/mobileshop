@@ -7,6 +7,9 @@ echo "<script type='text/javascript'>
         <h4>
             QUẢN LÝ BANNER TRANG HOME
         </h4>
+        <div class="success-delete">
+            <?php echo(isset($_SESSION['deleteBannerSuccess']) ? $_SESSION['deleteBannerSuccess'] : ''); ?>
+        </div>
         <div class="success-update">
             <?php echo(isset($_SESSION['updateVisibleBannerSuccess']) ? $_SESSION['updateVisibleBannerSuccess'] : ''); ?>
         </div>
@@ -19,6 +22,7 @@ echo "<script type='text/javascript'>
                         <th class="c3">Hình ảnh</th>
                         <th class="c4">Đường dẫn</th>
                         <th class="c5">Hiển thị trên homepage</th>
+                        <th class="c6">Hành động</th>
                     </tr>
                     <?php for ($i = 0; $i < sizeof($banners); $i++):
                         $linkImage = BASE_URL . $banners[$i]['url'];
@@ -39,12 +43,18 @@ echo "<script type='text/javascript'>
                             <td class="c4"><?php echo $banners[$i]['url']; ?></td>
                             <td class="c5"><input class="cb-<?php echo $i; ?>" type="checkbox"
                                                   name="visibleOnHome<?php echo $banners[$i]['idBanner']; ?>"></td>
+                            <td class="c6">
+                                <button class="btn btn-danger"
+                                        onclick="<?php echo "deleteBanner(" . $banners[$i]['idBanner'] . ")"; ?>">
+                                    Xóa
+                                </button>
+                            </td>
                         </tr>
                     <?php endfor; ?>
                 </table>
-                <button type="button" class="btn btn-success">
+                <a href="<?php echo baseUrl('banner/createNew'); ?>" class="btn btn-success">
                     Thêm mới
-                </button>
+                </a>
                 <button type="submit" class="btn btn-info">
                     Cập nhật
                 </button>
@@ -54,5 +64,8 @@ echo "<script type='text/javascript'>
 <?php
 if (isset($_SESSION['updateVisibleBannerSuccess'])) {
     unset($_SESSION['updateVisibleBannerSuccess']);
+}
+if (isset($_SESSION['deleteBannerSuccess'])) {
+    unset($_SESSION['deleteBannerSuccess']);
 }
 ?>

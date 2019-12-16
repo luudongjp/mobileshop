@@ -23,3 +23,15 @@ $('#formUpdageBanner').submit(function (e) {
         alert('Banner homepage không được bỏ trống !');
     }
 })
+
+function deleteBanner(idBanner) {
+    $.ajax({
+        url: baseurlAdmin + 'banner/deleteBanner/' + idBanner, // gửi ajax đến action
+        type: 'get', // chọn phương thức gửi là get
+        dateType: 'text', // dữ liệu trả về dạng text
+        data: {},
+        success: function (result) {
+        }
+    });
+
+}

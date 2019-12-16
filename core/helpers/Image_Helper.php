@@ -10,7 +10,26 @@ function linkImageAndMobile(&$mobile = [], $logoImage = [], $otherImage = [])
     }
 }
 
-function uploadImageMobile()
+function uploadImage($file, $targetDir)
+{
+    $target_dir = $_SERVER['DOCUMENT_ROOT'] . $targetDir;
+    if (isset($file)) {
+        $target_file = $target_dir . basename($file);
+        if ($file['error'] <= 0) {
+            if (file_exists($target_file)) {
+                $error = "da ton tai file";
+            } else {
+                if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                    $error = "upload thanh cong";
+                } else {
+                    $error = "upload that bai";
+                };
+            }
+        }
+    }
+}
+
+function uploadAImage()
 {
     // Get parameters
     $param = [];
@@ -31,7 +50,7 @@ function uploadImageMobile()
         $image = $_FILES['image']['name'];
         array_push($param, $image);
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
-        if($_FILES['image']['error']<=0){
+        if ($_FILES['image']['error'] <= 0) {
             if (file_exists($target_file)) {
                 $error = "da ton tai file";
             } else {
@@ -43,7 +62,7 @@ function uploadImageMobile()
             }
         }
         array_push($param, $error);
-        array_push($param, $link.$_FILES['image']['name']);
+        array_push($param, $link . $_FILES['image']['name']);
     }
     // Insert into database
 //    $this->model->hinhanh->uploadImage($param);
