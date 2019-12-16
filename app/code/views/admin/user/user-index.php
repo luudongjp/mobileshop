@@ -5,7 +5,7 @@ if (!$isSignedIn) {
 }
 $statusAccount = null;
 switch ($_SESSION['statusNV']) {
-    case -1 :
+    case 2 :
         $statusAccount = "Bị vô hiệu hóa";
         break;
     case 0 :

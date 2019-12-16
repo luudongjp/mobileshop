@@ -49,6 +49,7 @@ echo "<script type='text/javascript'>
     <link rel="icon" type="image/png" href="<?php echo ADMIN_IMAGE_PATH; ?>../logo/mobileshop.png">
     <!-- Custom styles for this template-->
     <link rel="stylesheet" type="text/css" href="<?php echo ADMIN_CSS_PATH; ?>default-layout.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo ADMIN_CSS_PATH; ?>user-edit.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo ADMIN_CSS_PATH . $css_file; ?>"/>
 
 </head>
@@ -189,10 +190,10 @@ echo "<script type='text/javascript'>
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?php echo baseUrl('user/register'); ?>">Tạo tài khoản mới</a>
-                        <a class="collapse-item" href="login.html">Quản trị viên</a>
-                        <a class="collapse-item" href="register.html">Nhân viên bán hàng</a>
-                        <a class="collapse-item" href="forgot-password.html">Nhân viên thủ kho</a>
-                        <a class="collapse-item" href="404.html">Nhân viên giao hàng</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('admin/list'); ?>">Quản trị viên</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('seller/list'); ?>">Nhân viên bán hàng</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('stocker/list'); ?>">Nhân viên thủ kho</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('shipper/list'); ?>">Nhân viên giao hàng</a>
                     </div>
                 </div>
             </li>
@@ -379,7 +380,7 @@ echo "<script type='text/javascript'>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             <a target="_blank" class="dropdown-item" href="<?php echo BASE_URL; ?>">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <i class="fas fa-sitemap fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Website
                             </a>
                             <div class="dropdown-divider"></div>
@@ -389,7 +390,7 @@ echo "<script type='text/javascript'>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?php echo baseUrl('user/changePassword'); ?>">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Đổi mật khẩu
                             </a>
                             <div class="dropdown-divider"></div>
@@ -449,7 +450,7 @@ echo "<script type='text/javascript'>
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Nhấn nút "Đăng xuất" để kết thúc phiên làm việc của ban !.</div>
+            <div class="modal-body">Nhấn nút "Đăng xuất" để kết thúc phiên làm việc của bạn !</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
                 <a class="btn btn-primary" href="<?php echo baseUrl('user/logout'); ?>">Đăng xuất</a>
@@ -464,6 +465,7 @@ echo "<script type='text/javascript'>
 <script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>bootstrap/jquery.easing.min.js"></script>
 <!-- Custom page JavaScript-->
 <script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>sb-admin-2.min.js"></script>
+<script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>user-edit.js"></script>
 <script type="text/javascript" src="<?php echo ADMIN_JS_PATH . $js_file; ?>"></script>
 
 </body>

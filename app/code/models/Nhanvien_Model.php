@@ -29,10 +29,16 @@ class Nhanvien_Model extends Base_Model
         $id = null;
         $date = strtotime($ngaysinh);
         $ngaysinh = date('Y-m-d', $date);
-        if ($status === "Đã kích hoạt") {
-            $status = 1;
-        } else {
-            $status = 0;
+        switch ($status) {
+            case 1:
+                $status = "Đã kích hoạt";
+                break;
+            case 0:
+                $status = "Chưa kích hoạt";
+                break;
+            case 2:
+                $status = "Bị vô hiệu hóa";
+                break;
         }
         try {
             $query = "INSERT INTO {$this->table} (tenNhanVien, gioiTinh, ngaySinh, queQuan, cmnd, soDienThoai, chucvu, ghiChu, email, matKhau, status)
@@ -207,5 +213,69 @@ class Nhanvien_Model extends Base_Model
             return false;
         }
         return true;
+    }
+
+    // Luu thong tin chinh sua tai khoan nhan vien, do admin thuc hien
+    public function updateAdminAccount()
+    {
+        $username = addslashes(trim($_POST['edit-username'] ?? ''));
+        $email = addslashes(trim($_POST['edit-email'] ?? ''));
+        $gioitinh = addslashes(trim($_POST['edit-gioitinh'] ?? ''));
+        $ngaysinh = addslashes(trim($_POST['edit-ngaysinh'] ?? ''));
+        $diachi = addslashes(trim($_POST['edit-address'] ?? ''));
+        $cmnd = addslashes(trim($_POST['edit-cmnd'] ?? ''));
+        $dienthoai = addslashes(trim($_POST['edit-phone'] ?? ''));
+        $chucvu = addslashes(trim($_POST['edit-chucvu'] ?? ''));
+        $ghichu = addslashes(trim($_POST['edit-ghichu'] ?? ''));
+        $status = addslashes(trim($_POST['edit-status'] ?? ''));
+        $result = $this->updateDataAccount($username, $gioitinh, $ngaysinh, $diachi, $cmnd, $dienthoai, $chucvu, $ghichu, $email, $status);
+        return $result;
+    }
+
+    // Cap nhat lai thong tin tai khoan vao co so du lieu
+    public function updateDataAccount($username, $gioitinh, $ngaysinh, $diachi, $cmnd, $dienthoai, $chucvu, $ghichu, $email, $status)
+    {
+        $id = null;
+        $date = strtotime($ngaysinh);
+        $ngaysinh = date('Y-m-d', $date);
+        switch ($status) {
+            case "Đã kích hoạt":
+                $status = 1;
+                break;
+            case "Chưa kích hoạt":
+                $status = 0;
+                break;
+            case "Bị vô hiệu hóa":
+                $status = 2;
+                break;
+        }
+        try {
+            $query = "UPDATE {$this->table} SET tenNhanVien = :ten, gioiTinh = :sex, ngaySinh = :birthday, queQuan = :address, cmnd = :cmnd, soDienThoai = :phone, chucvu = :role, ghiChu = :note, status = :status WHERE email = :email ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':email' => $email,
+                ':ten' => $username,
+                ':sex' => $gioitinh,
+                ':birthday' => $ngaysinh,
+                ':address' => $diachi,
+                ':cmnd' => $cmnd,
+                ':phone' => $dienthoai,
+                ':role' => $chucvu,
+                ':note' => $ghichu,
+                ':status' => $status
+            ]);
+            $count = $pre->rowCount();
+            if ($count == 0) {
+                // Chua thay doi thong tin
+                return false;
+            } else {
+                // Cap nhat thanh cong
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return false;
     }
 }

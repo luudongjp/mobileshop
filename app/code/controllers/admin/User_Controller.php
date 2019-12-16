@@ -35,9 +35,9 @@ class User_Controller extends Base_Controller
             if ($validateAccount) {
                 // Dung mat khau
                 // Neu account bi vo hieu hoa thi thong bao
-                if ($account['status'] === -1) {
+                if ($account['status'] === "2") {
                     redirect('user/noticeDisable');
-                } else if ($account['status'] === 0) {
+                } else if ($account['status'] === "0") {
                     // Neu account chua duoc kich hoat thi chuyen sang trang thong bao can kich hoat tai khoan
                     redirect('user/noticeNotActive');
                 } else {
@@ -68,7 +68,8 @@ class User_Controller extends Base_Controller
     {
         $message = null;
         $message = "Tài khoản của bạn đã bị vô hiệu hóa !. <br />";
-        $this->view->load('frontend/user/noticeDisable', [
+        $this->layout->set('null');
+        $this->view->load('admin/user/user-noticeDisable', [
             'message' => $message
         ]);
     }
@@ -77,7 +78,8 @@ class User_Controller extends Base_Controller
     {
         $message = null;
         $message = "Tài khoản của bạn chưa được kích hoạt !. <br />";
-        $this->view->load('frontend/user/noticeNotActive', [
+        $this->layout->set('null');
+        $this->view->load('admin/user/user-noticeNotActive', [
             'message' => $message
         ]);
     }
@@ -289,4 +291,17 @@ class User_Controller extends Base_Controller
         }
     }
 
+    // Luu thong tin chinh sua tai khoan nhan vien, do admin thuc hien
+    public function updateAccount()
+    {
+        $idNV = isset($_POST['idNV']) ? $_POST['idNV'] : '';
+        $controller = isset($_POST['controller']) ? $_POST['controller'] : '';
+        $resultUpdate = $this->model->nhanvien->updateAdminAccount();
+        if ($resultUpdate) {
+            $_SESSION['successUpdateNVInfo'] = "Cập nhật thông tin tài khoản thành viên thành công !";
+        } else {
+            $_SESSION['failUpdateNVInfo'] = "Bạn chưa thay đổi gì !";
+        }
+        redirect($controller . '/index/' . $idNV);
+    }
 }

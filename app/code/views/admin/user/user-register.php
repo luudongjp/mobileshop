@@ -73,6 +73,7 @@
                     <select name="r-status" id="">
                         <option>Đã kích hoạt</option>
                         <option>Chưa kích hoạt</option>
+                        <option>Bị vô hiệu hóa</option>
                     </select>
                 </td>
             </tr>
