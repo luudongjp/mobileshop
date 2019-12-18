@@ -8,7 +8,7 @@ $css_file = getModule() . '-' . getAction() . '.css';
 $js_file = getModule() . '-' . getAction() . '.js';
 $isSignedIn = isset($_SESSION['isSignedIn']) ? true : false;
 $chucVu = $_SESSION['chucvuNV'] ?? null;
-$textChucVu = nul;
+$textChucVu = null;
 switch ($chucVu) {
     case 'Quản trị viên':
         $textChucVu = "Quản trị viên";
