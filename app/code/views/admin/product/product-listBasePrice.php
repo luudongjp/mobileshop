@@ -1,44 +1,51 @@
-﻿    <div id="manage-banner">
+﻿<?php
+echo "<script type='text/javascript'>
+        var numberBasePrice = '" . sizeof($listBasePrice) . "';
+      </script>";
+    //   pretty($listBasePrice);
+?>
+    <div id="manage-baseprice">
         <h4>
             QUẢN LÝ SẢN PHẨM GIÁ SỐC
         </h4>
         <div class="success-update">
-            <?php echo(isset($_SESSION['updateActBasePriceSuccess']) ? $_SESSION['updateActBasePriceSuccess'] : ''); ?>
+            <?php echo(isset($_SESSION['updateVisibleBasePriceSuccess']) ? $_SESSION['updateVisibleBasePriceSuccess'] : ''); ?>
         </div>
         <div class="content">
-            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateActBasePrice'); ?>">
+            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateVisibleBasePrice'); ?>">
                 <table class="table">
                     <tr>
                         <th class="c1">STT</th>
-                        <th class="c2">Tên sản phẩm</th>
+                        <th class="c2">Tên điện thoại</th>
                         <th class="c3">Hình ảnh</th>
-                        <th class="c6">Màu sắc</th>
+                        <th class="c4">Bộ nhớ</th>
                         <th class="c4">Giảm giá</th>
-                        <th class="c4">Giá bán</th>
-                        <th class="c5">Hiển thị</th>
+                        <th class="c5">Giá bán</th>
+                        <th class="c6">Hiển thị</th>
                     </tr>
-                    <?php 
-                    $i = 0;
-                        foreach($arrayMobiles as $item):?>
-                            <tr>
-                            <td class="c1"><?php echo $i = $i+1; ?></td>
-                            <td class="c2"><?php echo $item['tenDienThoai']; ?></td>
-                            <td class="c3"><img class="image" src="<?php echo BASE_URL . $item[0]; ?>" alt="image-mobile" height = "100px"></td>
-                            <td class="c6"><?php echo $item['mauSac']; ?></td>
-                            <td class="c4"><?php echo formatPrice($item['giamGia']); ?></td>
-                            <td class="c4"><?php echo formatPrice($item['giaBan']); ?></td>
-                            <td class="c5">
-                            <?php if($item['visibleOnHome'] == 1){
-                                echo '<input type="checkbox" checked />';
-                            } else{
-                                echo '<input type="checkbox" />';
-                            }
-                            ?>
-                            </td>
+                    <?php for ($i = 0; $i < sizeof($listBasePrice); $i++):
+                        if ($listBasePrice[$i]['visibleOnHome'] == "1") {
+                            echo "<script type='text/javascript'>
+                                var visibleOnHome" . $i . " = 1;
+                            </script>";
+                        } else {
+                            echo "<script type='text/javascript'>
+                                var visibleOnHome" . $i . " = 0;
+                            </script>";
+                        }
+                        ?>
+                        <tr>
+                            <td class="c1"><?php echo $i+1; ?></td>
+                            <td class="c2"><?php echo $listBasePrice[$i]['tenDienThoai']; ?></td>
+                            <td class="c3"><img src="<?php echo BASE_URL.$listBasePrice[$i][0]; ?>" alt=""></td>
+                            <td class="c4"><?php echo $listBasePrice[$i]['boNhoTrong']; ?>Gb</td>
+                            <td class="c4"><?php echo formatPrice($listBasePrice[$i]['giamGia']); ?></td>
+                            <td class="c5"><?php echo formatPrice($listBasePrice[$i]['giaBan']); ?></td>
+                            <td class="c6"><input class="cb-<?php echo $i; ?>" type="checkbox"
+                                                  name="visibleOnHomeBase<?php echo $listBasePrice[$i]['idMobile']; ?>"></td>
                             
                         </tr>
-                        <?php endforeach; ?>
-                    
+                    <?php endfor; ?>
                 </table>
                 <button type="submit" class="btn btn-info">
                     Cập nhật
@@ -47,7 +54,7 @@
         </div>
     </div>
 <?php
-if (isset($_SESSION['updateActBasePriceSuccess'])) {
-    unset($_SESSION['updateActBasePriceSuccess']);
+if (isset($_SESSION['updateVisibleBasePriceSuccess'])) {
+    unset($_SESSION['updateVisibleBasePriceSuccess']);
 }
 ?>

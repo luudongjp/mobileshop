@@ -1,49 +1,52 @@
 <?php
 echo "<script type='text/javascript'>
-        var numberBasePrice = '" . sizeof($arrayMobiles) . "';
+        var numberExpress = '" . sizeof($listExpress) . "';
       </script>";
 ?>
-    <div id="manage-banner">
+    <div id="manage-express">
         <h4>
             QUẢN LÝ SẢN PHẨM NỔI BẬT
         </h4>
         <div class="success-update">
-            <?php echo(isset($_SESSION['updateActBasePriceSuccess']) ? $_SESSION['updateActBasePriceSuccess'] : ''); ?>
+            <?php echo(isset($_SESSION['updateVisibleExpressSuccess']) ? $_SESSION['updateVisibleExpressSuccess'] : ''); ?>
         </div>
         <div class="content">
-            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateActBasePrice'); ?>">
+            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateVisibleExpress'); ?>">
                 <table class="table">
                     <tr>
                         <th class="c1">STT</th>
-                        <th class="c2">Tên sản phẩm</th>
+                        <th class="c2">Tên điện thoại</th>
                         <th class="c3">Hình ảnh</th>
-                        <th class="c6">Màu sắc</th>
-                        <th class="c6">Bộ nhớ trong</th>
-                        <th class="c4">Giá nhập</th>
-                        <th class="c4">Giá bán</th>
-                        <th class="c5">Hiển thị</th>
+                        <th class="c3">Màu sắc</th>
+                        <th class="c4">Bộ nhớ</th>
+                        <th class="c4">Giảm nhập</th>
+                        <th class="c5">Giá bán</th>
+                        <th class="c6">Hiển thị</th>
                     </tr>
-                    <?php 
-                    $i = 0;
-                        foreach($arrayMobiles as $item):?>
-                            <tr>
-                            <td class="c1"><?php echo $i = $i+1; ?></td>
-                            <td class="c2"><?php echo $item['tenDienThoai']; ?></td>
-                            <td class="c3"><img class="image" src="<?php echo BASE_URL . $item[0]; ?>" alt="image-mobile" height = "100px"></td>
-                            <td class="c6"><?php echo $item['mauSac']; ?></td>
-                            <td class="c6"><?php echo $item['boNhoTrong']; ?>Gb</td>
-                            <td class="c4"><?php echo formatPrice($item['giaNhap']); ?></td>
-                            <td class="c4"><?php echo formatPrice($item['giaBan']); ?></td>
-                            <td class="c5"><?php if($item['visibleOnHome'] == 1){
-                                echo '<input type="checkbox" checked />';
-                            } else{
-                                echo '<input type="checkbox" />';
-                            }
-                            ?></td>
+                    <?php for ($i = 0; $i < sizeof($listExpress); $i++):
+                        if ($listExpress[$i]['visibleOnHome'] == "1") {
+                            echo "<script type='text/javascript'>
+                                var visibleOnHome" . $i . " = 1;
+                            </script>";
+                        } else {
+                            echo "<script type='text/javascript'>
+                                var visibleOnHome" . $i . " = 0;
+                            </script>";
+                        }
+                        ?>
+                        <tr>
+                            <td class="c1"><?php echo $i+1; ?></td>
+                            <td class="c2"><?php echo $listExpress[$i]['tenDienThoai']; ?></td>
+                            <td class="c3"><img src="<?php echo BASE_URL.$listExpress[$i][0]; ?>" alt=""></td>
+                            <td class="c4"><?php echo $listExpress[$i]['boNhoTrong']; ?>Gb</td>
+                            <td class="c4"><?php echo $listExpress[$i]['mauSac']; ?>Gb</td>
+                            <td class="c4"><?php echo formatPrice($listExpress[$i]['giaNhap']); ?></td>
+                            <td class="c5"><?php echo formatPrice($listExpress[$i]['giaBan']); ?></td>
+                            <td class="c6"><input class="cb-<?php echo $i; ?>" type="checkbox"
+                                                  name="visibleOnHomeBase<?php echo $listExpress[$i]['idMobile']; ?>"></td>
                             
                         </tr>
-                        <?php endforeach; ?>
-                    
+                    <?php endfor; ?>
                 </table>
                 <button type="submit" class="btn btn-info">
                     Cập nhật
@@ -52,7 +55,10 @@ echo "<script type='text/javascript'>
         </div>
     </div>
 <?php
-if (isset($_SESSION['updateActBasePriceSuccess'])) {
-    unset($_SESSION['updateActBasePriceSuccess']);
+if (isset($_SESSION['updateVisibleBannerSuccess'])) {
+    unset($_SESSION['updateVisibleBannerSuccess']);
+}
+if (isset($_SESSION['deleteBannerSuccess'])) {
+    unset($_SESSION['deleteBannerSuccess']);
 }
 ?>

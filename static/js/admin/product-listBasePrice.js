@@ -1,9 +1,11 @@
 $(document).ready(function (e) {
-    if($item['visibleOnHome'] == 1){
-        $('check-in').prop('checked', true);
-        debugger
-    } else{
-        $('check-in').prop('checked', false);
+    for (let i = 0; i < numberBasePrice; i++) {
+        let stringVar = "visibleOnHome".concat(i)
+        if (eval(stringVar) == 1) {
+            $('.cb-' + i).prop('checked', true);
+        } else {
+            $('.cb-' + i).prop('checked', false);
+        }
     }
 })
 

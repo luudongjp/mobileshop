@@ -108,7 +108,7 @@ class Base_Model extends Core_Model
     }
 
     function getDataNew($table){   
-        $query = "select * from {$table} where Theloai_idTheloai = 2 and visibleOnHome = 1 order by idMobile limit 8";
+        $query = "select * from {$table} where Theloai_idTheloai = 2 order by idMobile";
         $pre = $this->db->prepare($query);
         $pre->execute();
         $data = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -117,7 +117,7 @@ class Base_Model extends Core_Model
     }
 
     function getDataExpress($table){   
-        $query = "select * from {$table} where Theloai_idTheloai = 6 limit 8";
+        $query = "select * from {$table} where Theloai_idTheloai = 6";
         $pre = $this->db->prepare($query);
         $pre->execute();
         $data = $pre->fetchAll(PDO::FETCH_ASSOC);
