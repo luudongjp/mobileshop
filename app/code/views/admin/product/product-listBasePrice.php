@@ -1,9 +1,4 @@
-﻿<?php
-echo "<script type='text/javascript'>
-        var numberBasePrice = '" . sizeof($arrayMobiles) . "';
-      </script>";
-?>
-    <div id="manage-banner">
+﻿    <div id="manage-banner">
         <h4>
             QUẢN LÝ SẢN PHẨM GIÁ SỐC
         </h4>
@@ -19,6 +14,7 @@ echo "<script type='text/javascript'>
                         <th class="c3">Hình ảnh</th>
                         <th class="c6">Màu sắc</th>
                         <th class="c4">Giảm giá</th>
+                        <th class="c4">Giá bán</th>
                         <th class="c5">Hiển thị</th>
                     </tr>
                     <?php 
@@ -30,7 +26,15 @@ echo "<script type='text/javascript'>
                             <td class="c3"><img class="image" src="<?php echo BASE_URL . $item[0]; ?>" alt="image-mobile" height = "100px"></td>
                             <td class="c6"><?php echo $item['mauSac']; ?></td>
                             <td class="c4"><?php echo formatPrice($item['giamGia']); ?></td>
-                            <td class="c5"><input type="checkbox" value="<?php echo $item['visibleOnHome'] ?>"/></td>
+                            <td class="c4"><?php echo formatPrice($item['giaBan']); ?></td>
+                            <td class="c5">
+                            <?php if($item['visibleOnHome'] == 1){
+                                echo '<input type="checkbox" checked />';
+                            } else{
+                                echo '<input type="checkbox" />';
+                            }
+                            ?>
+                            </td>
                             
                         </tr>
                         <?php endforeach; ?>

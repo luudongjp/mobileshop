@@ -34,7 +34,12 @@ echo "<script type='text/javascript'>
                             <td class="c6"><?php echo $item['boNhoTrong']; ?>Gb</td>
                             <td class="c4"><?php echo formatPrice($item['giaNhap']); ?></td>
                             <td class="c4"><?php echo formatPrice($item['giaBan']); ?></td>
-                            <td class="c5"><input type="checkbox" value="<?php echo $item['visibleOnHome'] ?>"/></td>
+                            <td class="c5"><?php if($item['visibleOnHome'] == 1){
+                                echo '<input type="checkbox" checked />';
+                            } else{
+                                echo '<input type="checkbox" />';
+                            }
+                            ?></td>
                             
                         </tr>
                         <?php endforeach; ?>
