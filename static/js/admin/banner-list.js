@@ -25,7 +25,6 @@ $('#formUpdageBanner').submit(function (e) {
 })
 
 function deleteBanner(idBanner) {
-    chiều mai có gì e hỏi luôn, uh
     $.ajax({
         url: baseurlAdmin + 'banner/deleteBanner/' + idBanner, // gửi ajax đến action
         type: 'get', // chọn phương thức gửi là get

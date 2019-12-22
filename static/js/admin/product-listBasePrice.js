@@ -9,9 +9,9 @@ $(document).ready(function (e) {
     }
 })
 
-$('#formUpdageBanner').submit(function (e) {
+$('#formUpdageBasePrice').submit(function (e) {
     var countEmpty = 0;
-    for (var j = 0; j < numberBanners; j++) {
+    for (var j = 0; j < numberBasePrice; j++) {
         if ($('.cb-' + j).prop('checked') == true) {
             countEmpty += 1;
         } else {
@@ -20,6 +20,6 @@ $('#formUpdageBanner').submit(function (e) {
     }
     if (countEmpty == 0) {
         e.preventDefault();
-        alert('Banner homepage không được bỏ trống !');
+        alert('Sản phẩm giá sốc homepage không được bỏ trống !');
     }
 })

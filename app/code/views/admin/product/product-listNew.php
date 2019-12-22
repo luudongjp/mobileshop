@@ -11,7 +11,7 @@ echo "<script type='text/javascript'>
             <?php echo(isset($_SESSION['updateVisibleNewSuccess']) ? $_SESSION['updateVisibleNewSuccess'] : ''); ?>
         </div>
         <div class="content">
-            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateVisibleNew'); ?>">
+            <form id="formUpdageNew" method="post" action="<?php echo baseUrl('product/updateVisibleNew'); ?>">
                 <table class="table">
                     <tr>
                         <th class="c1">STT</th>
@@ -38,8 +38,8 @@ echo "<script type='text/javascript'>
                             <td class="c1"><?php echo $i+1; ?></td>
                             <td class="c2"><?php echo $listNew[$i]['tenDienThoai']; ?></td>
                             <td class="c3"><img src="<?php echo BASE_URL.$listNew[$i][0]; ?>" alt=""></td>
+                            <td class="c4"><?php echo $listNew[$i]['mauSac']; ?></td>
                             <td class="c4"><?php echo $listNew[$i]['boNhoTrong']; ?>Gb</td>
-                            <td class="c4"><?php echo $listNew[$i]['mauSac']; ?>Gb</td>
                             <td class="c4"><?php echo formatPrice($listNew[$i]['giaNhap']); ?></td>
                             <td class="c5"><?php echo formatPrice($listNew[$i]['giaBan']); ?></td>
                             <td class="c6"><input class="cb-<?php echo $i; ?>" type="checkbox"
@@ -55,10 +55,7 @@ echo "<script type='text/javascript'>
         </div>
     </div>
 <?php
-if (isset($_SESSION['updateVisibleBannerSuccess'])) {
-    unset($_SESSION['updateVisibleBannerSuccess']);
-}
-if (isset($_SESSION['deleteBannerSuccess'])) {
-    unset($_SESSION['deleteBannerSuccess']);
+if (isset($_SESSION['updateVisibleNewSuccess'])) {
+    unset($_SESSION['updateVisibleNewSuccess']);
 }
 ?>

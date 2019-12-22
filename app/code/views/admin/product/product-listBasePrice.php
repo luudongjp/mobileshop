@@ -12,7 +12,7 @@ echo "<script type='text/javascript'>
             <?php echo(isset($_SESSION['updateVisibleBasePriceSuccess']) ? $_SESSION['updateVisibleBasePriceSuccess'] : ''); ?>
         </div>
         <div class="content">
-            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateVisibleBasePrice'); ?>">
+            <form id="formUpdageBasePrice" method="post" action="<?php echo baseUrl('product/updateVisibleBasePrice'); ?>">
                 <table class="table">
                     <tr>
                         <th class="c1">STT</th>

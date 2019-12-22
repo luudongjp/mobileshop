@@ -11,7 +11,7 @@ echo "<script type='text/javascript'>
             <?php echo(isset($_SESSION['updateVisibleExpressSuccess']) ? $_SESSION['updateVisibleExpressSuccess'] : ''); ?>
         </div>
         <div class="content">
-            <form id="formUpdageBanner" method="post" action="<?php echo baseUrl('product/updateVisibleExpress'); ?>">
+            <form id="formUpdageExpress" method="post" action="<?php echo baseUrl('product/updateVisibleExpress'); ?>">
                 <table class="table">
                     <tr>
                         <th class="c1">STT</th>
@@ -55,10 +55,7 @@ echo "<script type='text/javascript'>
         </div>
     </div>
 <?php
-if (isset($_SESSION['updateVisibleBannerSuccess'])) {
-    unset($_SESSION['updateVisibleBannerSuccess']);
-}
-if (isset($_SESSION['deleteBannerSuccess'])) {
-    unset($_SESSION['deleteBannerSuccess']);
+if (isset($_SESSION['updateVisibleExpressSuccess'])) {
+    unset($_SESSION['updateVisibleExpressSuccess']);
 }
 ?>
