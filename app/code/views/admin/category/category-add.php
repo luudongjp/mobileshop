@@ -9,7 +9,7 @@
                 <tr>
                     <th class="col1">Tên thể loại</th>
                     <th class="detail">
-                        <input type="text" class="nameCategory" name="ten" autocomplete="off" required>
+                        <input type="text" class="nameCategory" name="ten" autocomplete="off" placeholder="Tên thể loại" required>
                         <div class="searchCategory"></div>
                     </th>
                 </tr>
