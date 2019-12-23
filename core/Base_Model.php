@@ -98,6 +98,33 @@ class Base_Model extends Core_Model
         return true;
     }
 
+    function getData($table){   
+        $query = "select * from {$table} where giamGia >=1000000";
+        $pre = $this->db->prepare($query);
+        $pre->execute();
+        $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+        $pre->closeCursor();
+        return $data;
+    }
+
+    function getDataNew($table){   
+        $query = "select * from {$table} where Theloai_idTheloai = 2 order by idMobile";
+        $pre = $this->db->prepare($query);
+        $pre->execute();
+        $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+        $pre->closeCursor();
+        return $data;
+    }
+
+    function getDataExpress($table){   
+        $query = "select * from {$table} where Theloai_idTheloai = 6";
+        $pre = $this->db->prepare($query);
+        $pre->execute();
+        $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+        $pre->closeCursor();
+        return $data;
+    }
+
     /**
      * function to edit image
      */
