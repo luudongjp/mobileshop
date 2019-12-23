@@ -18,6 +18,7 @@ return [
         'theloai'
     ],
     'helper' => [
+        'database',
         'url',
         'image',
         'mail',

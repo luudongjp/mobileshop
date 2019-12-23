@@ -14,7 +14,7 @@ $('.login-email').keyup(function () {
                 dateType: 'text', // dữ liệu trả về dạng text
                 data: {},
                 success: function (result) {
-                    if ((result.length > 1) && (result.trim() === $('.login-email').val().trim())) {
+                    if ((result.length > 1) && (result.toLowerCase().trim() === $('.login-email').val().toLowerCase().trim())) {
                         $('#status-login').html('');
                         $('#status-login').css('display', 'none');
                     } else {
@@ -181,7 +181,7 @@ $('.reg-email').keyup(function () {
         dateType: 'text', // dữ liệu trả về dạng text
         data: {},
         success: function (result) {
-            if ((result.length > 1) && (result.trim() === $('.reg-email').val().trim())) {
+            if ((result.length > 1) && (result.toLowerCase().trim() === $('.reg-email').val().toLowerCase().trim())) {
                 $('#search-email').css('display', 'block');
                 $('#search-email').html('Email này đã được sử dụng !');
             } else {

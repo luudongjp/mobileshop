@@ -10,7 +10,7 @@ $('#login-email').keyup(function (e) {
         dateType: 'text', // dữ liệu trả về dạng text
         data: {},
         success: function (result) {
-            if (($('#login-email').val().length === 0) || (result.trim() === $('#login-email').val().trim())) {
+            if (($('#login-email').val().length === 0) || (result.toLowerCase().trim() === $('#login-email').val().toLowerCase().trim())) {
                 $('#status-email').html('');
                 $('#status-email').css('display', 'none');
             } else {

@@ -14,7 +14,7 @@ $('#r-email').keyup(function () {
         dateType: 'text', // dữ liệu trả về dạng text
         data: {},
         success: function (result) {
-            if ((result.length > 1) && (result.trim() === $('#r-email').val().trim())) {
+            if ((result.length > 1) && (result.toLowerCase().trim() === $('#r-email').val().toLowerCase().trim())) {
                 $('#search-email').css('display', 'block');
                 $('#search-email').html('Email này đã được sử dụng !');
             } else {
