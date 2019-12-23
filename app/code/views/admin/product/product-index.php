@@ -5,6 +5,14 @@
     <h4>
         Thông tin chi tiết sản phẩm
     </h4>
+    <div class="addSuccess">
+        <?php echo isset($_SESSION['saveMobileSuccess']) ? $_SESSION['saveMobileSuccess'] : '';
+        ?>
+    </div>
+    <div class="addFail">
+        <?php echo isset($_SESSION['saveMobileFail']) ? $_SESSION['saveMobileFail'] : '';
+        ?>
+    </div>
     <div class="content">
         <table class="table">
             <tr>
@@ -117,6 +125,15 @@
                 <th class="detail"><?php echo getNameCategory($mobile['theloai_idTheloai']); ?></th>
             </tr>
         </table>
-        <a href="<?php echo baseUrl('product/edit/' . $mobile['idMobile']) ?>" class="btn btn-success">Chỉnh sửa</a>
+        <a href="<?php echo baseUrl('product/edit/' . $mobile['idMobile']) ?>" class="btn btn-success">Cập nhật thông tin</a>
+        <a href="<?php echo baseUrl('product/editImage/' . $mobile['idMobile']) ?>" class="btn btn-info">Cập nhật hình ảnh</a>
     </div>
 </div>
+<?php
+if (isset($_SESSION['saveMobileSuccess'])) {
+    unset($_SESSION['saveMobileSuccess']);
+}
+if (isset($_SESSION['saveMobileFail'])) {
+    unset($_SESSION['saveMobileFail']);
+}
+?>
