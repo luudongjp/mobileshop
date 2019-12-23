@@ -13,6 +13,14 @@
         <?php echo isset($_SESSION['saveMobileFail']) ? $_SESSION['saveMobileFail'] : '';
         ?>
     </div>
+    <div class="updateImageSuccess">
+        <?php echo isset($_SESSION['updateImageSuccess']) ? $_SESSION['updateImageSuccess'] : '';
+        ?>
+    </div>
+    <div class="updateImageFail">
+        <?php echo isset($_SESSION['updateImageFail']) ? $_SESSION['updateImageFail'] : '';
+        ?>
+    </div>
     <div class="content">
         <table class="table">
             <tr>
@@ -135,5 +143,11 @@ if (isset($_SESSION['saveMobileSuccess'])) {
 }
 if (isset($_SESSION['saveMobileFail'])) {
     unset($_SESSION['saveMobileFail']);
+}
+if (isset($_SESSION['updateImageSuccess'])) {
+    unset($_SESSION['updateImageSuccess']);
+}
+if (isset($_SESSION['updateImageFail'])) {
+    unset($_SESSION['updateImageFail']);
 }
 ?>

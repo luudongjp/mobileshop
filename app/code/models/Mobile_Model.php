@@ -190,6 +190,58 @@ class Mobile_Model extends Base_Model
         return true;
     }
 
+    public function updateImageMobile()
+    {
+        try {
+            // Xoa tat ca anh cu
+            $query0 = "DELETE FROM hinhanh WHERE Mobile_idMobile = :id";
+            $pre0 = $this->db->prepare($query0);
+            $pre0->execute([
+                ':id' => $_SESSION['idMobileEdit']
+            ]);
+            // Them anh vao co so du lieu, bang hinhanh
+            $query1 = "INSERT INTO hinhanh (tenAnh, url, logo, Mobile_idMobile) VALUES (?, ?, ?, ?)";
+            $pre1 = $this->db->prepare($query1);
+            // them 1 logo
+            $pre1->execute([
+                $_SESSION['enameLogo'],
+                $_SESSION['eurlLogo'],
+                1,
+                $_SESSION['idMobileEdit']
+            ]);
+            // them 4 anh phu
+            $pre1->execute([
+                $_SESSION['enameAnh1'],
+                $_SESSION['eurlAnh1'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh2'],
+                $_SESSION['eurlAnh2'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh3'],
+                $_SESSION['eurlAnh3'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh4'],
+                $_SESSION['eurlAnh4'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return true;
+    }
+
     // Luu thong tin cap nhat dien thoai
     public function saveEditMobile()
     {
