@@ -36,7 +36,9 @@ echo "<script type='text/javascript'>
                         ?>
                         <tr>
                             <td class="c1"><?php echo $i+1; ?></td>
-                            <td class="c2"><?php echo $listNew[$i]['tenDienThoai']; ?></td>
+                            <td class="c2"><a href="<?php echo baseUrl('product/index/' . $listNew[$i]['idMobile']); ?>">
+                            <?php echo $listNew[$i]['tenDienThoai']; ?>
+                        </a></td>
                             <td class="c3"><img src="<?php echo BASE_URL.$listNew[$i][0]; ?>" alt=""></td>
                             <td class="c4"><?php echo $listNew[$i]['mauSac']; ?></td>
                             <td class="c4"><?php echo $listNew[$i]['boNhoTrong']; ?>Gb</td>

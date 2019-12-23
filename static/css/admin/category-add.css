@@ -1,0 +1,35 @@
+#add-new-category {
+
+}
+#add-new-category .searchCategory{
+    color: red;
+    margin-top: 15px;
+}
+
+#add-new-category .addSuccess {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+#add-new-category .addFail {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+#add-new-category .nameCategory {
+    min-width: 425px;
+}
+
+#add-new-category .submit {
+    text-align: center;
+}
+
+#add-new-category button {
+    min-width: 300px;
+}
