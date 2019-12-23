@@ -15,7 +15,7 @@ class Product_Controller extends Base_Controller
         }
         $this->layout->set('admin_default');
         $this->view->load('admin/product/product-list', [
-            'mobiles' => $allMobiles
+            'mobiles' => array_reverse($allMobiles)
         ]);
     }
 
@@ -100,8 +100,49 @@ class Product_Controller extends Base_Controller
         if (!isset($_SESSION['isSignedIn'])) {
             redirect('user/login');
         }
-        $this->layout->set('admin_default');
-        $this->view->load('admin/product/product-edit');
+        $listTheloai = $this->model->theloai->getAll('theloai', null, null);
+        $listNSX = $this->model->nhasanxuat->getAll('nhasanxuat', null, null);
+        $listNCC = $this->model->nhacungcap->getAll('nhacungcap', null, null);
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $mobile = $this->model->mobile->getById('mobile', 'idMobile', $param[0]);
+                $this->layout->set('admin_default');
+                linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+                $this->view->load('admin/product/product-edit', [
+                    'mobile' => $mobile,
+                    'listTheloai' => $listTheloai,
+                    'listNSX' => $listNSX,
+                    'listNCC' => $listNCC
+                ]);
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
+    public function editImage()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $mobile = $this->model->mobile->getById('mobile', 'idMobile', $param[0]);
+                $this->layout->set('admin_default');
+                linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+                $this->view->load('admin/product/product-editImage', [
+                    'mobile' => $mobile
+                ]);
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
     }
 
     // save new mobile
@@ -162,7 +203,91 @@ class Product_Controller extends Base_Controller
         } else {
             $_SESSION['addNewMobileFail'] = "Thêm điện thoại mới thất bại !";
         }
-        redirect('product/add');
+        redirect('product/list');
+    }
+
+    public function saveEditImage()
+    {
+        $nameProduct = $_POST['nameProduct'];
+        $_SESSION['idMobileEdit'] = intval($_POST['idProduct']);
+        $folderMobile = preg_replace('/\s+/', '', $nameProduct);
+        $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/mobileshop/static/image/mobile/' . $folderMobile . '/';
+        // Xoa folder cu
+        if (is_dir($uploaddir)) {
+            exec("chmod -R 0777 '" . $uploaddir . "'");
+            $files = glob($uploaddir . '*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file); // xoa het cac file cu
+                }
+            }
+            rmdir($uploaddir);
+        }
+        // Tao folder moi
+        mkdir($uploaddir);
+        chmod($uploaddir, 0777);
+        exec("chmod -R 0777 '" . $uploaddir . "'");
+        $logo = $uploaddir . basename($_FILES['elogo']['name']);
+        $anh1 = $uploaddir . basename($_FILES['eanh1']['name']);
+        $anh2 = $uploaddir . basename($_FILES['eanh2']['name']);
+        $anh3 = $uploaddir . basename($_FILES['eanh3']['name']);
+        $anh4 = $uploaddir . basename($_FILES['eanh4']['name']);
+        // Upload 5 image into folder
+        move_uploaded_file($_FILES['elogo']['tmp_name'], $logo);
+        move_uploaded_file($_FILES['eanh1']['tmp_name'], $anh1);
+        move_uploaded_file($_FILES['eanh2']['tmp_name'], $anh2);
+        move_uploaded_file($_FILES['eanh3']['tmp_name'], $anh3);
+        move_uploaded_file($_FILES['eanh4']['tmp_name'], $anh4);
+        exec("chmod -R 0777 '" . $uploaddir . "'");
+        // Save name file and url to session
+        $_SESSION['enameLogo'] = $_FILES['elogo']['name'];
+        $_SESSION['eurlLogo'] = 'static/image/mobile/' . $folderMobile . '/' . $_FILES['elogo']['name'];
+        $_SESSION['enameAnh1'] = $_FILES['eanh1']['name'];
+        $_SESSION['eurlAnh1'] = 'static/image/mobile/' . $folderMobile . '/' . $_FILES['eanh1']['name'];
+        $_SESSION['enameAnh2'] = $_FILES['eanh2']['name'];
+        $_SESSION['eurlAnh2'] = 'static/image/mobile/' . $folderMobile . '/' . $_FILES['eanh2']['name'];
+        $_SESSION['enameAnh3'] = $_FILES['eanh3']['name'];
+        $_SESSION['eurlAnh3'] = 'static/image/mobile/' . $folderMobile . '/' . $_FILES['eanh3']['name'];
+        $_SESSION['enameAnh4'] = $_FILES['eanh4']['name'];
+        $_SESSION['eurlAnh4'] = 'static/image/mobile/' . $folderMobile . '/' . $_FILES['eanh4']['name'];
+        $result = $this->model->mobile->updateImageMobile();
+        // Unset session value
+        unset($_SESSION['idMobileEdit']);
+        unset($_SESSION['enameLogo']);
+        unset($_SESSION['enameAnh1']);
+        unset($_SESSION['enameAnh2']);
+        unset($_SESSION['enameAnh3']);
+        unset($_SESSION['enameAnh4']);
+        unset($_SESSION['eurlLogo']);
+        unset($_SESSION['eurlAnh1']);
+        unset($_SESSION['eurlAnh2']);
+        unset($_SESSION['eurlAnh3']);
+        unset($_SESSION['eurlAnh4']);
+        if ($result == true) {
+            $_SESSION['updateImageSuccess'] = "Cập nhật ảnh thành công !";
+        } else {
+            $_SESSION['updateImageFail'] = "Cập nhật ảnh thất bại !";
+        }
+        redirect('product/index/' . intval($_POST['idProduct']));
+    }
+
+    public function saveEdit()
+    {
+        // Get id theloai, nhasanxuat, nhacungcap
+        $theloai = $this->model->theloai->getAll('theloai', 'tentheloai', $_POST['etheloai']);
+        $_SESSION['theloaiId'] = $theloai[0]['idTheloai'];
+        $nsx = $this->model->nhasanxuat->getAll('nhasanxuat', 'tenNhaSX', $_POST['enhasanxuat']);
+        $_SESSION['nsxId'] = $nsx[0]['idNhaSanXuat'];
+        $result = $this->model->mobile->saveEditMobile();
+        if ($result == true) {
+            $_SESSION['saveMobileSuccess'] = "Cập nhật thông tin điện thoại thành công !";
+        } else {
+            pretty($result);
+            $_SESSION['saveMobileFail'] = "Bạn chưa thay đổi thông tin gì !";
+        }
+        unset($_SESSION['theloaiId']);
+        unset($_SESSION['nsxId']);
+        redirect('product/index/' . $_POST['idMobile']);
     }
 
     public function listBasePrice()
@@ -180,7 +305,7 @@ class Product_Controller extends Base_Controller
         }
         $this->layout->set('admin_default');
         $this->view->load('admin/product/product-listBasePrice', [
-            'listBasePrice'=>$arrayMobiles
+            'listBasePrice' => $arrayMobiles
         ]);
     }
 
@@ -190,7 +315,6 @@ class Product_Controller extends Base_Controller
         if ($result) {
             $_SESSION['updateVisibleBasePriceSuccess'] = "Cập nhật các sản phẩm giá sốc hiển thị trên homepage thành công !";
         } else {
-
         }
         redirect('product/listBasePrice');
     }
@@ -210,7 +334,7 @@ class Product_Controller extends Base_Controller
         }
         $this->layout->set('admin_default');
         $this->view->load('admin/product/product-listNew', [
-            'listNew'=>$arrayMobiles
+            'listNew' => $arrayMobiles
         ]);
     }
 
@@ -220,7 +344,6 @@ class Product_Controller extends Base_Controller
         if ($result) {
             $_SESSION['updateVisibleNewSuccess'] = "Cập nhật các sản phẩm mới hiển thị trên homepage thành công !";
         } else {
-
         }
         redirect('product/listNew');
     }
@@ -240,7 +363,7 @@ class Product_Controller extends Base_Controller
         }
         $this->layout->set('admin_default');
         $this->view->load('admin/product/product-listExpress', [
-            'listExpress'=>$arrayMobiles
+            'listExpress' => $arrayMobiles
         ]);
     }
 
@@ -250,7 +373,6 @@ class Product_Controller extends Base_Controller
         if ($result) {
             $_SESSION['updateVisibleExpressSuccess'] = "Cập nhật các sản phẩm nổi bật hiển thị trên homepage thành công !";
         } else {
-
         }
         redirect('product/listExpress');
     }

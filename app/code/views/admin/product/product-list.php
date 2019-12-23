@@ -4,7 +4,7 @@ $numberProducts = sizeof($mobiles);
 
 ?>
 <div id="product-list">
-    <?php if (getAction() == "list"): ?>
+    <?php if (getAction() == "list") : ?>
         <h4>
             Danh sách tất cả sản phẩm (Tổng số: <?php echo $numberProducts; ?> sản phẩm)
         </h4>
@@ -13,6 +13,12 @@ $numberProducts = sizeof($mobiles);
             Tìm thấy <?php echo $numberProducts; ?> sản phẩm với từ khóa "<?php echo $key; ?>" :
         </h4>
     <?php endif; ?>
+    <div class="addSuccess">
+        <?php echo isset($_SESSION['addNewMobileSuccess']) ? $_SESSION['addNewMobileSuccess'] : ''; ?>
+    </div>
+    <div class="addFail">
+        <?php echo isset($_SESSION['addNewMobileFail']) ? $_SESSION['addNewMobileFail'] : ''; ?>
+    </div>
     <div class="top-menu">
         <div class="search">
             <form id="search" method="post" action="<?php echo baseUrl('product/search') ?>">
@@ -39,9 +45,9 @@ $numberProducts = sizeof($mobiles);
                 <th class="c7">Giảm giá</th>
                 <th class="c8">Số lượng</th>
             </tr>
-            <?php for ($i = 0; $i < $numberProducts; $i++):
+            <?php for ($i = 0; $i < $numberProducts; $i++) :
                 $linkImage = BASE_URL . $mobiles[$i]['0'];
-                ?>
+            ?>
                 <tr>
                     <td class="c1"><?php echo $i + 1; ?></td>
                     <td class="c2">
@@ -60,3 +66,11 @@ $numberProducts = sizeof($mobiles);
         </table>
     </div>
 </div>
+<?php
+if (isset($_SESSION['addNewMobileSuccess'])) {
+    unset($_SESSION['addNewMobileSuccess']);
+}
+if (isset($_SESSION['addNewMobileFail'])) {
+    unset($_SESSION['addNewMobileFail']);
+}
+?>
