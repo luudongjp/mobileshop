@@ -144,10 +144,10 @@ echo "<script type='text/javascript'>
                 <div id="collapsePages3" class="collapse" aria-labelledby="headingPages"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="login.html">Thể loại</a>
-                        <a class="collapse-item" href="register.html">Nhà sản xuất</a>
-                        <a class="collapse-item" href="forgot-password.html">Nhà cung cấp</a>
-                        <a class="collapse-item" href="blank.html">Sản phẩm</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('category/list'); ?>">Thể loại</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('manufacturer/list'); ?>">Nhà sản xuất</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('supplier/list'); ?>">Nhà cung cấp</a>
+                        <a class="collapse-item" href="<?php echo baseUrl('product/list'); ?>">Sản phẩm</a>
                     </div>
                 </div>
             </li>

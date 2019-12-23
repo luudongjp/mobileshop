@@ -39,7 +39,7 @@ function grid($arrayProducts, $isSignedIn)
             $row .= "<div class='action'>";
             $action1 = $isSignedIn ? "addToCart({$arrayProducts[$j]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'";
             $style1 = ($arrayProducts[$j]['soLuongTrongKho'] > 0) ? 'inline-block' : 'none';
-            $row .= "<button type='button' class='btn-add-cart' onclick=" . $action1 . " style=" . $style1 . " >";
+            $row .= "<button type='button' class='btn-add-cart' onclick=" . $action1 . " style='display: " . $style1 . "' >";
             $row .= "Add to cart";
             $row .= "</button>";
             $action2 = $isSignedIn ? "addToWishList({$arrayProducts[$j]['idMobile']})" : "location.href='" . baseUrl('user/login') . "'";
@@ -55,4 +55,31 @@ function grid($arrayProducts, $isSignedIn)
     }
     $content .= "</div>";
     echo $content;
+}
+
+function getNameManufacturer($idManufacturer)
+{
+    $connection = connect();
+    $stmt = $connection->prepare("SELECT tenNhaSX FROM nhasanxuat WHERE idNhaSanXuat = {$idManufacturer}");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['tenNhaSX'];
+}
+
+function getNameSupplier($idSupplier)
+{
+    $connection = connect();
+    $stmt = $connection->prepare("SELECT tenNhaCC FROM nhacungcap WHERE idNhaCungCap = {$idSupplier}");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['tenNhaCC'];
+}
+
+function getNameCategory($idCategory)
+{
+    $connection = connect();
+    $stmt = $connection->prepare("SELECT tentheloai FROM theloai WHERE idTheloai = {$idCategory}");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['tentheloai'];
 }
