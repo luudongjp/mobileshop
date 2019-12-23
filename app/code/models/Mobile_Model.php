@@ -190,6 +190,109 @@ class Mobile_Model extends Base_Model
         return true;
     }
 
+    public function updateImageMobile()
+    {
+        try {
+            // Xoa tat ca anh cu
+            $query0 = "DELETE FROM hinhanh WHERE Mobile_idMobile = :id";
+            $pre0 = $this->db->prepare($query0);
+            $pre0->execute([
+                ':id' => $_SESSION['idMobileEdit']
+            ]);
+            // Them anh vao co so du lieu, bang hinhanh
+            $query1 = "INSERT INTO hinhanh (tenAnh, url, logo, Mobile_idMobile) VALUES (?, ?, ?, ?)";
+            $pre1 = $this->db->prepare($query1);
+            // them 1 logo
+            $pre1->execute([
+                $_SESSION['enameLogo'],
+                $_SESSION['eurlLogo'],
+                1,
+                $_SESSION['idMobileEdit']
+            ]);
+            // them 4 anh phu
+            $pre1->execute([
+                $_SESSION['enameAnh1'],
+                $_SESSION['eurlAnh1'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh2'],
+                $_SESSION['eurlAnh2'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh3'],
+                $_SESSION['eurlAnh3'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            $pre1->execute([
+                $_SESSION['enameAnh4'],
+                $_SESSION['eurlAnh4'],
+                0,
+                $_SESSION['idMobileEdit']
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return true;
+    }
+
+    // Luu thong tin cap nhat dien thoai
+    public function saveEditMobile()
+    {
+        try {
+            $_4g = null;
+            if ($_POST['e4g'] === "Có") {
+                $_4g = 1;
+            } else {
+                $_4g = 0;
+            }
+            $query = "UPDATE {$this->table} SET tenDienThoai = :ten, mauSac = :mausac, soLuongTrongKho = :soluong, giaNhap = :gianhap, giaBan = :giaban, giamGia = :giamgia, CPU = :cpu, gpu = :gpu, RAM = :ram, boNhoTrong = :bonhotrong, heDieuHanh = :hedieuhanh, manHinh = :manhinh, cameraSau = :camerasau, cameraTruoc = :cameratruoc, dungLuongPin = :pin, sacNhanh = :sac, SIM = :sim, 4G = :_4g, NhaSanXuat_idNhaSanXuat = :nsx, theloai_idTheloai = :theloai, moTa = :mota WHERE idMobile = :idMobile";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':ten' => $_POST['eten'],
+                ':mausac' => $_POST['emausac'],
+                ':soluong' => intval($_POST['esoluong']),
+                ':gianhap' => intval($_POST['egianhap']),
+                ':giaban' => intval($_POST['egiaban']),
+                ':giamgia' => intval($_POST['egiamgia']),
+                ':cpu' => $_POST['ecpu'],
+                ':gpu' => $_POST['egpu'],
+                ':ram' => intval($_POST['eram']),
+                ':bonhotrong' => $_POST['ebonhotrong'],
+                ':hedieuhanh' => $_POST['ehedieuhanh'],
+                ':manhinh' => $_POST['emanhinh'],
+                ':camerasau' => $_POST['ecamerasau'],
+                ':cameratruoc' => $_POST['ecameratruoc'],
+                ':pin' => $_POST['epin'],
+                ':sac' => $_POST['esacpin'],
+                ':sim' => $_POST['esim'],
+                ':_4g' => $_4g,
+                ':nsx' => $_SESSION['nsxId'],
+                ':theloai' => $_SESSION['theloaiId'],
+                ':mota' => $_POST['emota'],
+                ':idMobile' => intval($_POST['idMobile'])
+            ]);
+            $count = $pre->rowCount();
+            if ($count == 0) {
+                // Chua thay doi thong tin
+                return false;
+            } else {
+                // Cap nhat thanh cong
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return true;
+    }
+
     // Tim kiem dien thoai. Neu khong ton tai ten nhu vay thi tra ve null, nguoc lai tra ve tenDienThoai tim thay
     public function searchPhone($namePhone)
     {

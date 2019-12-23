@@ -2,12 +2,6 @@
     <h4>
         Thêm mới điện thoại
     </h4>
-    <div class="addSuccess">
-        <?php echo isset($_SESSION['addNewMobileSuccess']) ? $_SESSION['addNewMobileSuccess'] : ''; ?>
-    </div>
-    <div class="addFail">
-        <?php echo isset($_SESSION['addNewMobileFail']) ? $_SESSION['addNewMobileFail'] : ''; ?>
-    </div>
     <div class="content">
         <form id="addProduct" enctype="multipart/form-data" method="post"
               action="<?php echo baseUrl('product/save'); ?>">
@@ -147,11 +141,3 @@
         </form>
     </div>
 </div>
-<?php
-if (isset($_SESSION['addNewMobileSuccess'])) {
-    unset($_SESSION['addNewMobileSuccess']);
-}
-if (isset($_SESSION['addNewMobileFail'])) {
-    unset($_SESSION['addNewMobileFail']);
-}
-?>
