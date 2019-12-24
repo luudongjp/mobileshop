@@ -22,6 +22,7 @@
             </table>
             <div class="submit">
                 <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="<?php echo baseUrl('category/list'); ?>" type="button" class="btn btn-danger">Hủy bỏ</a>
             </div>
         </form>
     </div>

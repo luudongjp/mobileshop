@@ -44,6 +44,10 @@
 #manufacturer-list td.c3{
     width: 20%;
 }
+#manufacturer-list th.c6,
+#manufacturer-list td.c6{
+    width: 5%;
+}
 #manufacturer-list td.c3 img{
     height: 20%;
 }

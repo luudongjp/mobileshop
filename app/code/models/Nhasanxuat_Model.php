@@ -47,5 +47,52 @@ class   Nhasanxuat_Model extends Base_Model
         }
         return $data;
     }
+    public function saveEditManufacturer()
+    {
+        try {
+            $query = "UPDATE {$this->table} SET tenNhaSX = :ten, diaChi = :diachi, dienThoai = :dienthoai, moTa = :mota WHERE idNhaSanXuat = :idNhaSanXuat";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':ten' => $_POST['eten'],
+                ':diachi' => $_POST['ediachi'],
+                ':dienthoai' => $_POST['edienthoai'],
+                ':mota' => $_POST['emota'],
+                ':idNhaSanXuat' => intval($_POST['idNhaSanXuat'])
+            ]);
+            $count = $pre->rowCount();
+            if ($count == 0) {
+                // Chua thay doi thong tin
+                return false;
+            } else {
+                // Cap nhat thanh cong
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return true;
+    }
+
+    public function deleteManufacturer($idNhaSanXuat)
+    {
+        try {
+            $query = "DELETE from {$this->table} where idNhaSanXuat = :id ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':id' => $idNhaSanXuat
+            ]);
+            $rowCount = $pre->rowCount();
+            if ($rowCount > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return 0;
+        }
+        return true;
+    }
 }
 ?>

@@ -24,6 +24,39 @@ class Manufacturer_Controller extends Base_Controller
         $this->view->load('admin/manufacturer/manufacturer-add');
     }
 
+    public function edit()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $manufacturer = $this->model->nhasanxuat->getById('nhasanxuat', 'idNhaSanXuat', $param[0]);
+                $this->layout->set('admin_default');
+                $this->view->load('admin/manufacturer/manufacturer-edit', [
+                    'manufacturer' => $manufacturer
+                ]);
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
+    public function saveEdit()
+    {
+        $result = $this->model->nhasanxuat->saveEditManufacturer();
+        if ($result == true) {
+            $_SESSION['saveManufacturerSuccess'] = "Cập nhật thông tin nhà sản xuất thành công !";
+        } else {
+            pretty($result);
+            $_SESSION['saveManufacturerFail'] = "Bạn chưa thay đổi thông tin gì !";
+        }
+        redirect('manufacturer/list');
+    }
+
     public function save()
     {
         $post = $_POST ?? null;
@@ -32,9 +65,9 @@ class Manufacturer_Controller extends Base_Controller
         // Update database
         $result = $this->model->nhasanxuat->saveNewNhaSX();
         if ($result == true) {
-            $_SESSION['addNewCategorySuccess'] = "Thêm nhà sản xuất mới thành công !";
+            $_SESSION['addNewManufacturerSuccess'] = "Thêm nhà sản xuất mới thành công !";
         } else {
-            $_SESSION['addNewCategoryFail'] = "Thêm nhà sản xuất mới thất bại !";
+            $_SESSION['addNewManufacturerFail'] = "Thêm nhà sản xuất mới thất bại !";
         }
         redirect('manufacturer/list');
     }
@@ -52,5 +85,26 @@ class Manufacturer_Controller extends Base_Controller
         $this->view->load('admin/searchNhaSXByName', [
             'result' => $result
         ]);
+    }
+
+    public function deleteManufacturer()
+    {
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idNhaSanXuat = $param[0];
+            // Get url file from database
+            $nhasanxuat = $this->model->nhasanxuat->getById('nhasanxuat', 'idNhaSanXuat', $idNhaSanXuat);
+            $mobile = $this->model->mobile->getById('mobile', 'idNhaSanXuat', $param[0]);
+            if($mobile == null){
+                // Delete file from database
+                $result = $this->model->nhasanxuat->deleteManufacturer($idNhaSanXuat);
+                if ($result == true) {
+                    $_SESSION['deleteManufacturerSuccess'] = "Xóa nhà sản xuất thành công !";
+                }
+            }else{
+                $_SESSION['deleteManufacturerFail'] = "Còn sản phẩm, không thể xóa nhà sản xuất !";
+            }
+        }
+        redirect('manufacturer/list');
     }
 }

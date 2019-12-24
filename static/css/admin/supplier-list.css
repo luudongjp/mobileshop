@@ -44,6 +44,10 @@
 #supplier-list td.c3{
     width: 20%;
 }
+#supplier-list th.c6,
+#supplier-list td.c6{
+    width: 5%;
+}
 #supplier-list td.c3 img{
     height: 20%;
 }

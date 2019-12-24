@@ -23,6 +23,39 @@ class Supplier_Controller extends Base_Controller
         $this->view->load('admin/supplier/supplier-add');
     }
 
+    public function edit()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $supplier = $this->model->nhacungcap->getById('nhacungcap', 'idNhaCungCap', $param[0]);
+                $this->layout->set('admin_default');
+                $this->view->load('admin/supplier/supplier-edit', [
+                    'supplier' => $supplier
+                ]);
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
+    public function saveEdit()
+    {
+        $result = $this->model->nhacungcap->saveEditSupplier();
+        if ($result == true) {
+            $_SESSION['saveSupplierSuccess'] = "Cập nhật thông tin nhà cung cấp thành công !";
+        } else {
+            pretty($result);
+            $_SESSION['saveSupplierFail'] = "Bạn chưa thay đổi thông tin gì !";
+        }
+        redirect('supplier/list');
+    }
+
     public function save()
     {
         $post = $_POST ?? null;
@@ -52,5 +85,24 @@ class Supplier_Controller extends Base_Controller
             'result' => $result
         ]);
     }
-
+    public function deleteSupplier()
+    {
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idNhaCungCap = $param[0];
+            // Get url file from database
+            $nhacungcap = $this->model->nhacungcap->getById('nhacungcap', 'idNhaCungCap', $idNhaCungCap);
+            $mobile = $this->model->mobile->getById('mobile', 'idNhaCungCap', $param[0]);
+            if($mobile == null){
+                // Delete file from database
+                $result = $this->model->nhacungcap->deleteSupplier($idNhaCungCap);
+                if ($result == true) {
+                    $_SESSION['deleteSupplierSuccess'] = "Xóa nhà cung cấp thành công !";
+                }
+            }else{
+                $_SESSION['deleteSupplierFail'] = "Còn sản phẩm, không thể xóa nhà cung cấp !";
+            }
+        }
+        redirect('supplier/list');
+    }
 }

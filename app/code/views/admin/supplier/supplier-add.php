@@ -23,7 +23,7 @@
                 <tr>
                     <th class="col1">Số điện thoại</th>
                     <th class="detail">
-                        <input type="number" class="numberphone" name="dienthoai" autocomplete="off" placeholder="0344213030" required>
+                        <input type="text" class="numberphone" name="dienthoai" autocomplete="off" placeholder="0344213030" required>
                         
                     </th>
                 </tr>
@@ -36,6 +36,7 @@
             </table>
             <div class="submit">
                 <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="<?php echo baseUrl('supplier/list'); ?>" type="button" class="btn btn-danger">Hủy bỏ</a>
             </div>
         </form>
     </div>

@@ -24,6 +24,39 @@ class Category_Controller extends Base_Controller
         $this->view->load('admin/category/category-add');
     }
 
+    public function edit()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $category = $this->model->theloai->getById('theloai', 'idTheloai', $param[0]);
+                $this->layout->set('admin_default');
+                $this->view->load('admin/category/category-edit', [
+                    'category' => $category
+                ]);
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
+    public function saveEdit()
+    {
+        $result = $this->model->theloai->saveEditCategory();
+        if ($result == true) {
+            $_SESSION['saveCategorySuccess'] = "Cập nhật thông tin thể loại thành công !";
+        } else {
+            pretty($result);
+            $_SESSION['saveCategoryFail'] = "Bạn chưa thay đổi thông tin gì !";
+        }
+        redirect('category/list');
+    }
+
     public function save()
     {
         $post = $_POST ?? null;
@@ -52,5 +85,26 @@ class Category_Controller extends Base_Controller
         $this->view->load('admin/searchCategoryByName', [
             'result' => $result
         ]);
+    }
+
+    public function deleteCategory()
+    {
+        $param = getParameter();
+        if (!empty($param[0])) {
+            $idTheloai = $param[0];
+            // Get url file from database
+            $theloai = $this->model->theloai->getById('theloai', 'idTheloai', $idTheloai);
+            $mobile = $this->model->mobile->getById('mobile', 'idTheloai', $param[0]);
+            if($mobile == null){
+                // Delete file from database
+                $result = $this->model->theloai->deleteCategory($idTheloai);
+                if ($result == true) {
+                    $_SESSION['deleteCategorySuccess'] = "Xóa thể loại thành công !";
+                }
+            }else{
+                $_SESSION['deleteCategoryFail'] = "Còn sản phẩm, không thể xóa thể loại !";
+            }
+        }
+        redirect('category/list');
     }
 }
