@@ -12,6 +12,10 @@ $numberSupplier = sizeof($supplier);
         <?php echo isset($_SESSION['deleteSupplierFail']) ? $_SESSION['deleteSupplierFail'] : '';
         ?>
     </div>
+    <div class="addFail">
+        <?php echo isset($_SESSION['deleteSupplierFails']) ? $_SESSION['deleteSupplierFails'] : '';
+        ?>
+    </div>
     <div class="addSuccess">
         <?php echo isset($_SESSION['saveSupplierSuccess']) ? $_SESSION['saveSupplierSuccess'] : '';
         ?>
@@ -90,5 +94,8 @@ if (isset($_SESSION['deleteSupplierSuccess'])) {
 }
 if (isset($_SESSION['deleteSupplierFail'])) {
     unset($_SESSION['deleteSupplierFail']);
+}
+if (isset($_SESSION['deleteSupplierFails'])) {
+    unset($_SESSION['deleteSupplierFails']);
 }
 ?>

@@ -94,5 +94,18 @@ class   Nhasanxuat_Model extends Base_Model
         }
         return true;
     }
+    
+    public function getCount(){
+        try{
+            $query =  "SELECT * FROM {$this->table}";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            return sizeof($data);
+        }catch(PDOException $e){
+            echo "<br />". $e->getMessage();
+            return false;
+        }
+    }
 }
 ?>

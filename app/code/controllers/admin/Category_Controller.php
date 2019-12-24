@@ -89,22 +89,30 @@ class Category_Controller extends Base_Controller
 
     public function deleteCategory()
     {
-        $param = getParameter();
-        if (!empty($param[0])) {
-            $idTheloai = $param[0];
-            // Get url file from database
-            $theloai = $this->model->theloai->getById('theloai', 'idTheloai', $idTheloai);
-            $mobile = $this->model->mobile->getById('mobile', 'idTheloai', $param[0]);
-            if($mobile == null){
-                // Delete file from database
-                $result = $this->model->theloai->deleteCategory($idTheloai);
-                if ($result == true) {
-                    $_SESSION['deleteCategorySuccess'] = "Xóa thể loại thành công !";
+        $count = $this->model->theloai->getCount();
+        if($count < 8){
+            $_SESSION['deleteCategoryFails'] = "Số lượng dưới 8 thể loại, bạn không thể xóa!";
+        }else{
+            $param = getParameter();
+            if (!empty($param[0])) {
+                if(intval($param[0]) != 0){
+                    $idTheloai = $param[0];
+                    // Get url file from database
+                    $theloai = $this->model->theloai->getById('theloai', 'idTheloai', $idTheloai);
+                    $mobile = $this->model->mobile->getById('mobile', 'theloai_idTheloai', intval($param[0]));
+                    if($mobile == null){
+                        // Delete file from database
+                        $result = $this->model->theloai->deleteCategory($idTheloai);
+                        if ($result == true) {
+                            $_SESSION['deleteCategorySuccess'] = "Xóa thể loại thành công !";
+                        }
+                    }else{
+                        $_SESSION['deleteCategoryFail'] = "Còn sản phẩm, không thể xóa thể loại !";
+                    }
                 }
-            }else{
-                $_SESSION['deleteCategoryFail'] = "Còn sản phẩm, không thể xóa thể loại !";
             }
         }
+        
         redirect('category/list');
     }
 }

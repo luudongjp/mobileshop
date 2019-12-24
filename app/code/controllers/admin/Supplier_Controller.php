@@ -86,21 +86,28 @@ class Supplier_Controller extends Base_Controller
         ]);
     }
     public function deleteSupplier()
-    {
-        $param = getParameter();
-        if (!empty($param[0])) {
-            $idNhaCungCap = $param[0];
-            // Get url file from database
-            $nhacungcap = $this->model->nhacungcap->getById('nhacungcap', 'idNhaCungCap', $idNhaCungCap);
-            $mobile = $this->model->mobile->getById('mobile', 'idNhaCungCap', $param[0]);
-            if($mobile == null){
-                // Delete file from database
-                $result = $this->model->nhacungcap->deleteSupplier($idNhaCungCap);
-                if ($result == true) {
-                    $_SESSION['deleteSupplierSuccess'] = "Xóa nhà cung cấp thành công !";
+    { 
+        $count = $this->model->nhacungcap->getCount();
+        if($count < 8){
+            $_SESSION['deleteSupplierFails'] = "Số lượng dưới 8 nhà cung cấp, bạn không thể xóa!";
+        }else{
+            $param = getParameter();
+            if (!empty($param[0])) {
+                if(intval($param[0]) != 0){
+                    $idNhaCungCap = $param[0];
+                    // Get url file from database
+                    $nhacungcap = $this->model->nhacungcap->getById('nhacungcap', 'idNhaCungCap', $idNhaCungCap);
+                    $mobile = $this->model->mobile->getById('mobile', 'NhaCungCap_idNhaCungCap', intval($param[0]));
+                    if($mobile == null){
+                        // Delete file from database
+                        $result = $this->model->nhacungcap->deleteSupplier($idNhaCungCap);
+                        if ($result == true) {
+                            $_SESSION['deleteSupplierSuccess'] = "Xóa nhà cung cấp thành công !";
+                        }
+                    }else{
+                        $_SESSION['deleteSupplierFail'] = "Còn sản phẩm, không thể xóa nhà cung cấp !";
+                    }
                 }
-            }else{
-                $_SESSION['deleteSupplierFail'] = "Còn sản phẩm, không thể xóa nhà cung cấp !";
             }
         }
         redirect('supplier/list');

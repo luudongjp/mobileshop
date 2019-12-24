@@ -11,6 +11,10 @@ $numberCategorys = sizeof($categorys);
         <?php echo isset($_SESSION['deleteCategoryFail']) ? $_SESSION['deleteCategoryFail'] : '';
         ?>
     </div>
+    <div class="addFail">
+        <?php echo isset($_SESSION['deleteCategoryFails']) ? $_SESSION['deleteCategoryFails'] : '';
+        ?>
+    </div>
     <div class="addSuccess">
         <?php echo isset($_SESSION['saveCategorySuccess']) ? $_SESSION['saveCategorySuccess'] : '';
         ?>
@@ -85,5 +89,8 @@ if (isset($_SESSION['deleteCategorySuccess'])) {
 }
 if (isset($_SESSION['deleteCategoryFail'])) {
     unset($_SESSION['deleteCategoryFail']);
+}
+if (isset($_SESSION['deleteCategoryFails'])) {
+    unset($_SESSION['deleteCategoryFails']);
 }
 ?>

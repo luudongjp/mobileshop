@@ -165,7 +165,6 @@ try {
                 <?php
                 $number_nsx = sizeof($result);
                 $number_nsx_1_col = ceil($number_nsx / 4);  // we have 4 column, each column is col-md-3
-
                 ?>
                 <div class="row hover-nhasanxuat">
                     <div class="col col-md-3">

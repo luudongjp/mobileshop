@@ -89,20 +89,28 @@ class Manufacturer_Controller extends Base_Controller
 
     public function deleteManufacturer()
     {
-        $param = getParameter();
-        if (!empty($param[0])) {
-            $idNhaSanXuat = $param[0];
-            // Get url file from database
-            $nhasanxuat = $this->model->nhasanxuat->getById('nhasanxuat', 'idNhaSanXuat', $idNhaSanXuat);
-            $mobile = $this->model->mobile->getById('mobile', 'idNhaSanXuat', $param[0]);
-            if($mobile == null){
-                // Delete file from database
-                $result = $this->model->nhasanxuat->deleteManufacturer($idNhaSanXuat);
-                if ($result == true) {
-                    $_SESSION['deleteManufacturerSuccess'] = "Xóa nhà sản xuất thành công !";
+
+        $count = $this->model->nhasanxuat->getCount();
+        if($count < 8){
+            $_SESSION['deleteManufacturerFails'] = "Số lượng dưới 8 nhà sản xuất, bạn không thể xóa!";
+        }else{
+            $param = getParameter();
+            if (!empty($param[0])) {
+                if(intval($param[0]) != 0){
+                    $idNhaSanXuat = $param[0];
+                    // Get url file from database
+                    $nhasanxuat = $this->model->nhasanxuat->getById('nhasanxuat', 'idNhaSanXuat', $idNhaSanXuat);
+                    $mobile = $this->model->mobile->getById('mobile', 'NhaSanXuat_idNhaSanXuat', intval($param[0]));
+                    if($mobile == null){
+                        // Delete file from database
+                        $result = $this->model->nhasanxuat->deleteManufacturer($idNhaSanXuat);
+                        if ($result == true) {
+                            $_SESSION['deleteManufacturerSuccess'] = "Xóa nhà sản xuất thành công !";
+                        }
+                    }else{
+                        $_SESSION['deleteManufacturerFail'] = "Còn sản phẩm, không thể xóa nhà sản xuất !";
+                    }
                 }
-            }else{
-                $_SESSION['deleteManufacturerFail'] = "Còn sản phẩm, không thể xóa nhà sản xuất !";
             }
         }
         redirect('manufacturer/list');

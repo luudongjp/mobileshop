@@ -12,6 +12,10 @@ $numberNhaSX = sizeof($nhaSX);
         <?php echo isset($_SESSION['deleteManufacturerFail']) ? $_SESSION['deleteManufacturerFail'] : '';
         ?>
     </div>
+    <div class="addFail">
+        <?php echo isset($_SESSION['deleteManufacturerFails']) ? $_SESSION['deleteManufacturerFails'] : '';
+        ?>
+    </div>
     <div class="addSuccess">
         <?php echo isset($_SESSION['saveManufacturerSuccess']) ? $_SESSION['saveManufacturerSuccess'] : '';
         ?>
@@ -90,5 +94,8 @@ if (isset($_SESSION['deleteManufacturerSuccess'])) {
 }
 if (isset($_SESSION['deleteManufacturerFail'])) {
     unset($_SESSION['deleteManufacturerFail']);
+}
+if (isset($_SESSION['deleteManufacturerFails'])) {
+    unset($_SESSION['deleteManufacturerFails']);
 }
 ?>
