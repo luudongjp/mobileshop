@@ -36,10 +36,10 @@ class Donmuahang_Model extends Base_Model
         return null;
     }
 
-    public function getAllOrders($idKhachHang, $loaiDonHang, $trangThai)
+    public function getAllOrders($idNhanVien, $loaiDonHang, $trangThai)
     {
         try {
-            if ($idKhachHang == null) {
+            if ($idNhanVien == null) {
                 $query = "SELECT * FROM {$this->table} WHERE loaiDonHang = :loai AND trangThaiDonHang = :trangthai ";
                 $pre = $this->db->prepare($query);
                 $pre->execute([
@@ -47,12 +47,12 @@ class Donmuahang_Model extends Base_Model
                     ':trangthai' => $trangThai
                 ]);
             } else {
-                $query = "SELECT * FROM {$this->table} WHERE loaiDonHang = :loai AND trangThaiDonHang = :trangthai AND khachhang_idKhachHang = :id ";
+                $query = "SELECT * FROM {$this->table} WHERE loaiDonHang = :loai AND trangThaiDonHang = :trangthai AND nhanvien_idNhanVien = :id ";
                 $pre = $this->db->prepare($query);
                 $pre->execute([
                     ':loai' => $loaiDonHang,
                     ':trangthai' => $trangThai,
-                    ':id' => $idKhachHang
+                    ':id' => $idNhanVien
                 ]);
             }
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -62,5 +62,83 @@ class Donmuahang_Model extends Base_Model
             return null;
         }
         return $data;
+    }
+
+    public function approveOrder($idOrder)
+    {
+        try {
+            $query = "UPDATE {$this->table} SET trangThaiDonHang = :trangthai WHERE idDonHang = :idOrder ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':trangthai' => "đã phê duyệt",
+                ':idOrder' => $idOrder
+            ]);
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function approveAllOrder()
+    {
+        try {
+            $query = "UPDATE {$this->table} SET trangThaiDonHang = :trangThaiMoi WHERE trangThaiDonHang = :trangThaiCu ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':trangThaiCu' => "chưa phê duyệt",
+                ':trangThaiMoi' => "đã phê duyệt"
+            ]);
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function assign($idOrder, $idShipper)
+    {
+        try {
+            // thay doi trang thai don hang va gan cho shipper
+            $query = "UPDATE donmuahang SET trangThaiDonHang = 'đang giao hàng', nhanvien_idNhanVien = :idShipper WHERE idDonHang = :idOrder ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idShipper' => $idShipper,
+                ':idOrder' => $idOrder
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function checkout($idOrder)
+    {
+        try {
+            $query = "UPDATE {$this->table} SET trangThaiDonHang = 'đã thanh toán', ngayThanhToan = :ngay WHERE idDonHang = :idOrder ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idOrder' => $idOrder,
+                ':ngay' => date("Y-m-d H:i:s")
+            ]);
+            $count = $pre->rowCount();
+            $pre->closeCursor();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
     }
 }
