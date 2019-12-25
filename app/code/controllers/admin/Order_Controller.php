@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 class Order_Controller extends Base_Controller
 {
@@ -187,4 +185,3 @@ class Order_Controller extends Base_Controller
         redirect('order/checkout');
     }
 }
->>>>>>> f7a4dd998617a5091b4120f09af5be77c3f783b9
