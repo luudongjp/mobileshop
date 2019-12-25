@@ -118,7 +118,10 @@ echo "<script type='text/javascript'>
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="<?php echo baseUrl('order/listNotApprove'); ?>">Chưa phê duyệt</a>
                             <a class="collapse-item" href="<?php echo baseUrl('order/listApproved'); ?>">Đã phê duyệt</a>
-                            <a class="collapse-item" href="<?php echo baseUrl('order/listShipping'); ?>">Đang giao hàng</a>
+                            <?php if ($chucVu === "Quản trị viên") : ?>
+                                <a class="collapse-item" href="<?php echo baseUrl('order/listShipping'); ?>">Đang giao hàng</a>
+                            <?php endif; ?>
+                            <a class="collapse-item" href="<?php echo baseUrl('order/checkout'); ?>">Thanh toán đơn hàng</a>
                             <a class="collapse-item" href="<?php echo baseUrl('order/listAlreadyCheckout'); ?>">Đã thanh toán</a>
                         </div>
                     </div>
@@ -221,8 +224,8 @@ echo "<script type='text/javascript'>
                     </a>
                     <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="login.html">Đơn hàng chưa giao</a>
-                            <a class="collapse-item" href="register.html">Đơn hàng đã giao</a>
+                            <a class="collapse-item" href="<?php echo baseUrl('order/listNotShipped'); ?>">Đơn hàng chưa giao</a>
+                            <a class="collapse-item" href="<?php echo baseUrl('order/listAlreadyShipped'); ?>">Đơn hàng đã giao</a>
                         </div>
                     </div>
                 </li>
@@ -304,7 +307,7 @@ echo "<script type='text/javascript'>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
+                                <!-- <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -340,7 +343,7 @@ echo "<script type='text/javascript'>
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> -->
                             </div>
                         </li>
 
@@ -441,6 +444,7 @@ echo "<script type='text/javascript'>
     <!-- Custom page JavaScript-->
     <script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>sb-admin-2.min.js"></script>
     <script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>user-edit.js"></script>
+    <script type="text/javascript" src="<?php echo ADMIN_JS_PATH; ?>../html2pdf.bundle.min.js"></script>
     <script type="text/javascript" src="<?php echo ADMIN_JS_PATH . $js_file; ?>"></script>
 
 </body>

@@ -4,8 +4,8 @@ echo "<script type='text/javascript'>
         var numberOrders = '" . sizeof($numberOrders) . "';
       </script>";
 ?>
-<div id="listAlreadyCheckout">
-    <h4>DANH SÁCH ĐƠN HÀNG ĐÃ THANH TOÁN</h4>
+<div id="listAlreadyShipped">
+    <h4>DANH SÁCH ĐƠN HÀNG ĐÃ GIAO</h4>
     <div class="content">
         <table class="table">
             <tr>

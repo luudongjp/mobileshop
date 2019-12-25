@@ -6,12 +6,6 @@ echo "<script type='text/javascript'>
 ?>
 <div id="listApproved">
     <h4>DANH SÁCH ĐƠN HÀNG ĐÃ PHÊ DUYỆT, CHỜ GIAO HÀNG</h4>
-    <div class="successAssign">
-        <?php echo isset($_SESSION['successAssign']) ? $_SESSION['successAssign'] : ''; ?>
-    </div>
-    <div class="failAssign">
-        <?php echo isset($_SESSION['failAssign']) ? $_SESSION['failAssign'] : ''; ?>
-    </div>
     <div class="content">
         <table class="table">
             <tr>
@@ -38,13 +32,3 @@ echo "<script type='text/javascript'>
     </div>
 </div>
 
-<?php
-if (isset($_SESSION['successAssign'])) {
-    unset($_SESSION['successAssign']);
-}
-
-if (isset($_SESSION['failAssign'])) {
-    unset($_SESSION['failAssign']);
-}
-
-?>

@@ -1,22 +1,22 @@
-#listApproved {
+#listNotShipped {
 }
 
-#listApproved tr.tr:hover {
+#listNotShipped tr.tr:hover {
 	font-weight: bold;
 	color: white;
 	cursor: pointer;
 	background-color: gray;
 }
 
-#listApproved td.tien {
+#listNotShipped td.tien {
 	color: red;
 	font-weight: bold;
 }
 
-#listApproved td.trangthai {
+#listNotShipped td.trangthai {
 	color: blue;
 }
 
-#listApproved .content {
+#listNotShipped .content {
 	margin-top: 20px;
 }

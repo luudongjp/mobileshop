@@ -13,6 +13,31 @@ class Order_Controller extends Base_Controller
         ]);
     }
 
+    public function listNotShipped()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $listOrders = $this->model->donmuahang->getAllOrders($_SESSION['idNV'], 'xuất hàng', 'đang giao hàng');
+        $this->layout->set('admin_default');
+        $this->view->load('admin/order/order-listNotShipped', [
+            'listOrders' => array_reverse($listOrders)
+        ]);
+    }
+
+    public function listAlreadyShipped()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $listOrders = $this->model->donmuahang->getAllOrders($_SESSION['idNV'], 'xuất hàng', 'đã thanh toán');
+        $this->layout->set('admin_default');
+        $this->view->load('admin/order/order-listAlreadyShipped', [
+            'listOrders' => array_reverse($listOrders)
+        ]);
+    }
+
+
     public function listApproved()
     {
         if (!isset($_SESSION['isSignedIn'])) {
@@ -117,6 +142,46 @@ class Order_Controller extends Base_Controller
         } else {
             $_SESSION['failAssign'] = "Giao việc cho nhân viên giao hàng thất bại !";
         }
-        redirect('order/listApproved');
+        redirect('order/index/' . $idOrder);
+    }
+
+    public function checkout()
+    {
+        if (!isset($_SESSION['isSignedIn'])) {
+            redirect('user/login');
+        }
+        $this->layout->set('admin_default');
+        $this->view->load('admin/order/order-checkout');
+    }
+
+    public function executeCheckout()
+    {
+        $idOrder = intval($_POST['maDonHang']);
+        $money = intval($_POST['soTien']);
+        $order = $this->model->donmuahang->getById('donmuahang', 'idDonHang', $idOrder);
+        if (!$order) {
+            $_SESSION['errorCheckout'] = "Không tồn tại đơn hàng !";
+        } else {
+            if (($order['trangThaiDonHang'] === "chưa phê duyệt") || ($order['trangThaiDonHang'] === "đã phê duyệt")) {
+                $_SESSION['errorCheckout'] = "Đơn hàng chưa giao, không thể thanh toán !";
+            } else
+            if (($order['trangThaiDonHang'] === "đã thanh toán")) {
+                $_SESSION['errorCheckout'] = "Đơn hàng đã thanh toán rồi !";
+            } else {
+                // Thuc hien kiem tra thanh toan
+                if ($order['tongTien'] > $money) {
+                    $_SESSION['errorCheckout'] = "Số tiền nhập vào không đủ thanh toán cho đơn hàng !<br /> Tổng tiền đơn hàng: " . formatPrice($order['tongTien']) . "<br /> Còn thiếu: " . formatPrice($order['tongTien'] - $money);
+                } else {
+                    // Thuc hien thanh toan
+                    $result = $this->model->donmuahang->checkout($idOrder);
+                    if ($result == true) {
+                        $_SESSION['successCheckout'] = "Thanh toán đơn hàng thành công !<br /> Tổng tiền đơn hàng: " . formatPrice($order['tongTien']) . "<br /> Tiền thừa trả khách : " . formatPrice($money - $order['tongTien']);
+                    } else {
+                        $_SESSION['errorCheckout'] = "Thanh toán thất bại !";
+                    }
+                }
+            }
+        }
+        redirect('order/checkout');
     }
 }
