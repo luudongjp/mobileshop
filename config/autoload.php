@@ -23,6 +23,7 @@ return [
         'image',
         'mail',
         'price',
-        'product'
+        'product',
+        'order'
     ]
 ];

@@ -35,4 +35,32 @@ class Donmuahang_Model extends Base_Model
         }
         return null;
     }
+
+    public function getAllOrders($idKhachHang, $loaiDonHang, $trangThai)
+    {
+        try {
+            if ($idKhachHang == null) {
+                $query = "SELECT * FROM {$this->table} WHERE loaiDonHang = :loai AND trangThaiDonHang = :trangthai ";
+                $pre = $this->db->prepare($query);
+                $pre->execute([
+                    ':loai' => $loaiDonHang,
+                    ':trangthai' => $trangThai
+                ]);
+            } else {
+                $query = "SELECT * FROM {$this->table} WHERE loaiDonHang = :loai AND trangThaiDonHang = :trangthai AND khachhang_idKhachHang = :id ";
+                $pre = $this->db->prepare($query);
+                $pre->execute([
+                    ':loai' => $loaiDonHang,
+                    ':trangthai' => $trangThai,
+                    ':id' => $idKhachHang
+                ]);
+            }
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return null;
+        }
+        return $data;
+    }
 }
