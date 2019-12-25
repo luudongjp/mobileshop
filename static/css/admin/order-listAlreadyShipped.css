@@ -1,22 +1,22 @@
-#listApproved {
+#listAlreadyShipped {
 }
 
-#listApproved tr.tr:hover {
+#listAlreadyShipped tr.tr:hover {
 	font-weight: bold;
 	color: white;
 	cursor: pointer;
 	background-color: gray;
 }
 
-#listApproved td.tien {
+#listAlreadyShipped td.tien {
 	color: red;
 	font-weight: bold;
 }
 
-#listApproved td.trangthai {
+#listAlreadyShipped td.trangthai {
 	color: blue;
 }
 
-#listApproved .content {
+#listAlreadyShipped .content {
 	margin-top: 20px;
 }

@@ -10,6 +10,26 @@ function linkImageAndMobile(&$mobile = [], $logoImage = [], $otherImage = [])
     }
 }
 
+// Get base image for a mobile
+function getBaseImage($idMobile)
+{
+    $connection = connect();
+    $stmt = $connection->prepare("select * from hinhanh where Mobile_idMobile = {$idMobile} and logo = 1");
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $data;
+}
+
+// Get other image for a mobile ( not is base image)
+function getOtherImage($idMobile)
+{
+    $connection = connect();
+    $stmt = $connection->prepare("select * from hinhanh where Mobile_idMobile = {$idMobile} and logo = 0");
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $data;
+}
+
 function uploadImage($file, $targetDir)
 {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . $targetDir;
@@ -65,8 +85,8 @@ function uploadAImage()
         array_push($param, $link . $_FILES['image']['name']);
     }
     // Insert into database
-//    $this->model->hinhanh->uploadImage($param);
-//    $this->view->load('frontend/mobile/upload', [
-//        'param' => $param
-//    ]);
+    //    $this->model->hinhanh->uploadImage($param);
+    //    $this->view->load('frontend/mobile/upload', [
+    //        'param' => $param
+    //    ]);
 }
