@@ -12,7 +12,7 @@ echo "<script type='text/javascript'>
                 <th>ID đơn hàng</th>
                 <th>Tên khách hàng</th>
                 <th>Điện thoại</th>
-                <th>Ngày tạo</th>
+                <th>Ngày giao hàng</th>
                 <th>Tổng tiền</th>
                 <th>Trạng thái</th>
             </tr>
@@ -23,7 +23,7 @@ echo "<script type='text/javascript'>
                     <td class="<?php echo $i; ?>"><?php echo $listOrders[$i]['idDonHang']; ?></td>
                     <td><?php echo $khachHang[0]['tenKhachHang']; ?></td>
                     <td><?php echo $khachHang[0]['soDienThoai']; ?></td>
-                    <td><?php echo $listOrders[$i]['ngayTao']; ?></td>
+                    <td><?php echo $listOrders[$i]['ngayThanhToan']; ?></td>
                     <td class="tien"><?php echo formatPrice($listOrders[$i]['tongTien']); ?></td>
                     <td class="trangthai"><?php echo $listOrders[$i]['trangThaiDonHang']; ?></td>
                 </tr>

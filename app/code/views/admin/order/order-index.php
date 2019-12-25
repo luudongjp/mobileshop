@@ -103,6 +103,17 @@ if (($_SESSION['chucvuNV'] === "Nhân viên thủ kho") && ($donHang['trangThaiD
                         <th><?php echo $nvgiaohang['soDienThoai']; ?></th>
                     </tr>
                 <?php endif; ?>
+                <?php if ($donHang['trangThaiDonHang'] === "đã thanh toán") :
+                ?>
+                    <tr>
+                        <td>Ngày thanh toán:</td>
+                        <th class="content" style="color: black;font-weight: bold;">
+                            <?php echo $donHang['ngayThanhToan']; ?>
+                        </th>
+                        <td></td>
+                        <th></th>
+                    </tr>
+                <?php endif; ?>
             </table>
         </div>
         <div class="wrap" style="margin: 20px;background: white; border: 3px dashed #ccc; padding: 10px; border-radius: 20px;">
