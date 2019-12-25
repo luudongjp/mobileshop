@@ -165,7 +165,6 @@ try {
                 <?php
                 $number_nsx = sizeof($result);
                 $number_nsx_1_col = ceil($number_nsx / 4);  // we have 4 column, each column is col-md-3
-
                 ?>
                 <div class="row hover-nhasanxuat">
                     <div class="col col-md-3">
@@ -192,7 +191,7 @@ try {
                     <div class="col col-md-3">
                         <?php for ($v = 3 * $number_nsx_1_col; $v <= 4 * $number_nsx_1_col - 1; $v++) : ?>
                             <div class="item item-<?php echo $result[$v]['idNhaSanXuat']; ?>">
-                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$v]['tenNhaSX']; ?></a>
+                            <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$v]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
