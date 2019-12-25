@@ -1,4 +1,88 @@
-#order-details .content{
-    color: black;
-    font-weight: bold;
+#order-details .content {
+	color: black;
+	font-weight: bold;
+}
+
+#order-details .title {
+	display: flex;
+	justify-content: space-between;
+}
+
+#order-details .title a {
+	display: block;
+	margin-right: 20px;
+}
+
+#order-details .wrap {
+	margin: 20px;
+	background: white;
+	border: 3px dashed #ccc;
+	padding: 10px;
+	border-radius: 20px;
+}
+
+#order-details h5 {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	background: gainsboro;
+}
+
+#order-details img {
+	width: 30%;
+}
+
+#order-details td.chitiet {
+	width: 10%;
+}
+
+#order-details th.totalPrice {
+	font-size: 20px;
+	color: red;
+	font-weight: bold;
+	font-style: italic;
+}
+
+#order-details td.chitiet.price {
+	color: green;
+	font-weight: bold;
+	font-style: italic;
+}
+
+#order-details th.stt,
+#order-details td.stt {
+	width: 1%;
+}
+
+#order-details .phancong {
+	margin: 20px;
+	background: lavender;
+	border: 3px dashed #ccc;
+	padding: 10px;
+	border-radius: 20px;
+}
+
+#order-details .phancong tr {
+	text-align: center;
+}
+#order-details .phancong h4 {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+}
+
+#order-details th.col1,
+#order-details td.col1 {
+	width: 20%;
+	font-size: 20px;
+}
+#order-details select.selectShipper {
+	width: 400px;
+	height: 50px;
+	font-size: 20px;
+	border: 1px;
+	border-radius: 20px;
+	padding: 5px 15px;
+	cursor: pointer;
+	outline: none;
 }

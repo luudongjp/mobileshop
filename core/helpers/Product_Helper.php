@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hàm tiện ích hiển thị grid product cho tìm kiếm, lọc sản phẩm
  * @param $arrayProducts Mảng các điện thoại truyền vào
@@ -82,4 +83,27 @@ function getNameCategory($idCategory)
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result['tentheloai'];
+}
+
+function getObjectById($table, $idCol, $idVal)
+{
+    try {
+        $connection = connect();
+        $stmt = $connection->prepare("SELECT * FROM {$table} WHERE {$idCol} = {$idVal}");
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "<br />" . $e->getMessage();
+        return $e->getMessage();
+    }
+    return $data;
+}
+
+function getAllShipper()
+{
+    $connection = connect();
+    $stmt = $connection->prepare("SELECT * FROM nhanvien WHERE chucvu = 'Nhân viên giao hàng' AND status = 1 ");
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $data;
 }

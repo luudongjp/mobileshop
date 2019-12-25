@@ -202,8 +202,8 @@ echo "<script type='text/javascript'>
                     </a>
                     <div id="collapsePages6" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="login.html">Đơn hàng chưa giao</a>
-                            <a class="collapse-item" href="register.html">Đơn hàng đã giao</a>
+                            <a class="collapse-item" href="<?php echo baseUrl('order/listApproved'); ?>">Đơn hàng chưa giao</a>
+                            <a class="collapse-item" href="<?php echo baseUrl('order/listShipping'); ?>">Đơn hàng đang giao</a>
                         </div>
                     </div>
                 </li>

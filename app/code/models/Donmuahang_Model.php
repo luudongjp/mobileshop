@@ -63,4 +63,59 @@ class Donmuahang_Model extends Base_Model
         }
         return $data;
     }
+
+    public function approveOrder($idOrder)
+    {
+        try {
+            $query = "UPDATE {$this->table} SET trangThaiDonHang = :trangthai WHERE idDonHang = :idOrder ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':trangthai' => "đã phê duyệt",
+                ':idOrder' => $idOrder
+            ]);
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function approveAllOrder()
+    {
+        try {
+            $query = "UPDATE {$this->table} SET trangThaiDonHang = :trangThaiMoi WHERE trangThaiDonHang = :trangThaiCu ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':trangThaiCu' => "chưa phê duyệt",
+                ':trangThaiMoi' => "đã phê duyệt"
+            ]);
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function assign($idOrder, $idShipper)
+    {
+        try {
+            // thay doi trang thai don hang va gan cho shipper
+            $query = "UPDATE donmuahang SET trangThaiDonHang = 'đang giao hàng', nhanvien_idNhanVien = :idShipper WHERE idDonHang = :idOrder ";
+            $pre = $this->db->prepare($query);
+            $pre->execute([
+                ':idShipper' => $idShipper,
+                ':idOrder' => $idOrder
+            ]);
+            $count = $pre->rowCount();
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }
