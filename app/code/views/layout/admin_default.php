@@ -67,7 +67,7 @@ echo "<script type='text/javascript'>
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3"><?php echo strtoupper($textChucVu); ?></div>
+                <div class="sidebar-brand-text mx-3"><?php echo ($textChucVu); ?></div>
             </a>
 
             <?php if ($chucVu === 'Quản trị viên' || $chucVu === "Nhân viên bán hàng") : ?>
