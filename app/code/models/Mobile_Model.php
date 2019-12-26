@@ -121,10 +121,18 @@ class Mobile_Model extends Base_Model
         return $data;
     }
 
-    public function searchByMoney($giaBan){
+    public function searchByMoney($param1, $param2){
         $data = null;
         try{
-            $query = "SELECT DISTINCT * FROM mobile WHERE giaBan > $giaBan";
+            if($param1 == 1000000 & $param2 == 0){
+                $query = "SELECT DISTINCT * FROM mobile WHERE giaBan < $param1";
+            } else{
+                if($param1 == 15000000){
+                    $query = "SELECT DISTINCT * FROM mobile WHERE giaBan > $param1";
+                } else{
+                    $query = "SELECT DISTINCT * FROM mobile WHERE giaBan > $param1 AND giaBan < $param2";
+                }
+            }
             $pre = $this->db->prepare($query);
             $pre->execute();
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);

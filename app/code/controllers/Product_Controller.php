@@ -82,14 +82,13 @@ class Product_Controller extends Base_Controller
         if ($param == null) {
             redirect('');
         } else {
-            // Tìm kiếm tên sản phẩm theo key là tên sản phẩm hoặc tên
-            $arrayProducts = $this->model->mobile->searchByMoney($param[0]);
-            // Link mobile and it's images ( base image and other images)
+            $arrayProducts = $this->model->mobile->searchByMoney($param[0], $param[1]);
             foreach ($arrayProducts as &$mobile) {
                 linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
             }
             $this->view->load('frontend/product/productByMoney', [
                 'key' => $param[0],
+                'key1' => $param[1],
                 'arrayProducts' => $arrayProducts
             ]);
         }

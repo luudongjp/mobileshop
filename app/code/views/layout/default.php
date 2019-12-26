@@ -203,32 +203,32 @@ try {
                 <div class="row hover-mucgia">
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl('product/productByMoney/' . 1000000); ?>">Dưới 1 triệu</a>
+                            <a href="<?php echo baseUrl('product/productByMoney/1000000/0'); ?>">Dưới 1 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Từ 1 đến 3 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/1000000/3000000'); ?>">Từ 1 đến 3 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Từ 3 đến 6 triệu</a>
+                            <a href="<?php echo baseUrl('product/productByMoney/3000000/6000000'); ?>">Từ 3 đến 6 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Từ 6 đến 10 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/6000000/10000000'); ?>">Từ 6 đến 10 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Từ 10 đến 15 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/10000000/15000000'); ?>">Từ 10 đến 15 triệu </a>
                         </div>
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl('product/productByMoney/' . 15000000); ?>">Trên 15 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/15000000/0'); ?>">Trên 15 triệu </a>
                         </div>
                     </div>
                 </div>
