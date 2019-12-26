@@ -122,19 +122,29 @@ class Donmuahang_Model extends Base_Model
     public function checkout($idOrder)
     {
         try {
+            
+            // Lay ve tat ca cac chi tien mua hang cua don hang
+            $allDetails = $this->getAll('chitietmuahang', 'donmuahang_idDonHang', $idOrder);
+            // Giam so luong san pham trong kho cua cac mat hang trong don hang
+            foreach($allDetails as $detail){
+                $idMobile = $detail['mobile_idMobile'];
+                $mobile = $this->getById('mobile', 'idMobile', $idMobile);
+                $query0 = "UPDATE mobile SET soLuongTrongKho = soLuongTrongKho - :soLuong WHERE idMobile = :id ";
+                $pre0 = $this->db->prepare($query0);
+                $pre0->execute([
+                    ':soLuong' => $detail['soLuong'],
+                    ':id' => $idMobile
+                ]);
+            }
+
+            // Cap nhat trang thai don hang
             $query = "UPDATE {$this->table} SET trangThaiDonHang = 'đã thanh toán', ngayThanhToan = :ngay WHERE idDonHang = :idOrder ";
             $pre = $this->db->prepare($query);
             $pre->execute([
                 ':idOrder' => $idOrder,
                 ':ngay' => date("Y-m-d H:i:s")
             ]);
-            $count = $pre->rowCount();
-            $pre->closeCursor();
-            if ($count > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return true;
         } catch (PDOException $e) {
             echo "<br />" . $e->getMessage();
             return false;
