@@ -1,7 +1,7 @@
 <?php
 $numberOrders = sizeof($listOrders);
 echo "<script type='text/javascript'>
-        var numberOrders = '" . sizeof($numberOrders) . "';
+        var numberOrders = $numberOrders;
       </script>";
 ?>
 <div id="listNotApprove">

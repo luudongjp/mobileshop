@@ -105,6 +105,38 @@ class Mobile_Model extends Base_Model
         return $data;
     }
 
+    public function searchByManufacturer($idNhaSanXuat){
+        $data = null;
+        try{
+            $query = "SELECT DISTINCT * FROM mobile WHERE NhaSanXuat_idNhaSanXuat = $idNhaSanXuat";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            return $data;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return $data;
+    }
+
+    public function searchByMoney($giaBan){
+        $data = null;
+        try{
+            $query = "SELECT DISTINCT * FROM mobile WHERE giaBan > $giaBan";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            return $data;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return $data;
+    }
+
     public function saveNewMobile()
     {
         try {

@@ -170,28 +170,28 @@ try {
                     <div class="col col-md-3">
                         <?php for ($i = 0; $i <= $number_nsx_1_col - 1; $i++) : ?>
                             <div class="item item-<?php echo $result[$i]['idNhaSanXuat']; ?>">
-                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$i]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl('product/productByManufacturer/' . $result[$i]['idNhaSanXuat']); ?>"><?php echo $result[$i]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($j = $number_nsx_1_col; $j <= 2 * $number_nsx_1_col - 1; $j++) : ?>
                             <div class="item item-<?php echo $result[$j]['idNhaSanXuat']; ?>">
-                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$j]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl('product/productByManufacturer/' . $result[$j]['idNhaSanXuat']); ?>"><?php echo $result[$j]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($k = 2 * $number_nsx_1_col; $k <= 3 * $number_nsx_1_col - 1; $k++) : ?>
                             <div class="item item-<?php echo $result[$k]['idNhaSanXuat']; ?>">
-                                <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$k]['tenNhaSX']; ?></a>
+                                <a href="<?php echo baseUrl('product/productByManufacturer/' . $result[$k]['idNhaSanXuat']); ?>"><?php echo $result[$k]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
                     <div class="col col-md-3">
                         <?php for ($v = 3 * $number_nsx_1_col; $v <= 4 * $number_nsx_1_col - 1; $v++) : ?>
                             <div class="item item-<?php echo $result[$v]['idNhaSanXuat']; ?>">
-                            <a href="<?php echo baseUrl(''); ?>"><?php echo $result[$v]['tenNhaSX']; ?></a>
+                            <a href="<?php echo baseUrl('product/productByManufacturer/' . $result[$v]['idNhaSanXuat']); ?>"><?php echo $result[$v]['tenNhaSX']; ?></a>
                             </div>
                         <?php endfor; ?>
                     </div>
@@ -203,7 +203,7 @@ try {
                 <div class="row hover-mucgia">
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Dưới 1 triệu</a>
+                            <a href="<?php echo baseUrl('product/productByMoney/' . 1000000); ?>">Dưới 1 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
@@ -228,7 +228,7 @@ try {
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Trên 15 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/' . 15000000); ?>">Trên 15 triệu </a>
                         </div>
                     </div>
                 </div>
