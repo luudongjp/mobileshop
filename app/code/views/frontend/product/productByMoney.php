@@ -6,9 +6,9 @@ $numberProduct = sizeof($arrayProducts);
     <div class="manufacturer-title-result">
         <h4>
             <?php if ($numberProduct === 0) {
-                echo "Không có sản phẩm nào của hãng sản xuất: \"" . $manufacturerName . "\" ";
+                echo "Không có sản phẩm nào có giá lớn hơn: \"" . $key . "\" triệu đồng";
             } else {
-                echo "Có " . $numberProduct . " sản phẩm của hãng sản xuất: \"" . $manufacturerName . "\" ";
+                echo "Có " . $numberProduct . " sản phẩm có giá lớn hơn: \"" . $key . "\" triệu đồng";
             } ?>
         </h4>
     </div>

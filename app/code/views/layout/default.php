@@ -203,7 +203,7 @@ try {
                 <div class="row hover-mucgia">
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Dưới 1 triệu</a>
+                            <a href="<?php echo baseUrl('product/productByMoney/' . 1000000); ?>">Dưới 1 triệu</a>
                         </div>
                     </div>
                     <div class="col col-md-2">
@@ -228,7 +228,7 @@ try {
                     </div>
                     <div class="col col-md-2">
                         <div class="item-mucgia">
-                            <a href="<?php echo baseUrl(''); ?>">Trên 15 triệu </a>
+                            <a href="<?php echo baseUrl('product/productByMoney/' . 15000000); ?>">Trên 15 triệu </a>
                         </div>
                     </div>
                 </div>

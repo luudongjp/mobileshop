@@ -62,8 +62,9 @@ class Product_Controller extends Base_Controller
                     foreach ($arrayProducts as &$mobile) {
                         linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
                     }
-                    $this->view->load('frontend/product/searchResult', [
-                        'key' => $manufacturer['idNhaSanXuat'],
+                    $this->view->load('frontend/product/productByManufacturer', [
+                        'manufacturerName' => $manufacturer['tenNhaSX'],
+                        'manufacturer' => $manufacturer['idNhaSanXuat'],
                         'arrayProducts' => $arrayProducts
                     ]);
                 }
@@ -72,6 +73,25 @@ class Product_Controller extends Base_Controller
             }
         } else {
             redirect('notfound/index');
+        }
+    }
+
+    public function productByMoney()
+    {
+        $param = getParameter();
+        if ($param == null) {
+            redirect('');
+        } else {
+            // Tìm kiếm tên sản phẩm theo key là tên sản phẩm hoặc tên
+            $arrayProducts = $this->model->mobile->searchByMoney($param[0]);
+            // Link mobile and it's images ( base image and other images)
+            foreach ($arrayProducts as &$mobile) {
+                linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+            }
+            $this->view->load('frontend/product/productByMoney', [
+                'key' => $param[0],
+                'arrayProducts' => $arrayProducts
+            ]);
         }
     }
 
