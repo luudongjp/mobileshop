@@ -49,6 +49,32 @@ class Product_Controller extends Base_Controller
         }
     }
 
+    public function productByManufacturer()
+    {
+        $param = getParameter();
+        if (!empty($param[0])) {
+            if (intval($param[0]) != 0) {
+                $manufacturer = $this->model->nhasanxuat->getById('nhasanxuat', 'idNhaSanXuat', $param[0]);
+                if ($manufacturer['idNhaSanXuat'] == null) {
+                    redirect('');
+                } else {
+                    $arrayProducts = $this->model->mobile->searchByManufacturer($manufacturer['idNhaSanXuat']);
+                    foreach ($arrayProducts as &$mobile) {
+                        linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+                    }
+                    $this->view->load('frontend/product/searchResult', [
+                        'key' => $manufacturer['idNhaSanXuat'],
+                        'arrayProducts' => $arrayProducts
+                    ]);
+                }
+            } else {
+                redirect('notfound/index');
+            }
+        } else {
+            redirect('notfound/index');
+        }
+    }
+
     public function list()
     {
         $arrayProducts = $this->model->mobile->getAll('mobile', null, null);
