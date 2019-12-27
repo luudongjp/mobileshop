@@ -76,6 +76,17 @@ class Product_Controller extends Base_Controller
         }
     }
 
+    public function productByNew()
+    {
+        $arrayProducts = $this->model->mobile->searchByProductNew();
+        foreach ($arrayProducts as &$mobile) {
+            linkImageAndMobile($mobile, $this->model->hinhanh->getBaseImage($mobile['idMobile']), $this->model->hinhanh->getOtherImage($mobile['idMobile']));
+        }
+        $this->view->load('frontend/product/productByNew', [
+            'arrayProducts' => $arrayProducts
+        ]);
+    }
+
     public function productByMoney()
     {
         $param = getParameter();

@@ -121,6 +121,22 @@ class Mobile_Model extends Base_Model
         return $data;
     }
 
+    public function searchByProductNew(){
+        $data = null;
+        try{
+            $query = "SELECT DISTINCT * FROM mobile ORDER BY idMobile DESC limit 8";
+            $pre = $this->db->prepare($query);
+            $pre->execute();
+            $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+            $pre->closeCursor();
+            return $data;
+        } catch (PDOException $e) {
+            echo "<br />" . $e->getMessage();
+            return $e->getMessage();
+        }
+        return $data;
+    }
+
     public function searchByMoney($param1, $param2){
         $data = null;
         try{

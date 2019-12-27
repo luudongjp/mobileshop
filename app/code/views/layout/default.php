@@ -142,7 +142,7 @@ try {
                         </div>
                         <div class="col col-md-2">
                             <div class="menu-item">
-                                <a href="<?php echo baseUrl(''); ?>">SẢN PHẨM MỚI</a>
+                                <a href="<?php echo baseUrl('product/productByNew'); ?>">SẢN PHẨM MỚI</a>
                             </div>
                         </div>
                         <div class="col col-md-2">
