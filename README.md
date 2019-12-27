@@ -23,3 +23,7 @@ Next, "set AllowOverwrite All" as below in /etc/apache2/apache.conf :
     AllowOverride All # this line is important
     Require all granted
 </Directory>
+
+# One admin account: 
+Email: admin@gmail.com
+Password: MobileShop123
